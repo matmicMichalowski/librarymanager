@@ -83,9 +83,9 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         }
 
         BookLoan loan1 = new BookLoan();
+        bookToLoan.get().setBookLoan(loan1);
         loan1.setBook(bookToLoan.get());
-//        bookToLoan.get().setBookLoan(loan1);
-//        loan1.setLoanDate();
+        bookRepository.save(bookToLoan.get());
 
 
 
@@ -101,7 +101,6 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
 
 
 
-//
 
         User user1 = new User();
         user1.setFirstName("Tom");
@@ -111,7 +110,7 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         user1.setPhoneNumber("788-888-888");
         user1.setAddress("Uliczna 23/23");
         user1.setPostCode("00-001");
-        user1.getUserLoan().addBookLoan(loan1);
+        user1.getUserLibraryAccount().addBookLoan(loan1);
         users.add(user1);
 
 
@@ -123,7 +122,7 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         user2.setPhoneNumber("222-388-588");
         user2.setAddress("Miejska 23/23");
         user2.setPostCode("00-001");
-        user2.getUserLoan().addBookLoan(loan2);
+        user2.getUserLibraryAccount().addBookLoan(loan2);
         users.add(user2);
 
         User user3 = new User();

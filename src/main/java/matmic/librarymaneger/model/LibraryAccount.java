@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(exclude = {"user", "bookLoans", "magazineLoans"})
 @Entity
-public class LoanLine {
+public class LibraryAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,21 +19,22 @@ public class LoanLine {
     @OneToOne
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "loanLine")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "libraryAccount")
     private Set<MagazineLoan> magazineLoans = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "loanLine")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "libraryAccount")
     private Set<BookLoan> bookLoans = new HashSet<>();
 
-    public LoanLine() {
+
+    public LibraryAccount() {
     }
 
-    public LoanLine(User user) {
+    public LibraryAccount(User user) {
         this.user = user;
     }
 
     public void addBookLoan(BookLoan bookLoan){
-        bookLoan.setLoanLine(this);
+        bookLoan.setLibraryAccount(this);
         bookLoans.add(bookLoan);
     }
 

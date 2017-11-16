@@ -31,6 +31,9 @@ public class BookLoanToBookLoanCommand implements Converter<BookLoan, BookLoanCo
         bookLoanCommand.setBook(bookConverter.convert(bookLoan.getBook()));
         bookLoanCommand.setLoanDate(bookLoan.getLoanDate());
         bookLoanCommand.setId(bookLoan.getId());
+        if(bookLoan.getLibraryAccount() != null){
+            bookLoanCommand.setLibraryAccountId(bookLoan.getLibraryAccount().getId());
+        }
 
         return bookLoanCommand;
     }

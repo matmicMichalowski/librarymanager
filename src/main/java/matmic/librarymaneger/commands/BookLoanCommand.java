@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BookLoanCommand {
     private Long id;
+    private Long libraryAccountId;
     private String loanDate;
     private BookCommand book;
 }

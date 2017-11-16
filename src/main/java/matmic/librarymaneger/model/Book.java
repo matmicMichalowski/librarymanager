@@ -21,10 +21,19 @@ public class Book {
     private String isbn;
     private Integer releaseNumber;
     private String genre;
+
+    @Enumerated(value= EnumType.STRING)
     private Availability isAvailable;
 
-    @OneToOne
+    @Lob
+    private Byte[] coverImage;
+
+    @OneToOne(cascade = CascadeType.ALL)
     private BookLoan bookLoan;
+
+    public Book(){
+        this.isAvailable = Availability.AVAILABLE;
+    }
 
 
 }

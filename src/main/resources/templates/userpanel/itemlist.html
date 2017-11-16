@@ -19,13 +19,14 @@
 </head>
 <body>
 <!--/*@thymesVar id="book" type="matmic.librarymaneger.model.Book"*/-->
+<!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
 <!--/*@thymesVar id="books" type="java.util.List"*/-->
 
 <div class="row content">
     <div class="col-md-6 col-md-offset-3">
        <div class="panel panel-default">
            <div class="panel-heading">
-                <h2>Books</h2>
+                <h2>New Loan</h2>
            </div>
            <div class="panel-body">
         <div class="table-responsive">
@@ -35,6 +36,7 @@
                     <th>ID</th>
                     <th>Book Title</th>
                     <th>Author</th>
+                    <th>Availability</th>
                 </tr>
                 </thead>
                 <tr th:remove="all" >
@@ -49,8 +51,9 @@
                 </tr>
                 <tr style="cursor: pointer" th:each="book : ${books}">
                     <td th:text="${book.id}">1</td>
-                    <td><a th:text="${book.title}" href="#" th:href="@{'/bookpanel/' + ${book.id} + '/show'}">Tomas Edison</a></td>
+                    <td><a th:text="${book.title}" href="#" th:href="@{'/userpanel/' + ${user.id} + '/book/' + ${book.id} + '/newloan'}">Tomas Edison</a></td>
                     <td th:text="${book.author}">Tomas Edison</td>
+                    <td th:text="${book.isAvailable}">Tomas Edison</td>
                 </tr>
             </table>
         </div>

@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LoanLineCommand {
+public class LibraryAccountCommand {
     private Long id;
     private User user;
     private Set<MagazineLoanCommand> magazineLoans = new HashSet<>();

@@ -30,6 +30,7 @@ public class BookToBookCommand implements Converter<Book, BookCommand>{
         bookCommand.setGenre(book.getGenre());
         bookCommand.setAuthor(book.getAuthor());
         bookCommand.setIsAvailable(book.getIsAvailable());
+        bookCommand.setCoverImage(book.getCoverImage());
 
         return bookCommand;
     }

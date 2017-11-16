@@ -16,5 +16,5 @@ public class UserCommand {
     private String city;
     private String address;
     private String postCode;
-    private LoanLineCommand userLoan;
+    private LibraryAccountCommand libraryAccountCommand;
 }

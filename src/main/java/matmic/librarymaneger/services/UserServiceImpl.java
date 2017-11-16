@@ -1,6 +1,10 @@
 package matmic.librarymaneger.services;
 
+import matmic.librarymaneger.commands.BookCommand;
+import matmic.librarymaneger.commands.BookLoanCommand;
+import matmic.librarymaneger.commands.LibraryAccountCommand;
 import matmic.librarymaneger.commands.UserCommand;
+import matmic.librarymaneger.converters.UserCommandToUser;
 import matmic.librarymaneger.converters.UserToUserCommand;
 import matmic.librarymaneger.model.User;
 import matmic.librarymaneger.repositories.UserRepository;
@@ -16,10 +20,12 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
     private final UserToUserCommand userToUserCommand;
+    private final UserCommandToUser userCommandToUser;
 
-    public UserServiceImpl(UserRepository userRepository, UserToUserCommand userToUserCommand) {
+    public UserServiceImpl(UserRepository userRepository, UserToUserCommand userToUserCommand, UserCommandToUser userCommandToUser) {
         this.userRepository = userRepository;
         this.userToUserCommand = userToUserCommand;
+        this.userCommandToUser = userCommandToUser;
     }
 
 
@@ -51,5 +57,20 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public UserCommand findCommandById(Long id) {
         return userToUserCommand.convert(findById(id));
+    }
+
+    @Override
+    @Transactional
+    public UserCommand saveUserCommand(UserCommand userCommand) {
+        User user = userCommandToUser.convert(userCommand);
+        User savedUser = userRepository.save(user);
+
+        return userToUserCommand.convert(savedUser);
+    }
+
+    @Override
+    @Transactional
+    public BookLoanCommand defineAndSaveNewLoan(LibraryAccountCommand account, BookCommand book){
+        return null;
     }
 }

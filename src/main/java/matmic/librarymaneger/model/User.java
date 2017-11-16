@@ -21,17 +21,18 @@ public class User {
     private String address;
     private String postCode;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private LoanLine userLoan;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private LibraryAccount userLibraryAccount;
 
 
     public User() {
-        this.userLoan = new LoanLine(this);
+        this.userLibraryAccount = new LibraryAccount(this);
     }
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userLoan = new LoanLine(this);
+        this.userLibraryAccount = new LibraryAccount(this);
     }
+
 }

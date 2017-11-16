@@ -1,14 +1,14 @@
 package matmic.librarymaneger.model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+;
+
 @Data
-@EqualsAndHashCode(exclude = {"user"})
 @Entity
 public class MagazineLoan {
 
@@ -22,7 +22,7 @@ public class MagazineLoan {
     private Magazine magazine;
 
     @ManyToOne
-    private LoanLine loanLine;
+    private LibraryAccount libraryAccount;
 
     public MagazineLoan() {
         setLoanDate();

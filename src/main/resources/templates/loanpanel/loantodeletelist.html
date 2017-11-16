@@ -18,44 +18,51 @@
 
 </head>
 <body>
+<!--/*@thymesVar id="book" type="matmic.librarymaneger.model.Book"*/-->
 <!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
-<!--/*@thymesVar id="users" type="java.util.List"*/-->
+<!--/*@thymesVar id="bookLoan" type="matmic.librarymaneger.model.BookLoan"*/-->
+<!--/*@thymesVar id="books" type="java.util.List"*/-->
 
 <div class="row content">
     <div class="col-md-6 col-md-offset-3">
-       <div class="panel panel-default">
-           <div class="panel-heading">
-                <h2>Users</h2>
-           </div>
-           <div class="panel-body">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>New Loan</h2>
+            </div>
+            <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="thead-inverse">
                         <tr>
                             <th>ID</th>
-                            <th>User Name</th>
+                            <th>Book Title</th>
+                            <th>Author</th>
+                            <th>Loan Date</th>
                         </tr>
                         </thead>
                         <tr th:remove="all" >
                             <td>1</td>
                             <td>Tomas Edison</td>
-                            <td>Show User</td>
+                            <td>Tomas Edison</td>
+                            <td>Tomas Edison</td>
                         </tr>
                         <tr th:remove="all">
                             <td>1</td>
                             <td>Tomas Edison</td>
-                            <td>Show User</td>
+                            <td>Tomas Edison</td>
+                            <td>Tomas Edison</td>
                         </tr>
-                        <tr style="cursor: pointer" th:each="user : ${users}">
-                            <td th:text="${user.id}">1</td>
-                            <td th:text="${user.firstName + ' ' + user.lastName}">Tomas Edison</td>
-                            <td ><a href="#" th:href="@{'/userpanel/' + ${user.id} + '/show'}">Show User</a></td>
+                        <tr style="cursor: pointer" th:each="bookLoan : ${loans}">
+                            <td th:text="${bookLoan.id}">1</td>
+                            <td><a href="#" th:href="@{'/userpanel/'+${user.id}+'/bookloan/'+${bookLoan.id} +'/delete'" th:text="${book.title}" >Title</td>
+                            <td th:text="${book.author}">Auth</td>
+                            <td th:text="${bookLoan.loanDate}">Loan Date</td>
                         </tr>
                     </table>
                 </div>
             </div>
-       </div>
-    </div>
-</div>
+            <br>
+        </div>
+
 </body>
 </html>

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserCommandToUser implements Converter<UserCommand, User> {
 
-    private final LoanLineCommandToLoanLine loanLineConverter;
+    private final LibraryAccountCommandToLibraryAccount loanLineConverter;
 
-    public UserCommandToUser(LoanLineCommandToLoanLine loanLineConverter) {
+    public UserCommandToUser(LibraryAccountCommandToLibraryAccount loanLineConverter) {
         this.loanLineConverter = loanLineConverter;
     }
 
@@ -34,7 +34,7 @@ public class UserCommandToUser implements Converter<UserCommand, User> {
         user.setFirstName(userCommand.getFirstName());
         user.setLastName(userCommand.getLastName());
         user.setEmail(userCommand.getEmail());
-        user.setUserLoan(loanLineConverter.convert(userCommand.getUserLoan()));
+        user.setUserLibraryAccount(loanLineConverter.convert(userCommand.getLibraryAccountCommand()));
 
         return user;
     }

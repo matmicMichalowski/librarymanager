@@ -19,4 +19,5 @@ public class BookCommand {
     private Integer releaseNumber;
     private String genre;
     private Availability isAvailable;
+    private Byte[] coverImage;
 }

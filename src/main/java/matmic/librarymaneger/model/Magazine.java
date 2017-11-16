@@ -20,6 +20,7 @@ public class Magazine {
     private String genre;
     private Availability isAvailable;
 
+
     @OneToOne
     private MagazineLoan magazineLoan;
 
