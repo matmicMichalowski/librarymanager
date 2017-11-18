@@ -35,7 +35,6 @@ public class UserCommandToUser implements Converter<UserCommand, User> {
         user.setLastName(userCommand.getLastName());
         user.setEmail(userCommand.getEmail());
         user.setUserLibraryAccount(loanLineConverter.convert(userCommand.getLibraryAccountCommand()));
-
         return user;
     }
 }

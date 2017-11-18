@@ -40,14 +40,17 @@ public class UserController {
     @RequestMapping("userpanel/newuser")
     public String newUser(Model model){
         model.addAttribute("user", new UserCommand());
+
         return "userpanel/userform";
     }
 
     @PostMapping
     @RequestMapping("userpanel")
     public String saveOrUpdate(@ModelAttribute UserCommand command){
+        System.out.println("newUser userCmd ID" + command.getId());
         UserCommand savedUserCommand = userService.saveUserCommand(command);
 
+        System.out.println(savedUserCommand.getId() + " saved user id");
         return "redirect:/userpanel/" + savedUserCommand.getId() + "/show";
     }
 

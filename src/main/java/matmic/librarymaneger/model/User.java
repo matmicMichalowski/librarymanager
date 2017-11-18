@@ -26,13 +26,11 @@ public class User {
 
 
     public User() {
-        this.userLibraryAccount = new LibraryAccount(this);
     }
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userLibraryAccount = new LibraryAccount(this);
     }
 
 }

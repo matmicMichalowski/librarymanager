@@ -6,6 +6,7 @@ import matmic.librarymaneger.commands.LibraryAccountCommand;
 import matmic.librarymaneger.commands.UserCommand;
 import matmic.librarymaneger.converters.UserCommandToUser;
 import matmic.librarymaneger.converters.UserToUserCommand;
+import matmic.librarymaneger.model.LibraryAccount;
 import matmic.librarymaneger.model.User;
 import matmic.librarymaneger.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -62,7 +63,15 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public UserCommand saveUserCommand(UserCommand userCommand) {
+        System.out.println("user id " + userCommand.getId());
         User user = userCommandToUser.convert(userCommand);
+
+        if(userCommand.getId() == null){
+            LibraryAccount userAcc = new LibraryAccount();
+            userAcc.setUser(user);
+            user.setUserLibraryAccount(userAcc);
+        }
+
         User savedUser = userRepository.save(user);
 
         return userToUserCommand.convert(savedUser);
