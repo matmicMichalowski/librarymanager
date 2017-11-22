@@ -4,7 +4,6 @@ import matmic.librarymaneger.commands.BookCommand;
 import matmic.librarymaneger.commands.BookLoanCommand;
 import matmic.librarymaneger.commands.LibraryAccountCommand;
 import matmic.librarymaneger.commands.UserCommand;
-import matmic.librarymaneger.model.BookLoan;
 import matmic.librarymaneger.services.BookLoanService;
 import matmic.librarymaneger.services.BookService;
 import matmic.librarymaneger.services.UserService;
@@ -79,16 +78,16 @@ public class UserController {
 
     @GetMapping("userpanel/{id}/book/{bookId}/newloan")
     public String showLoanForm(@PathVariable String id, @PathVariable String bookId, Model model){
-        System.out.println(userService.findById(Long.valueOf(id)).getUserLibraryAccount().getBookLoans().size());
+
 
 
         model.addAttribute("user", userService.findById(Long.valueOf(id)));
         model.addAttribute("book", bookService.findById(Long.valueOf(bookId)));
 
         //System.out.println(.size());
-        for(BookLoan bL : userService.findById(Long.valueOf(id)).getUserLibraryAccount().getBookLoans()){
-            System.out.println(bL.getId() + " " + bL.getLibraryAccount().getId());
-        }
+//        for(BookLoan bL : userService.findById(Long.valueOf(id)).getUserLibraryAccount().getBookLoans()){
+//            System.out.println(bL.getId() + " " + bL.getLibraryAccount().getId());
+//        }
         return "userpanel/newloanform";
     }
 
