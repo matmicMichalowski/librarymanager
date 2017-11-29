@@ -1,13 +1,15 @@
 package matmic.librarymaneger.model;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @EqualsAndHashCode(exclude = {"user", "bookLoans", "magazineLoans"})
 @Entity
 public class LibraryAccount {
@@ -36,16 +38,5 @@ public class LibraryAccount {
     public void addBookLoan(BookLoan bookLoan){
         bookLoan.setLibraryAccount(this);
         bookLoans.add(bookLoan);
-    }
-
-    @Override
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
-
-        for(BookLoan  bk: bookLoans){
-            sb.append(bk.getBook().getTitle());
-            sb.append(", ");
-        }
-        return sb.toString();
     }
 }

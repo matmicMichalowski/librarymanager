@@ -1,11 +1,13 @@
 package matmic.librarymaneger.model;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"bookLoan"})
 @Entity
 public class Book {

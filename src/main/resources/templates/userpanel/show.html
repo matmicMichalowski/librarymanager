@@ -15,29 +15,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"
             th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
-    <style>
-        tr {
-            width: 100%;
-            display: inline-table;
-            height:40px;
-            table-layout: fixed;
-        }
-        table{
-            height:250px;
-            display: -moz-groupbox;
-
-        }
-        tbody{
-            overflow-y: scroll;
-            height: 200px;
-            width: 90%;
-            position: absolute;
-            border: solid;
-        }
-        .loans{
-            margin-left: 5%;
-        }
-    </style>
 </head>
 <body>
 <!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
@@ -73,49 +50,21 @@
                                 <h5>Address: <span th:text="${user.address + ', ' + user.postCode}">address</span></h5>
                                 <h5>City: <span th:text="${user.city}">City</span></h5>
                             </div>
-                            <div class="col-md-3">
-                                <h5>Actual Loans</h5>
-                                <div class="col-md-5">
-                                    <ul>
-                                        <li th:remove="all">Loan 1</li>
-                                        <li th:text="${user.userLibraryAccount}">Loan2</li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3 loans">
                                 <table class="table-hover">
                                     <thead>
                                        <tr>
-                                           <th>Loans History</th>
+                                           <th>Loans</th>
                                        </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td th:text="${user.userLibraryAccount}"> this</td>
+                                        <tr th:remove="all">
+                                            <td > this</td>
                                         </tr>
-                                        <tr>
-                                            <td th:text="${user.userLibraryAccount}"> this</td>
-                                        </tr>
-                                        <tr>
-                                            <td th:text="${user.userLibraryAccount}"> this</td>
-                                        </tr><tr>
-                                            <td th:text="${user.userLibraryAccount}"> this</td>
-                                        </tr><tr>
-                                            <td th:text="${user.userLibraryAccount}"> this</td>
-                                        </tr><tr>
-                                            <td th:text="${user.userLibraryAccount}"> this</td>
-                                        </tr><tr>
-                                            <td th:text="${user.userLibraryAccount}"> this</td>
-                                        </tr><tr>
-                                            <td th:text="${user.userLibraryAccount}"> this</td>
-                                        </tr><tr>
-                                            <td th:text="${user.userLibraryAccount}"> this</td>
-                                        </tr><tr>
-                                            <td th:text="${user.userLibraryAccount}"> this</td>
-                                        </tr><tr>
-                                            <td th:text="${user.userLibraryAccount}"> this</td>
+                                        <tr th:each="loan : ${user.userLibraryAccount.bookLoans}">
+                                            <td th:text="${loan.book.getTitle()}"> this</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -137,5 +86,28 @@
         </div>
     </div>
         </div>
+<style>
+    tr {
+        width: 100%;
+        display: inline-table;
+        height:40px;
+        table-layout: fixed;
+    }
+    table{
+        height:250px;
+        display: -moz-groupbox;
+
+    }
+    tbody{
+        overflow-y: scroll;
+        height: 200px;
+        width: 90%;
+        position: absolute;
+        border: solid;
+    }
+    .loans{
+        margin-left: 5%;
+    }
+</style>
 </body>
 </html>
