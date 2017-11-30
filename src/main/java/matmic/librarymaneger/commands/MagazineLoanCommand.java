@@ -10,6 +10,7 @@ import lombok.Setter;
 public class MagazineLoanCommand {
 
     private Long id;
+    private Long libraryAccountId;
     private String loanDate;
     private MagazineCommand magazine;
 }

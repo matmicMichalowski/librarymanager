@@ -4,7 +4,9 @@ import matmic.librarymaneger.model.Book;
 import matmic.librarymaneger.model.BookLoan;
 import matmic.librarymaneger.model.LibraryAccount;
 import matmic.librarymaneger.model.User;
+import matmic.librarymaneger.model.rolemodel.Role;
 import matmic.librarymaneger.repositories.BookRepository;
+import matmic.librarymaneger.repositories.RoleRepository;
 import matmic.librarymaneger.repositories.UserRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -19,14 +21,15 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
 
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
+    private final RoleRepository roleRepository;
 
 
 
 
-    public LibraryManagerBootstrap(UserRepository userRepository, BookRepository bookRepository) {
+    public LibraryManagerBootstrap(UserRepository userRepository, BookRepository bookRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.bookRepository = bookRepository;
-
+        this.roleRepository = roleRepository;
     }
 
 
@@ -99,8 +102,12 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         BookLoan loan2 = new BookLoan();
         loan2.setBook(bookToLoan2.get());
 
-
-
+        Role role1 = new Role();
+        role1.setName("ADMIN");
+        roleRepository.save(role1);
+        Role role2 = new Role();
+        role2.setName("EMPLOYEE");
+        roleRepository.save(role2);
 
 
         User user1 = new User();
@@ -140,5 +147,7 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         user3.setUserLibraryAccount(new LibraryAccount(user3));
 
         return users;
+
     }
+
 }

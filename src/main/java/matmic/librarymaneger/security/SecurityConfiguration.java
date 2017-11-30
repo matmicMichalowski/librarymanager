@@ -55,12 +55,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
        http.csrf().disable()
                 .authorizeRequests()
-                   .antMatchers("/login").permitAll()
-                   .antMatchers("/registration").permitAll()
-
+                    .antMatchers("/login*").permitAll()
+                    .antMatchers("/registration").permitAll()
+                    .antMatchers("/index").permitAll()
                     .antMatchers("/admin/**").hasAnyRole("ADMIN")
                     .antMatchers("/employee/**").hasAnyRole("EMPLOYEE")
-                    .antMatchers("/resources/**").hasAnyRole()
                     .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -94,7 +93,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/static/**", "/css/**", "/js/**", "/images/**", ".webjars/**");
+                .antMatchers( "/static/**" ,"/css/**", "/js/**", "/images/**", "/webjars/**");
     }
 
 

@@ -21,6 +21,7 @@ public class Magazine {
     private Availability isAvailable;
 
 
+
     @OneToOne
     private MagazineLoan magazineLoan;
 
