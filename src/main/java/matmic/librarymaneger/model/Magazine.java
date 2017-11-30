@@ -1,6 +1,7 @@
 package matmic.librarymaneger.model;
 
 import lombok.Data;
+import matmic.librarymaneger.model.enums.Availability;
 
 import javax.persistence.*;
 

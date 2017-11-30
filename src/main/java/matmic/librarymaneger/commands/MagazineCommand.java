@@ -3,7 +3,7 @@ package matmic.librarymaneger.commands;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import matmic.librarymaneger.model.Availability;
+import matmic.librarymaneger.model.enums.Availability;
 
 
 @Getter

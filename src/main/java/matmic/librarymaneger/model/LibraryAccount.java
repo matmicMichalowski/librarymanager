@@ -21,6 +21,9 @@ public class LibraryAccount {
     @OneToOne
     private User user;
 
+    @OneToOne
+    private Loan loanLine;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "libraryAccount")
     private Set<MagazineLoan> magazineLoans = new HashSet<>();
 

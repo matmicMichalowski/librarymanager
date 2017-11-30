@@ -3,6 +3,7 @@ package matmic.librarymaneger.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import matmic.librarymaneger.model.enums.Availability;
 
 import javax.persistence.*;
 
