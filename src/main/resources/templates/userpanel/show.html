@@ -88,7 +88,7 @@
         <div class="container">
             <div class="btn-group" role="group">
                 <a href="#" th:href="@{'/userpanel/' + ${user.id} + '/userupdate'}" class="btn-default btn-lg " role="button">Update</a>
-                <a href="#" th:href="@{'/userpanel/' + ${user.id} + '/newloan'}" class="btn-default btn-lg" role="button">New Loan</a>
+                <a href="#" th:href="@{'/loanpanel/user/' + ${user.id} + '/newloan'}" class="btn-default btn-lg" role="button">New Loan</a>
                 <a href="#" th:href="@{'/userpanel/' + ${user.id} + '/deleteloan'}" class="btn-default btn-lg" role="button">Delete Loan</a>
                 <a href="#" th:href="@{'/userpanel/' + ${user.id} + '/delete'}" class="btn-default btn-lg" role="button">Delete</a>
             </div>

@@ -33,9 +33,9 @@ public class LoanServiceImpl implements LoanService{
     }
 
     @Override
-    public LoanCommand saveLoanCommand(LoanCommand loanCommand, Long itemId) {
+    public LoanCommand saveLoanCommand(LoanCommand loanCommand) {
         Optional<User> userOptional = userRepository.findById(loanCommand.getUser().getId());
-        Optional<Item> itemOptional = itemRepository.findById(itemId);
+        Optional<Item> itemOptional = itemRepository.findById(loanCommand.getItem().getId());
 
         if(!userOptional.isPresent() || !itemOptional.isPresent()){
             return new LoanCommand();
@@ -52,27 +52,26 @@ public class LoanServiceImpl implements LoanService{
             item.setIsAvailable(Availability.BORROWED);
             itemRepository.save(item);
 
-
             return loanToCommand.convert(loan);
         }
     }
 
     @Override
-    public void deleteLoanById(Long userId, Long loanId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-        Optional<Loan> loanOptional = loanRepository.findById(loanId);
+    public void deleteLoanById(Long loanId) {
 
-        if(userOptional.isPresent() && loanOptional.isPresent()){
-            User user = userOptional.get();
+        Optional<Loan> loanOptional = loanRepository.findById(loanId);
+        //Optional<User> userOptional = userRepository.findById(userId);
+        if(loanOptional.isPresent()){ //userOptional.isPresent() &&
+            //User user = userOptional.get();
             Loan toBeDeleted = loanOptional.get();
 
             Item item = toBeDeleted.getItem();
 
             item.setLoan(null);
             item.setIsAvailable(Availability.AVAILABLE);
-            user.getLoanLine().remove(toBeDeleted);
+            //user.getLoanLine().remove(toBeDeleted);
             loanRepository.delete(toBeDeleted);
-            userRepository.save(user);
+           // userRepository.save(user);
             itemRepository.save(item);
         }
     }

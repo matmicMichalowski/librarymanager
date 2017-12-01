@@ -1,28 +1,40 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />-->
+    <title>Spring Security Tutorial</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <meta charset="UTF-8">
-    <title>Login</title>
 </head>
+
 <body>
-    <div th:if="${param.error}">
-    Invalid username and password.
-</div>
-    <div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
+<form th:action="@{/registration}" method="get">
+    <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Registration Page</button>
 </form>
+
+<div class="container">
+    <form th:action="@{/login}" method="post" class="form-signin">
+        <h3 class="form-signin-heading" th:text="Welcome"></h3>
+        <br/>
+        <div th:if="${param.error}" class="alert alert-error">
+            <h6>Invalid username and password</h6>
+        </div>
+        <div th:if="${param.logout}" class="alert alert-succes">
+            <h6>You have logged out.</h6>
+        </div>
+
+        <input type="text" id="email" name="email"  th:placeholder="Email"
+               class="form-control" /> <br/>
+        <input type="password"  th:placeholder="Password"
+               id="password" name="password" class="form-control" /> <br />
+
+        <div align="center" th:if="${param.error}">
+            <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
+    </form>
+</div>
 </body>
 </html>

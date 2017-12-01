@@ -79,8 +79,6 @@ public class UserController {
     @GetMapping("userpanel/{id}/book/{bookId}/newloan")
     public String showLoanForm(@PathVariable String id, @PathVariable String bookId, Model model){
 
-
-
         model.addAttribute("user", userService.findById(Long.valueOf(id)));
         model.addAttribute("book", bookService.findById(Long.valueOf(bookId)));
 
@@ -103,7 +101,7 @@ public class UserController {
 //        UserCommand userCommand = userService.findCommandById(Long.valueOf(userId));
 //        BookCommand bookCommand = bookService.findCommandById(Long.valueOf(bookId));
 //        BookLoanCommand newLoan = new BookLoanCommand();
-        System.out.println(savedBookLoan.getId());
+//        System.out.println(savedBookLoan.getId());
 //        BookLoanCommand newLoan = userService.defineAndSaveNewLoan(userCommand.getLibraryAccountCommand(), bookCommand);
         return "redirect:/userpanel/" + id + "/show";
     }

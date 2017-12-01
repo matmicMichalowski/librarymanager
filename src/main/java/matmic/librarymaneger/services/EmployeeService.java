@@ -1,8 +1,9 @@
 package matmic.librarymaneger.services;
 
+import matmic.librarymaneger.commands.EmployeeCommand;
 import matmic.librarymaneger.model.Employee;
 
 public interface EmployeeService {
     Employee findEmployeeByEmail(String email);
-    void saveEmployee(Employee employee);
+    EmployeeCommand saveEmployee(EmployeeCommand employeeCommand);
 }
