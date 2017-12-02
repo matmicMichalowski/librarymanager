@@ -20,8 +20,9 @@
             <!--th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>-->
 </head>
 <body>
-<!--/*@thymesVar id="book" type="matmic.librarymaneger.commands.BookLoan"*/-->
+<!--/*@thymesVar id="loan" type="matmic.librarymaneger.commands.Loan"*/-->
 <!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
+<!--/*@thymesVar id="item" type="matmic.librarymaneger.model.Item"*/-->
     <div class="container-fluid" style="margin-top: 10%">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -43,15 +44,15 @@
                                     <label>Item Being Borrowed:</label>
                                     <h5 th:text="${item.id} + ' ' + ${item.title} + ', ' + ${item.author}">book</h5>
                                     <label>Book ID and Book ISBN:</label>
-                                    <h5 th:text="${item.id} + ', ' + ${item.isn}"> book id and isbn</h5>
+                                    <h5 th:text="${item.id} + ', ' + ${item.internationalSegregationNumber}"> book id and isbn</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 <div class="row">
                     <div class="btn-group">
-                        <a href="#" th:href="@{'/userpanel/' + ${user.id} + '/book/' + ${book.id} + '/saveloan'}" role="button"  class="btn btn-primary">Submit</a>
-                        <a href="#" th:href="@{'/userpanel/' + ${user.id} + '/newloan/'}" role="button"  class="btn btn-default">Go Back</a>
+                        <a href="#" th:href="@{'/loanpanel/' + ${user.id} + '/item/' + ${item.id} + '/saveloan'}" role="button"  class="btn btn-primary">Submit</a>
+                        <a href="#" th:href="@{'/loanpanel/user/' + ${user.id} + '/newloan'}" role="button"  class="btn btn-default">Go Back</a>
                     </div>
                 </div>
             </div>

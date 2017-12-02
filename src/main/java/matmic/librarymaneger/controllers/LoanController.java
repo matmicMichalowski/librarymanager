@@ -53,7 +53,7 @@ public class LoanController {
         return "redirect:/userpanel/" + id + "/show";
     }
 
-    @GetMapping("loanpanel/user/{id}/loan/{loanId}/deleteloan")
+    @GetMapping("loanpanel/loan/{loanId}/deleteloan")
     public String deleteLoan(@PathVariable String id){
         loanService.deleteLoanById(Long.valueOf(id));
         return "index";

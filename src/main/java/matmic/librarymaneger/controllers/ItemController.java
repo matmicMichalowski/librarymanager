@@ -33,7 +33,7 @@ public class ItemController {
     @GetMapping("items/newitem")
     public String newItem(Model model){
         model.addAttribute("item", new ItemCommand());
-        return "items/itemform";
+        return "itempanel/itemform";
     }
 
     @PostMapping("items")

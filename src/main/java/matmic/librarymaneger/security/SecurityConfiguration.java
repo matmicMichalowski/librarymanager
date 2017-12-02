@@ -50,26 +50,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-       http
-                .authorizeRequests()
-                    .antMatchers("/login*").permitAll()
-                    .antMatchers("/newemployee*").permitAll()
-                    .antMatchers("/registration*").permitAll()
-                    .antMatchers("/submit*").permitAll()
-                    .antMatchers("/index").permitAll()
-                    .antMatchers("/admin/**").hasRole("ADMIN")
-                    .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                    .loginPage("/login").defaultSuccessUrl("/index")
-                    .usernameParameter("email")
-                    .passwordParameter("password")
-                    .permitAll()
-                    .and()
-                .logout().logoutSuccessUrl("/")
-                    .permitAll()
-                    .and()
-                .exceptionHandling().accessDeniedPage("/403");
+//       http
+//                .authorizeRequests()
+//                    .antMatchers("/login*").permitAll()
+//                    .antMatchers("/newemployee*").permitAll()
+//                    .antMatchers("/registration*").permitAll()
+//                    .antMatchers("/submit*").permitAll()
+//                    .antMatchers("/index").permitAll()
+//                    .antMatchers("/admin/**").hasRole("ADMIN")
+//                    .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                    .loginPage("/login").defaultSuccessUrl("/index")
+//                    .usernameParameter("email")
+//                    .passwordParameter("password")
+//                    .permitAll()
+//                    .and()
+//                .logout().logoutSuccessUrl("/")
+//                    .permitAll()
+//                    .and()
+//                .exceptionHandling().accessDeniedPage("/403");
 
 //        http.authorizeRequests().antMatchers("/resources/**").permitAll().anyRequest().permitAll();
 

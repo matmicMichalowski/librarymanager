@@ -2,7 +2,6 @@ package matmic.librarymaneger.model;
 
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,7 +11,6 @@ import java.util.Date;
 @Entity
 @Setter
 @Getter
-@NoArgsConstructor
 public class Loan {
 
     @Id
@@ -25,13 +23,58 @@ public class Loan {
     private Item item;
 
     @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
+
+    public Loan(){
+        this.setLoanDate();
+    }
+
+    public Loan(User user, Item item){
+        this.setLoanDate();
+        setItem(item);
+        setUser(user);
+    }
 
     public void setLoanDate(){
         SimpleDateFormat formater = new SimpleDateFormat("dd/M/yyyy");
         Date currentDate = new Date();
 
         loanDate = formater.format(currentDate);
+    }
+
+    public void setUser(User user){
+
+        User actualUser = this.user;
+        this.user = user;
+
+        if(actualUser != null){
+            actualUser.getLoanLine().remove(this);
+        }
+        if(user != null){
+            user.getLoanLine().add(this);
+        }
+    }
+
+    public void setItem(Item item){
+
+        if(sameAsFormerItem(item)){
+            return;
+        }
+
+        Item actualItem = this.item;
+        this.item = item;
+
+        if(actualItem != null){
+            actualItem.setLoan(null);
+        }
+        if(item != null){
+            item.setLoan(this);
+        }
+    }
+
+    private boolean sameAsFormerItem(Item newItem){
+        return item == null ? newItem == null : item.equals(newItem);
     }
 
 }

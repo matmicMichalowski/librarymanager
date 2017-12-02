@@ -48,5 +48,25 @@ public class Item {
     @OneToOne
     private Loan loan;
 
+    public void setLoan(Loan loan){
+
+        if (sameAsFormerLoan(loan)){
+            return;
+        }
+
+        Loan actualLoan = this.loan;
+        this.loan = loan;
+
+        if(actualLoan != null){
+            actualLoan.setItem(null);
+        }
+        if(loan != null){
+            loan.setItem(this);
+        }
+    }
+
+    private boolean sameAsFormerLoan(Loan newLoan){
+        return loan == null ? newLoan == null : loan.equals(newLoan);
+    }
 
 }

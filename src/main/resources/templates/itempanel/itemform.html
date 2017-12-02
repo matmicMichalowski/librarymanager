@@ -21,21 +21,29 @@
             <!--th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>-->
 </head>
 <body>
-<!--/*@thymesVar id="book" type="matmic.librarymaneger.model.Book"*/-->
+<!--/*@thymesVar id="item" type="matmic.librarymaneger.model.Item"*/-->
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form th:object="${book}" th:action="@{/bookpanel/}" method="post">
+            <form th:object="${item}" th:action="@{/items/}" method="post">
                 <input type="hidden" th:field="*{id}"/>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h1 class="panel-title">Edit User Information</h1>
+                            <h1 class="panel-title">Edit Item Information</h1>
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-5 form-group">
                                     <label>Title:</label>
                                     <input type="text" class="form-control" th:field="*{title}"/>
+                                </div>
+                                <div class="col-md-5 form-group">
+                                    <label>Item Type:</label>
+                                    <select class="form-control" th:field="*{itemType}">
+                                        <option th:each="type : ${T(matmic.librarymaneger.model.enums.ItemType).values()}"
+                                                th:value="${type.name()}"
+                                                th:text="${type.name()}">type</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
@@ -46,18 +54,26 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3 form-group">
-                                    <label>ISBN Number:</label>
-                                    <input type="text" class="form-control" th:field="*{isbn}">
+                                    <label>ISN Number:</label>
+                                    <input type="text" class="form-control" th:field="*{internationalSegregationNumber}">
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Publisher:</label>
                                     <input type="text" class="form-control" th:field="*{publisher}">
                                 </div>
+                                <div class="col-md-5 form-group">
+                                    <label>Distribution Type:</label>
+                                    <select class="form-control" th:field="*{distributionType}">
+                                        <option th:each="distType : ${T(matmic.librarymaneger.model.enums.DistributionType).values()}"
+                                                th:value="${distType.name()}"
+                                                th:text="${distType.name()}">DistType</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3 form-group">
                                     <label>Publish year:</label>
-                                    <input type="number" class="form-control" th:field="*{publishYear}"/>
+                                    <input type="number" class="form-control" th:field="*{year}"/>
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Genre:</label>

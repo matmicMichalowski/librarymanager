@@ -1,13 +1,12 @@
 package matmic.librarymaneger.bootstrap;
 
-import matmic.librarymaneger.model.Book;
-import matmic.librarymaneger.model.BookLoan;
-import matmic.librarymaneger.model.LibraryAccount;
+import matmic.librarymaneger.model.Item;
+import matmic.librarymaneger.model.Loan;
 import matmic.librarymaneger.model.User;
+import matmic.librarymaneger.model.enums.DistributionType;
+import matmic.librarymaneger.model.enums.ItemType;
 import matmic.librarymaneger.model.rolemodel.Role;
-import matmic.librarymaneger.repositories.BookRepository;
-import matmic.librarymaneger.repositories.RoleRepository;
-import matmic.librarymaneger.repositories.UserRepository;
+import matmic.librarymaneger.repositories.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -20,56 +19,66 @@ import java.util.Optional;
 public class LibraryManagerBootstrap implements ApplicationListener<ContextRefreshedEvent>{
 
     private final UserRepository userRepository;
-    private final BookRepository bookRepository;
+    private final ItemRepository itemRepository;
     private final RoleRepository roleRepository;
+    private final EmployeeRepository employeeRepository;
+    private final LoanRepository loanRepository;
 
 
 
 
-    public LibraryManagerBootstrap(UserRepository userRepository, BookRepository bookRepository, RoleRepository roleRepository) {
+    public LibraryManagerBootstrap(UserRepository userRepository, ItemRepository itemRepository, RoleRepository roleRepository, EmployeeRepository employeeRepository, LoanRepository loanRepository) {
         this.userRepository = userRepository;
-        this.bookRepository = bookRepository;
+        this.itemRepository = itemRepository;
         this.roleRepository = roleRepository;
+        this.employeeRepository = employeeRepository;
+        this.loanRepository = loanRepository;
     }
 
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        bookRepository.saveAll(getBooks());
+        itemRepository.saveAll(getBooks());
         userRepository.saveAll(getUsers());
     }
 
-    private List<Book> getBooks(){
-        List<Book> books = new ArrayList<>();
+    private List<Item> getBooks(){
+        List<Item> books = new ArrayList<>();
 
-        Book novelBook = new Book();
+        Item novelBook = new Item();
+        novelBook.setDistributionType(DistributionType.PAPER);
+        novelBook.setItemType(ItemType.BOOK);
         novelBook.setAuthor("Jhon Novy");
         novelBook.setGenre("Horror");
-        novelBook.setIsbn("78-987-678-00");
+        novelBook.setInternationalSegregationNumber("78-987-678-00");
         novelBook.setPublisher("PwN");
-        novelBook.setPublishYear(1999);
+        novelBook.setYear(1999);
         novelBook.setTitle("In the wild");
-        novelBook.setReleaseNumber(3);
+        novelBook.setReleaseNumber("3");
         books.add(novelBook);
 
-        Book book1 = new Book();
+        Item book1 = new Item();
+        book1.setDistributionType(DistributionType.PAPER);
+        book1.setItemType(ItemType.BOOK);
         book1.setAuthor("Thomas Doe");
         book1.setGenre("Drama");
-        book1.setIsbn("78-987-777-00");
+        book1.setInternationalSegregationNumber("78-987-777-00");
         book1.setPublisher("NWP");
-        book1.setPublishYear(1909);
+        book1.setYear(1909);
         book1.setTitle("No Man's Land");
-        book1.setReleaseNumber(1);
+        book1.setReleaseNumber("1");
         books.add(book1);
 
-        Book book2 = new Book();
+        Item book2 = new Item();
+        book2.setDistributionType(DistributionType.PAPER);
+        book2.setItemType(ItemType.BOOK);
         book2.setAuthor("Britany Beloved");
         book2.setGenre("Sci-Fi");
-        book2.setIsbn("99-877-678-00");
+        book2.setInternationalSegregationNumber("99-877-678-00");
         book2.setPublisher("No-name");
-        book2.setPublishYear(2000);
+        book2.setYear(2000);
         book2.setTitle("Milenial Sky");
-        book2.setReleaseNumber(1);
+        book2.setReleaseNumber("1");
         books.add(book2);
 
         return books;
@@ -80,27 +89,20 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         List<User> users = new ArrayList<>();
 
 
-        Optional<Book> bookToLoan = bookRepository.findByTitle("No Man's Land");
+        Optional<Item> itemToLoan = itemRepository.findItemByTitle("No Man's Land");
 
-        if(!bookToLoan.isPresent()){
+        if(!itemToLoan.isPresent()){
             throw new RuntimeException("Expected Book Not Found");
         }
 
-        BookLoan loan1 = new BookLoan();
-        bookToLoan.get().setBookLoan(loan1);
-        loan1.setBook(bookToLoan.get());
-        bookRepository.save(bookToLoan.get());
 
+        Optional<Item> itemToLoan2 = itemRepository.findItemByTitle("Milenial Sky");
 
-
-        Optional<Book> bookToLoan2 = bookRepository.findByTitle("Milenial Sky");
-
-        if(!bookToLoan2.isPresent()){
+        if(!itemToLoan2.isPresent()){
             throw new RuntimeException("Expected Book Not Found");
         }
 
-        BookLoan loan2 = new BookLoan();
-        loan2.setBook(bookToLoan2.get());
+
 
         Role role1 = new Role();
         role1.setName("ADMIN");
@@ -108,6 +110,7 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         Role role2 = new Role();
         role2.setName("EMPLOYEE");
         roleRepository.save(role2);
+
 
 
         User user1 = new User();
@@ -118,9 +121,10 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         user1.setPhoneNumber("788-888-888");
         user1.setAddress("Uliczna 23/23");
         user1.setPostCode("00-001");
-        user1.setUserLibraryAccount(new LibraryAccount(user1));
-        user1.getUserLibraryAccount().addBookLoan(loan1);
+        user1.addLoan(new Loan(user1, itemToLoan.get()));
+
         users.add(user1);
+
 
 
         User user2 = new User();
@@ -131,8 +135,8 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         user2.setPhoneNumber("222-388-588");
         user2.setAddress("Miejska 23/23");
         user2.setPostCode("00-001");
-        user2.setUserLibraryAccount(new LibraryAccount(user2));
-        user2.getUserLibraryAccount().addBookLoan(loan2);
+        user2.addLoan(new Loan(user2, itemToLoan2.get()));
+
         users.add(user2);
 
         User user3 = new User();
@@ -144,7 +148,7 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         user3.setAddress("Uliczna 23/23");
         user3.setPostCode("00-001");
         users.add(user3);
-        user3.setUserLibraryAccount(new LibraryAccount(user3));
+
 
         return users;
 

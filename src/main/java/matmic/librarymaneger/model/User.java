@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -24,11 +25,10 @@ public class User {
     private String address;
     private String postCode;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private LibraryAccount userLibraryAccount;
 
-    @OneToMany
-    private Set<Loan> loanLine;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="loan_id")
+    private Set<Loan> loanLine = new HashSet<>();
 
     public User() {
     }
@@ -37,5 +37,16 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public void addLoan(Loan loan){
+        if(loanLine.contains(loan)){
+            return;
+        }
+
+        this.loanLine.add(loan);
+        loan.setUser(this);
+    }
+
+
 
 }

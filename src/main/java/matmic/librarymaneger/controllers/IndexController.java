@@ -15,4 +15,9 @@ public class IndexController {
     public String getIndexPage(){
         return "index";
     }
+
+    @RequestMapping("mainpanel")
+    public String goToMain(){
+        return "index";
+    }
 }

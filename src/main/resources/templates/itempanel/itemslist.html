@@ -22,8 +22,8 @@
 
 </head>
 <body>
-<!--/*@thymesVar id="book" type="matmic.librarymaneger.model.Book"*/-->
-<!--/*@thymesVar id="books" type="java.util.List"*/-->
+<!--/*@thymesVar id="item" type="matmic.librarymaneger.model.Item"*/-->
+<!--/*@thymesVar id="items" type="java.util.List"*/-->
 
 <div class="row content">
     <div class="col-md-6 col-md-offset-3">
@@ -37,7 +37,7 @@
                 <thead class="thead-inverse">
                 <tr>
                     <th>ID</th>
-                    <th>Book Title</th>
+                    <th>Item Title</th>
                     <th>Author</th>
                 </tr>
                 </thead>
@@ -51,10 +51,10 @@
                     <td>Tomas Edison</td>
                     <td>Tomas Edison</td>
                 </tr>
-                <tr style="cursor: pointer" th:each="book : ${books}">
-                    <td th:text="${book.id}">1</td>
-                    <td><a th:text="${book.title}" href="#" th:href="@{'/bookpanel/' + ${book.id} + '/show'}">Tomas Edison</a></td>
-                    <td th:text="${book.author}">Tomas Edison</td>
+                <tr style="cursor: pointer" th:each="item : ${items}">
+                    <td th:text="${item.id}">1</td>
+                    <td><a th:text="${item.title}" href="#" th:href="@{'/itempanel/' + ${item.id} + '/show'}">Tomas Edison</a></td>
+                    <td th:text="${item.author}">Tomas Edison</td>
                 </tr>
             </table>
         </div>

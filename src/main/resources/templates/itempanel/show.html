@@ -20,10 +20,11 @@
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"-->
             <!--integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"-->
             <!--th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>-->
+
 </head>
 <body>
-<!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
-<!--/*@thymesVar id="users" type="java.util.List"*/-->
+<!--/*@thymesVar id="item" type="matmic.librarymaneger.model.Item"*/-->
+<!--/*@thymesVar id="items" type="java.util.List"*/-->
 
 <div class="container-fluid">
     <div class="row" style="margin-top: 10%">
@@ -32,11 +33,11 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-5">
-                            <h1 class="panel-title" th:text="${user.firstName + ' ' + user.lastName + ' #' + user.id}">User Name</h1>
+                            <h1 class="panel-title" th:text="${item.title + ' ' + ' #' + item.id}">User Name</h1>
                         </div>
                         <div class="btn-group">
                             <div class="col-md-5">
-                                <a href="#" th:href="@{'/userpanel/showlist'}" class="btn btn-default" role="button">User List</a>
+                                <a href="#" th:href="@{'/itempanel/showitems'}" class="btn btn-default" role="button">Item List</a>
                             </div>
                             <div class="col-md-5">
                                 <a href="#" th:href="@{'/mainpanel'}" class="btn btn-default" role="button">Main Panel</a>
@@ -46,53 +47,54 @@
                 </div>
                 <div class="panel-body>">
                     <div class="row">
-                        <div class="col-md-3" style="margin-left: 5%">
-                            <h5>Phone Number: <span th:text="${user.phoneNumber}">78889</span></h5>
-                            <h5>Email: <span th:text="${user.email}">mail</span></h5>
-                        </div>
-                        <div class="row" style="margin-left: 5%">
-                            <div class="col-md-3">
-                                <h5>Address: <span th:text="${user.address + ', ' + user.postCode}">address</span></h5>
-                                <h5>City: <span th:text="${user.city}">City</span></h5>
+                        <div class="column">
+                            <div class="row" >
+                                <div class="col-md-2" style="margin-left: 3%">
+                                    <label>ISBN:</label>
+                                    <h5 th:text="${item.internationalSegregationNumber}">78889</h5>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Author: </label>
+                                    <h5 th:text="${item.author}">author</h5>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Genre: </label>
+                                    <h5 th:text="${item.genre}">genre</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Publisher, Release Year: </label>
+                                    <h5  th:text="${item.publisher + ', ' + item.year}">year and publisher</h5>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Release Number: </label>
+                                    <span th:text="${item.releaseNumber}">number</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 loans">
-                                <table class="table-hover">
-                                    <thead>
-                                       <tr>
-                                           <th>Loans</th>
-                                       </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:remove="all">
-                                            <td > this</td>
-                                        </tr>
-                                        <tr th:each="loan : ${user.loanLine}">
-                                            <td th:text="${loan.item.title}"> this</td>
-                                            <td th:text="${loan.loanDate}"> this</td>
-                                            <td><a href="#" th:href="@{'/loanpanel/loan/' + ${loan.id} + '/deleteloan'}"
-                                                   class="btn-default btn-xs" role="button">Delete Loan</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="column">
+                            <div class="col-md-2" >
+                                <img src="../../static/basic.jpg"
+                                     th:src="@{'/itempanel/' + ${item.id} + '/itemimage'}" width="200" height="200">
                             </div>
                         </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
     <div class="col-md-6 col-md-offset-3">
         <div class="container">
             <div class="btn-group" role="group">
-                <a href="#" th:href="@{'/userpanel/' + ${user.id} + '/userupdate'}" class="btn-default btn-lg " role="button">Update</a>
-                <a href="#" th:href="@{'/loanpanel/user/' + ${user.id} + '/newloan'}" class="btn-default btn-lg" role="button">New Loan</a>
-                <a href="#" th:href="@{'/userpanel/' + ${user.id} + '/delete'}" class="btn-default btn-lg" role="button">Delete</a>
+                <a href="#" th:href="@{'itempanel/' + ${item.id} + '/itemupdate'}" class="btn-default btn-lg " role="button">Update</a>
+                <a href="#" th:href="@{'itempanel/' + ${item.id} + '/deleteloan'}" class="btn-default btn-lg" role="button">Delete Loan</a>
+                <a href="#" th:href="@{'itempanel/' + ${item.id} + '/delete'}" class="btn-default btn-lg" role="button">Delete</a>
             </div>
         </div>
     </div>
-        </div>
+</div>
+    </div>
+</div>
+</body>
 <style>
     tr {
         width: 100%;
@@ -116,5 +118,4 @@
         margin-left: 5%;
     }
 </style>
-</body>
 </html>
