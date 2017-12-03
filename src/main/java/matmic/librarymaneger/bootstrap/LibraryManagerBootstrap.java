@@ -95,6 +95,7 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
             throw new RuntimeException("Expected Book Not Found");
         }
 
+        Item loanable1 = itemToLoan.get();
 
         Optional<Item> itemToLoan2 = itemRepository.findItemByTitle("Milenial Sky");
 
@@ -102,6 +103,7 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
             throw new RuntimeException("Expected Book Not Found");
         }
 
+        Item loanable2 = itemToLoan2.get();
 
 
         Role role1 = new Role();
@@ -110,6 +112,16 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         Role role2 = new Role();
         role2.setName("EMPLOYEE");
         roleRepository.save(role2);
+
+
+
+
+
+//        List<Item> itemsAgain = new ArrayList<>();
+//        itemsAgain.add(loanable1);
+//        itemsAgain.add(loanable2);
+
+
 
 
 
@@ -135,7 +147,7 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         user2.setPhoneNumber("222-388-588");
         user2.setAddress("Miejska 23/23");
         user2.setPostCode("00-001");
-        user2.addLoan(new Loan(user2, itemToLoan2.get()));
+
 
         users.add(user2);
 
@@ -147,6 +159,7 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         user3.setPhoneNumber("111-555-877");
         user3.setAddress("Uliczna 23/23");
         user3.setPostCode("00-001");
+        user3.addLoan(new Loan(user3, itemToLoan2.get()));
         users.add(user3);
 
 

@@ -30,7 +30,12 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public ItemCommand findCommandById(Long id) {
-        return itemToItemCommand.convert(findById(id));
+        Optional<Item> itemToFind = itemRepository.findItemById(id);
+        if(!itemToFind.isPresent()){
+            return null;
+        }
+
+        return itemToItemCommand.convert(itemToFind.get());
     }
 
     @Override
@@ -45,6 +50,7 @@ public class ItemServiceImpl implements ItemService{
         Set<Item> items = new HashSet<>();
 
         itemRepository.findAll().iterator().forEachRemaining(items::add);
+        System.out.println("hoplla!!" + items.size());
         return items;
     }
 

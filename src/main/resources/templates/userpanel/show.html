@@ -27,7 +27,7 @@
 
 <div class="container-fluid">
     <div class="row" style="margin-top: 10%">
-        <div class="col-md-4 col-md-offset-3">
+        <div class="col-md-5 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
@@ -46,22 +46,32 @@
                 </div>
                 <div class="panel-body>">
                     <div class="row">
-                        <div class="col-md-3" style="margin-left: 5%">
-                            <h5>Phone Number: <span th:text="${user.phoneNumber}">78889</span></h5>
-                            <h5>Email: <span th:text="${user.email}">mail</span></h5>
+                        <div class="col-md-6" style="margin-left: 5%">
+                            <div class="col-md-5">
+                                <label>Phone Number </label>
+                                <p th:text="${user.phoneNumber}">78889</p>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Email</label>
+                                <p th:text="${user.email}">malkpokpokkjkjhkhil</p>
+                            </div>
                         </div>
                         <div class="row" style="margin-left: 5%">
-                            <div class="col-md-3">
-                                <h5>Address: <span th:text="${user.address + ', ' + user.postCode}">address</span></h5>
-                                <h5>City: <span th:text="${user.city}">City</span></h5>
+                            <div class="col-md-5">
+                                <label>Address: </label><span th:text="${user.address + ', ' + user.postCode}">addkjhkhkjhkjhkjhkjhkjhkjhress</span>
+                            </div>
+                            <div class="col-md-5">
+                                <label>City: </label><span th:text="${user.city}">City</span>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 loans">
-                                <table class="table-hover">
-                                    <thead>
+                            <div class="col-md-6 loans" style="margin-top: 40px">
+                                <table class="table table-hover">
+                                    <thead class="thead-inverse">
                                        <tr>
-                                           <th>Loans</th>
+                                           <th>Tile</th>
+                                           <th>Date</th>
+                                           <th>Delete</th>
                                        </tr>
                                     </thead>
                                     <tbody>
@@ -69,13 +79,17 @@
                                             <td > this</td>
                                         </tr>
                                         <tr th:each="loan : ${user.loanLine}">
-                                            <td th:text="${loan.item.title}"> this</td>
-                                            <td th:text="${loan.loanDate}"> this</td>
+                                            <td th:text="${loan.item.title}"> item title</td>
+                                            <td th:text="${loan.loanDate}">date</td>
                                             <td><a href="#" th:href="@{'/loanpanel/loan/' + ${loan.id} + '/deleteloan'}"
-                                                   class="btn-default btn-xs" role="button">Delete Loan</a></td>
+                                                   class="btn-default btn-xs" role="button">Delete</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="col-md-2">
+                                <img src="../../static/default.jpg"
+                                     th:src="@{'/userpanel/' + ${user.id} + '/userimage'}" width="150" height="170">
                             </div>
                         </div>
                         </div>
@@ -83,7 +97,7 @@
                     </div>
                 </div>
             </div>
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-3 col-md-offset-3" style="margin-left: 210px;">
         <div class="container">
             <div class="btn-group" role="group">
                 <a href="#" th:href="@{'/userpanel/' + ${user.id} + '/userupdate'}" class="btn-default btn-lg " role="button">Update</a>
@@ -100,6 +114,9 @@
         height:40px;
         table-layout: fixed;
     }
+    thead tr{
+        width: 90%;
+    }
     table{
         height:250px;
         display: -moz-groupbox;
@@ -107,14 +124,15 @@
     }
     tbody{
         overflow-y: scroll;
-        height: 200px;
+        height: 170px;
         width: 90%;
         position: absolute;
-        border: solid;
+
     }
     .loans{
         margin-left: 5%;
     }
+
 </style>
 </body>
 </html>

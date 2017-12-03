@@ -2,23 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Users List</title>
+    <title>Items List</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
-    <!--&lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
-          <!--integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"-->
-          <!--th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">-->
-
-    <!--<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>-->
-
-    <!--&lt;!&ndash; Latest compiled and minified JavaScript &ndash;&gt;-->
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"-->
-            <!--integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"-->
-            <!--th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>-->
 
 </head>
 <body>
@@ -29,38 +18,39 @@
     <div class="col-md-6 col-md-offset-3">
        <div class="panel panel-default">
            <div class="panel-heading">
-                <h2>Books</h2>
+                <h2>Items</h2>
            </div>
            <div class="panel-body">
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead class="thead-inverse">
-                <tr>
-                    <th>ID</th>
-                    <th>Item Title</th>
-                    <th>Author</th>
-                </tr>
-                </thead>
-                <tr th:remove="all" >
-                    <td>1</td>
-                    <td>Tomas Edison</td>
-                    <td>Tomas Edison</td>
-                </tr>
-                <tr th:remove="all">
-                    <td>1</td>
-                    <td>Tomas Edison</td>
-                    <td>Tomas Edison</td>
-                </tr>
-                <tr style="cursor: pointer" th:each="item : ${items}">
-                    <td th:text="${item.id}">1</td>
-                    <td><a th:text="${item.title}" href="#" th:href="@{'/itempanel/' + ${item.id} + '/show'}">Tomas Edison</a></td>
-                    <td th:text="${item.author}">Tomas Edison</td>
-                </tr>
-            </table>
-        </div>
-        </div>
-        <br>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Item Title</th>
+                            <th>Author</th>
+                        </tr>
+                        </thead>
+                        <tr th:remove="all" >
+                            <td>1</td>
+                            <td>Tomas Edison</td>
+                            <td>Tomas Edison</td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>1</td>
+                            <td>Tomas Edison</td>
+                            <td>Tomas Edison</td>
+                        </tr>
+                        <tr style="cursor: pointer" th:each="item : ${items}">
+                            <td th:text="${item.id}">1</td>
+                            <td><a th:text="${item.title}" href="#" th:href="@{'/itempanel/' + ${item.id} + '/show'}">Tomas Edison</a></td>
+                            <td th:text="${item.author}">Tomas Edison</td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+           </div>
+       </div>
     </div>
-
+</div>
 </body>
 </html>

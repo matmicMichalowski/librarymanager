@@ -47,22 +47,24 @@
                 </div>
                 <div class="panel-body>">
                     <div class="row">
-                        <div class="column">
-                            <div class="row" >
-                                <div class="col-md-2" style="margin-left: 3%">
-                                    <label>ISBN:</label>
-                                    <h5 th:text="${item.internationalSegregationNumber}">78889</h5>
-                                </div>
-                                <div class="col-md-2">
-                                    <label>Author: </label>
-                                    <h5 th:text="${item.author}">author</h5>
-                                </div>
-                                <div class="col-md-2">
-                                    <label>Genre: </label>
-                                    <h5 th:text="${item.genre}">genre</h5>
+                        <div class="column" style="margin-left: 3%; float: left;">
+                            <div class="row">
+                                <div class="col-md-3" >
+                                    <label>ISBN:</label><span th:text="${item.internationalSegregationNumber}">78889</span>
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-3">
+                                    <label>Type </label><span th:text="${item.itemType}">author</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Genre: </label> <span th:text="${item.genre}">genre</span>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="row" style="margin-left: 3%">
                                 <div class="col-md-3">
                                     <label>Publisher, Release Year: </label>
                                     <h5  th:text="${item.publisher + ', ' + item.year}">year and publisher</h5>
@@ -72,7 +74,6 @@
                                     <span th:text="${item.releaseNumber}">number</span>
                                 </div>
                             </div>
-                        </div>
                         <div class="column">
                             <div class="col-md-2" >
                                 <img src="../../static/basic.jpg"
@@ -95,27 +96,5 @@
     </div>
 </div>
 </body>
-<style>
-    tr {
-        width: 100%;
-        display: inline-table;
-        height:40px;
-        table-layout: fixed;
-    }
-    table{
-        height:250px;
-        display: -moz-groupbox;
 
-    }
-    tbody{
-        overflow-y: scroll;
-        height: 200px;
-        width: 90%;
-        position: absolute;
-        border: solid;
-    }
-    .loans{
-        margin-left: 5%;
-    }
-</style>
 </html>

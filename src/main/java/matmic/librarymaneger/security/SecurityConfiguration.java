@@ -50,42 +50,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-//       http
-//                .authorizeRequests()
-//                    .antMatchers("/login*").permitAll()
-//                    .antMatchers("/newemployee*").permitAll()
-//                    .antMatchers("/registration*").permitAll()
-//                    .antMatchers("/submit*").permitAll()
-//                    .antMatchers("/index").permitAll()
-//                    .antMatchers("/admin/**").hasRole("ADMIN")
-//                    .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                    .loginPage("/login").defaultSuccessUrl("/index")
-//                    .usernameParameter("email")
-//                    .passwordParameter("password")
-//                    .permitAll()
-//                    .and()
-//                .logout().logoutSuccessUrl("/")
-//                    .permitAll()
-//                    .and()
-//                .exceptionHandling().accessDeniedPage("/403");
-
-//        http.authorizeRequests().antMatchers("/resources/**").permitAll().anyRequest().permitAll();
-
-//        http.authorizeRequests()
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/registration").permitAll()
-//                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN").anyRequest()
-//                .authenticated().and().csrf().disable().formLogin()
-//                .loginPage("/login").failureUrl("/login?error=true")
-//                .defaultSuccessUrl("/index")
-//
-//                .and().logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/").and().exceptionHandling()
-//                .accessDeniedPage("/access-denied");
+       http
+                .authorizeRequests()
+                    .antMatchers("/login*").permitAll()
+                    .antMatchers("/registration*").permitAll()
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                    .loginPage("/login").successForwardUrl("/index")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                    .permitAll()
+                    .and()
+                .logout().logoutSuccessUrl("/")
+                    .permitAll()
+                    .and()
+                .exceptionHandling().accessDeniedPage("/403");
     }
 
     @Override

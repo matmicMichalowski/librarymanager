@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class LoanController {
@@ -33,29 +33,30 @@ public class LoanController {
         return "loanpanel/itemlist";
     }
 
-    @GetMapping("loanpanel/{id}/item/{itemId}/newloan")
+    @GetMapping("loanpanel/user/{id}/item/{itemId}/newloan")
     public String showLoanForm(@PathVariable String id, @PathVariable String itemId,  Model model){
         model.addAttribute("item", itemService.findById(Long.valueOf(itemId)));
         model.addAttribute("user", userService.findById(Long.valueOf(id)));
         return "loanpanel/newloanform";
     }
 
-    @PostMapping("loanpanel/user/{id}/item/{itemId}/saveloan")
-    public String saveLoan(@PathVariable String id, @PathVariable String itemId){
+    @RequestMapping("loanpanel/user/{userId}/item/{itemId}/saveloan")
+    public String saveLoan(@PathVariable String userId, @PathVariable String itemId){
+        System.out.println("do I start?" );
         ItemCommand itemCommand = itemService.findCommandById(Long.valueOf(itemId));
-        UserCommand userCommand = userService.findCommandById(Long.valueOf(id));
+        UserCommand userCommand = userService.findCommandById(Long.valueOf(userId));
         LoanCommand loanCommand = new LoanCommand();
         loanCommand.setUser(userCommand);
         loanCommand.setItem(itemCommand);
 
         loanService.saveLoanCommand(loanCommand);
 
-        return "redirect:/userpanel/" + id + "/show";
+        return "/userpanel/" + userCommand.getId() + "/show";
     }
 
     @GetMapping("loanpanel/loan/{loanId}/deleteloan")
-    public String deleteLoan(@PathVariable String id){
-        loanService.deleteLoanById(Long.valueOf(id));
+    public String deleteLoan(@PathVariable String loanId){
+        loanService.deleteLoanById(Long.valueOf(loanId));
         return "index";
     }
 }

@@ -20,7 +20,7 @@ public class ItemToItemCommand implements Converter<Item, ItemCommand>{
         if(item == null) {
             return null;
         }
-
+        System.out.println("a ja?");
         final ItemCommand itemCommand = new ItemCommand();
         itemCommand.setId(item.getId());
         itemCommand.setAuthor(item.getAuthor());
@@ -34,7 +34,13 @@ public class ItemToItemCommand implements Converter<Item, ItemCommand>{
         itemCommand.setTitle(item.getTitle());
         itemCommand.setItemType(item.getItemType());
         itemCommand.setYear(item.getYear());
-        itemCommand.setLoanId(item.getLoan().getId());
+
+        if(item.getLoan().getId() == null){
+            itemCommand.setLoanId(null);
+        }else{
+            itemCommand.setLoanId(item.getLoan().getId());
+        }
+
 
         return itemCommand;
     }

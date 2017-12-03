@@ -46,11 +46,12 @@ public class LoanServiceImpl implements LoanService{
             Loan loan = loanCommandToLoan.convert(loanCommand);
 
 //            loan.setUser(commandToUser.convert(loanCommand.getUser()));
-            loan.setLoanDate();
+            //loan.setLoanDate();
             loan.setItem(item);
-            item.setLoan(loan);
-            item.setIsAvailable(Availability.BORROWED);
-            itemRepository.save(item);
+//            item.setLoan(loan);
+
+            loanRepository.save(loan);
+//            itemRepository.save(item);
 
             return loanToCommand.convert(loan);
         }

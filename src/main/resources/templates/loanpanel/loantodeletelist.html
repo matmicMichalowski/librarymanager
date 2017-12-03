@@ -25,7 +25,7 @@
 <!--/*@thymesVar id="item" type="matmic.librarymaneger.model.Item"*/-->
 <!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
 <!--/*@thymesVar id="loan" type="matmic.librarymaneger.model.Loan"*/-->
-<!--/*@thymesVar id="items" type="java.util.List"*/-->
+<!--/*@thymesVar id="loans" type="java.util.List"*/-->
 
 <div class="row content">
     <div class="col-md-6 col-md-offset-3">
@@ -58,8 +58,8 @@
                         </tr>
                         <tr style="cursor: pointer" th:each="loan : ${loans}">
                             <td th:text="${loan.id}">1</td>
-                            <td><a href="#" th:href="@{'/userpanel/'+${user.id}+'/bookloan/'
-                            +${loan.id} +'/delete'" th:text="${loan.item.title}" >Title</td>
+                            <td><a href="#" th:href="@{'/loanpanel/loan/'+${loan.id}+'/deleteloan'}"
+                                   th:text="${loan.item.title}" >Title</a></td>
                             <td th:text="${loan.item.author}">Auth</td>
                             <td th:text="${loan.loanDate}">Loan Date</td>
                         </tr>

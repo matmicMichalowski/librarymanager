@@ -9,8 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -26,7 +26,7 @@ public class LoginController {
         this.employeeToEmployeeCmd = employeeToEmployeeCmd;
     }
 
-    @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
+    @GetMapping(value={"/", "/login"})
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
@@ -34,7 +34,7 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value="/registration", method = RequestMethod.GET)
+    @GetMapping(value="/registration")
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("employee", new Employee());
@@ -42,7 +42,7 @@ public class LoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    @PostMapping(value = "/registration")
     public ModelAndView createNewUser(@Valid EmployeeCommand employeeCommand, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         Employee employeeToCreate = employeeService.findEmployeeByEmail(employeeCommand.getEmail());
@@ -62,14 +62,14 @@ public class LoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
+    @GetMapping(value="/home")
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Employee employee = employeeService.findEmployeeByEmail(auth.getName());
         modelAndView.addObject("userName", "Welcome " + employee.getFirstName() + " " + employee.getLastName() + " (" + employee.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-        modelAndView.setViewName("admin/home");
+        modelAndView.setViewName("/home");
         return modelAndView;
     }
 

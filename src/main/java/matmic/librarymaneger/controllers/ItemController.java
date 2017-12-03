@@ -4,10 +4,7 @@ import matmic.librarymaneger.commands.ItemCommand;
 import matmic.librarymaneger.services.ItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ItemController {
@@ -18,10 +15,10 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @GetMapping("items/showitems")
-    public String showItemsPanel (Model model){
+    @RequestMapping("item/showitems")
+    public String showItemsList (Model model){
         model.addAttribute("item", itemService.getItems());
-        return "items/list";
+        return "itempanel/itemslist";
     }
 
     @GetMapping("items/{id}/show")

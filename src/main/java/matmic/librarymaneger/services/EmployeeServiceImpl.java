@@ -50,6 +50,14 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
     }
 
     @Override
+    public Set<Employee> getEmployees(){
+        Set<Employee> employees = new HashSet<>();
+
+        employeeRepository.findAll().iterator().forEachRemaining(employees::add);
+        return employees;
+    }
+
+    @Override
     @Transactional
     public EmployeeCommand saveEmployee(EmployeeCommand employeeCommand) {
         System.out.println("service?");

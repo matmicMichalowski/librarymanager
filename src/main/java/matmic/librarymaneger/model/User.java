@@ -27,7 +27,6 @@ public class User {
 
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="loan_id")
     private Set<Loan> loanLine = new HashSet<>();
 
     public User() {

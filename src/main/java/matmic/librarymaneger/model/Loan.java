@@ -23,7 +23,6 @@ public class Loan {
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
     private User user;
 
     public Loan(){
@@ -32,8 +31,8 @@ public class Loan {
 
     public Loan(User user, Item item){
         this.setLoanDate();
-        setItem(item);
-        setUser(user);
+        this.setItem(item);
+        this.setUser(user);
     }
 
     public void setLoanDate(){

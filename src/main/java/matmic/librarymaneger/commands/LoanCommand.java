@@ -14,4 +14,5 @@ public class LoanCommand {
     private String loanDate;
     private UserCommand user;
     private ItemCommand item;
+
 }

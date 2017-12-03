@@ -54,7 +54,7 @@
                 </tr>
                 <tr style="cursor: pointer" th:each="item : ${items}">
                     <td th:text="${item.id}">1</td>
-                    <td><a th:text="${item.title}" href="#" th:href="@{'/loanpanel/' + ${user.id} + '/item/' + ${item.id} + '/newloan'}">Tomas Edison</a></td>
+                    <td><a th:text="${item.title}" href="#" th:href="@{'/loanpanel/user/' + ${user.id} + '/item/' + ${item.id} + '/newloan'}">Tomas Edison</a></td>
                     <td th:text="${item.author}">Tomas Edison</td>
                     <td th:text="${item.isAvailable}">Tomas Edison</td>
                 </tr>
