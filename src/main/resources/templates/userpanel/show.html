@@ -26,15 +26,15 @@
 <!--/*@thymesVar id="users" type="java.util.List"*/-->
 
 <div class="container-fluid">
-    <div class="row" style="margin-top: 10%">
-        <div class="col-md-5 col-md-offset-2">
+    <div class="row" style="margin-top: 10%; display: inline-block">
+        <div class="col-md-5 col-md-offset-2 col-lg-5">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-5">
                             <h1 class="panel-title" th:text="${user.firstName + ' ' + user.lastName + ' #' + user.id}">User Name</h1>
                         </div>
-                        <div class="btn-group">
+                        <div class="btn-group" style="display: inline-block; float: right">
                             <div class="col-md-5">
                                 <a href="#" th:href="@{'/userpanel/showlist'}" class="btn btn-default" role="button">User List</a>
                             </div>
@@ -44,60 +44,59 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel-body>">
-                    <div class="row">
-                        <div class="col-md-6" style="margin-left: 5%">
-                            <div class="col-md-5">
-                                <label>Phone Number </label>
-                                <p th:text="${user.phoneNumber}">78889</p>
+                    <div class="panel-body>">
+
+                            <div class="col-md-6" style="margin-left: 15px">
+                                <div class="col-md-5">
+                                    <label>Phone Number </label>
+                                    <p th:text="${user.phoneNumber}">78889</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Email</label>
+                                    <p th:text="${user.email}">malkpokpokkjkjhkhil</p>
+                                </div>
                             </div>
-                            <div class="col-md-3">
-                                <label>Email</label>
-                                <p th:text="${user.email}">malkpokpokkjkjhkhil</p>
+                            <div class="col-md-6" style="margin-left: 15px">
+                                <div class="col-md-6">
+                                    <label>Address: </label><span th:text="${user.address + ', ' + user.postCode}">addkjhkhkjhkjhkjhkjhkjhkjhress</span>
+                                </div>
+                                <div class="col-md-5">
+                                    <label>City: </label><span th:text="${user.city}">City</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3" style="margin-top: 40px; float: left">
+                                    <table class="table table-hover">
+                                        <thead class="thead-inverse">
+                                           <tr>
+                                               <th>Tile</th>
+                                               <th>Date</th>
+                                               <th>Delete</th>
+                                           </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:remove="all">
+                                                <td > this</td>
+                                            </tr>
+                                            <tr th:each="loan : ${user.loanLine}">
+                                                <td th:text="${loan.item.title}"> item title</td>
+                                                <td th:text="${loan.loanDate}">date</td>
+                                                <td><a href="#" th:href="@{'/loanpanel/loan/' + ${loan.id} + '/deleteloan'}"
+                                                       class="btn-default btn-xs" role="button">Delete</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-2">
+                                    <img src="../../static/default.jpg"
+                                         th:src="@{'/userpanel/' + ${user.id} + '/userimage'}" width="150" height="170">
+                                </div>
                             </div>
                         </div>
-                        <div class="row" style="margin-left: 5%">
-                            <div class="col-md-5">
-                                <label>Address: </label><span th:text="${user.address + ', ' + user.postCode}">addkjhkhkjhkjhkjhkjhkjhkjhress</span>
-                            </div>
-                            <div class="col-md-5">
-                                <label>City: </label><span th:text="${user.city}">City</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 loans" style="margin-top: 40px">
-                                <table class="table table-hover">
-                                    <thead class="thead-inverse">
-                                       <tr>
-                                           <th>Tile</th>
-                                           <th>Date</th>
-                                           <th>Delete</th>
-                                       </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:remove="all">
-                                            <td > this</td>
-                                        </tr>
-                                        <tr th:each="loan : ${user.loanLine}">
-                                            <td th:text="${loan.item.title}"> item title</td>
-                                            <td th:text="${loan.loanDate}">date</td>
-                                            <td><a href="#" th:href="@{'/loanpanel/loan/' + ${loan.id} + '/deleteloan'}"
-                                                   class="btn-default btn-xs" role="button">Delete</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-2">
-                                <img src="../../static/default.jpg"
-                                     th:src="@{'/userpanel/' + ${user.id} + '/userimage'}" width="150" height="170">
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
+
                 </div>
             </div>
-    <div class="col-md-3 col-md-offset-3" style="margin-left: 210px;">
+    <div class="col-md-3 " >
         <div class="container">
             <div class="btn-group" role="group">
                 <a href="#" th:href="@{'/userpanel/' + ${user.id} + '/userupdate'}" class="btn-default btn-lg " role="button">Update</a>
@@ -105,6 +104,7 @@
                 <a href="#" th:href="@{'/userpanel/' + ${user.id} + '/delete'}" class="btn-default btn-lg" role="button">Delete</a>
             </div>
         </div>
+    </div>
     </div>
         </div>
 <style>

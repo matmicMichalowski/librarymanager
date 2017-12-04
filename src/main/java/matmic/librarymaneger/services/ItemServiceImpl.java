@@ -1,8 +1,6 @@
 package matmic.librarymaneger.services;
 
-import matmic.librarymaneger.commands.ItemCommand;
-import matmic.librarymaneger.converters.ItemCommandToItem;
-import matmic.librarymaneger.converters.ItemToItemCommand;
+
 import matmic.librarymaneger.model.Item;
 import matmic.librarymaneger.repositories.ItemRepository;
 import matmic.librarymaneger.repositories.LoanRepository;
@@ -16,41 +14,35 @@ import java.util.Set;
 public class ItemServiceImpl implements ItemService{
 
     private final ItemRepository itemRepository;
-    private final ItemCommandToItem commandToItem;
-    private final ItemToItemCommand itemToItemCommand;
     private final LoanRepository loanRepository;
 
-    public ItemServiceImpl(ItemRepository itemRepository, ItemCommandToItem commandToItem,
-                           ItemToItemCommand itemToItemCommand, LoanRepository loanRepository) {
+    public ItemServiceImpl(ItemRepository itemRepository,
+                            LoanRepository loanRepository) {
         this.itemRepository = itemRepository;
-        this.commandToItem = commandToItem;
-        this.itemToItemCommand = itemToItemCommand;
         this.loanRepository = loanRepository;
     }
 
     @Override
-    public ItemCommand findCommandById(Long id) {
+    public Item findItemById(Long id) {
         Optional<Item> itemToFind = itemRepository.findItemById(id);
         if(!itemToFind.isPresent()){
             return null;
         }
 
-        return itemToItemCommand.convert(itemToFind.get());
+        return itemToFind.get();
     }
 
     @Override
-    public ItemCommand saveBookCommand(ItemCommand command) {
-        Item toSave = commandToItem.convert(command);
-        Item savedItem = itemRepository.save(toSave);
-        return itemToItemCommand.convert(savedItem);
+    public Item saveItem(Item item) {
+
+        Item savedItem = itemRepository.save(item);
+        return savedItem;
     }
 
     @Override
     public Set<Item> getItems() {
         Set<Item> items = new HashSet<>();
-
         itemRepository.findAll().iterator().forEachRemaining(items::add);
-        System.out.println("hoplla!!" + items.size());
         return items;
     }
 

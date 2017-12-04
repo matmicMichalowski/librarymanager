@@ -1,8 +1,5 @@
 package matmic.librarymaneger.services;
 
-import matmic.librarymaneger.commands.LoanCommand;
-import matmic.librarymaneger.converters.LoanCommandToLoan;
-import matmic.librarymaneger.converters.LoanToLoanCommand;
 import matmic.librarymaneger.model.Item;
 import matmic.librarymaneger.model.Loan;
 import matmic.librarymaneger.model.User;
@@ -19,41 +16,37 @@ public class LoanServiceImpl implements LoanService{
 
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
-    private final LoanCommandToLoan loanCommandToLoan;
+
     private final LoanRepository loanRepository;
-    private final LoanToLoanCommand loanToCommand;
 
 
-    public LoanServiceImpl(UserRepository userRepository, ItemRepository itemRepository, LoanCommandToLoan loanCommandToLoan, LoanRepository loanRepository, LoanToLoanCommand loanToCommand) {
+
+    public LoanServiceImpl(UserRepository userRepository, ItemRepository itemRepository, LoanRepository loanRepository) {
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
-        this.loanCommandToLoan = loanCommandToLoan;
         this.loanRepository = loanRepository;
-        this.loanToCommand = loanToCommand;
+
     }
 
     @Override
-    public LoanCommand saveLoanCommand(LoanCommand loanCommand) {
-        Optional<User> userOptional = userRepository.findById(loanCommand.getUser().getId());
-        Optional<Item> itemOptional = itemRepository.findById(loanCommand.getItem().getId());
+    public Loan saveLoan(Loan loan) {
+        Optional<User> userOptional = userRepository.findById(loan.getUser().getId());
+        Optional<Item> itemOptional = itemRepository.findById(loan.getItem().getId());
 
         if(!userOptional.isPresent() || !itemOptional.isPresent()){
-            return new LoanCommand();
+            return new Loan();
         }else {
-//            User user = userOptional.get();
+
             Item item = itemOptional.get();
 
-            Loan loan = loanCommandToLoan.convert(loanCommand);
+            Loan loanToSave = loan;
 
-//            loan.setUser(commandToUser.convert(loanCommand.getUser()));
-            //loan.setLoanDate();
             loan.setItem(item);
-//            item.setLoan(loan);
 
             loanRepository.save(loan);
-//            itemRepository.save(item);
 
-            return loanToCommand.convert(loan);
+
+            return loan;
         }
     }
 
@@ -61,18 +54,17 @@ public class LoanServiceImpl implements LoanService{
     public void deleteLoanById(Long loanId) {
 
         Optional<Loan> loanOptional = loanRepository.findById(loanId);
-        //Optional<User> userOptional = userRepository.findById(userId);
-        if(loanOptional.isPresent()){ //userOptional.isPresent() &&
-            //User user = userOptional.get();
+
+        if(loanOptional.isPresent()){
             Loan toBeDeleted = loanOptional.get();
 
             Item item = toBeDeleted.getItem();
 
             item.setLoan(null);
             item.setIsAvailable(Availability.AVAILABLE);
-            //user.getLoanLine().remove(toBeDeleted);
+
             loanRepository.delete(toBeDeleted);
-           // userRepository.save(user);
+
             itemRepository.save(item);
         }
     }

@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)throws Exception{
-        System.out.println("to ja wywołuję tam");
+
         auth.userDetailsService(employeeService)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
@@ -85,7 +85,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
 
     @Autowired
-    //@Bean(name="dataSource")
     public DriverManagerDataSource dataSource(){
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
         driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");

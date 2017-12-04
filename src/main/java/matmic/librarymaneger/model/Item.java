@@ -49,23 +49,20 @@ public class Item {
     private Loan loan;
 
     public void setLoan(Loan loan){
-        System.out.println("czy ja tu trafiam?");
+
         if (sameAsFormerLoan(loan)){
             return;
         }
-        System.out.println("a czy trafiam tu?");
         Loan actualLoan = this.loan;
         this.loan = loan;
         this.setIsAvailable(Availability.BORROWED);
-        System.out.println(this.isAvailable + " ");
+
         if(actualLoan != null){
             actualLoan.setItem(null);
         }
-        System.out.println(this.isAvailable + " ");
         if(loan != null){
             loan.setItem(this);
         }
-        System.out.println(this.isAvailable + " ");
     }
 
     private boolean sameAsFormerLoan(Loan newLoan){

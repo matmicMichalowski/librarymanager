@@ -19,10 +19,9 @@ public class Employee implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name="employee_id")
     private Long id;
 
-    //@Column(name="email")
+
     private String email;
     private String password;
     private String firstName;
@@ -30,7 +29,6 @@ public class Employee implements Serializable{
     private boolean isActive;
 
     @OneToMany(mappedBy = "employee", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JsonIgnore
     private Set<EmployeeRole> employeeRoles = new HashSet<>();
 
 

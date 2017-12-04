@@ -1,8 +1,7 @@
 package matmic.librarymaneger.controllers;
 
 
-import matmic.librarymaneger.commands.EmployeeCommand;
-import matmic.librarymaneger.converters.EmployeeToEmployeeCommand;
+
 import matmic.librarymaneger.model.Employee;
 import matmic.librarymaneger.services.EmployeeServiceImpl;
 import org.springframework.security.core.Authentication;
@@ -19,11 +18,10 @@ import javax.validation.Valid;
 public class LoginController {
 
     private final EmployeeServiceImpl employeeService;
-    private final EmployeeToEmployeeCommand employeeToEmployeeCmd;
 
-    public LoginController(EmployeeServiceImpl employeeService, EmployeeToEmployeeCommand employeeToEmployeeCmd) {
+
+    public LoginController(EmployeeServiceImpl employeeService) {
         this.employeeService = employeeService;
-        this.employeeToEmployeeCmd = employeeToEmployeeCmd;
     }
 
     @GetMapping(value={"/", "/login"})
@@ -43,9 +41,9 @@ public class LoginController {
     }
 
     @PostMapping(value = "/registration")
-    public ModelAndView createNewUser(@Valid EmployeeCommand employeeCommand, BindingResult bindingResult) {
+    public ModelAndView createNewUser(@Valid Employee employee, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        Employee employeeToCreate = employeeService.findEmployeeByEmail(employeeCommand.getEmail());
+        Employee employeeToCreate = employeeService.findEmployeeByEmail(employee.getEmail());
         if (employeeToCreate != null) {
             bindingResult
                     .rejectValue("email", "error.user",
@@ -54,7 +52,7 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
-            employeeService.saveEmployee(employeeCommand);
+            employeeService.saveEmployee(employee);
             modelAndView.addObject("successMessage", "Employee has been registered successfully");
             modelAndView.addObject("employee", new Employee());
             modelAndView.setViewName("registration");

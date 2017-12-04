@@ -1,6 +1,7 @@
 package matmic.librarymaneger.controllers;
 
-import matmic.librarymaneger.commands.ItemCommand;
+
+import matmic.librarymaneger.model.Item;
 import matmic.librarymaneger.services.ItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,19 +30,19 @@ public class ItemController {
 
     @GetMapping("items/newitem")
     public String newItem(Model model){
-        model.addAttribute("item", new ItemCommand());
+        model.addAttribute("item", new Item());
         return "itempanel/itemform";
     }
 
     @PostMapping("items")
-    public String saveOrUpdate(@ModelAttribute ItemCommand command){
-        ItemCommand savedItemCommand = itemService.saveBookCommand(command);
+    public String saveOrUpdate(@ModelAttribute Item item){
+        Item savedItemCommand = itemService.saveItem(item);
         return "redirect:/items/" + savedItemCommand.getId() + "/show";
     }
 
     @GetMapping
     public String updateItem(@PathVariable String id, Model model){
-        model.addAttribute("item", itemService.findCommandById(Long.valueOf(id)));
+        model.addAttribute("item", itemService.findItemById(Long.valueOf(id)));
         return "item/itemform";
     }
 

@@ -1,8 +1,6 @@
 package matmic.librarymaneger.services;
 
-import matmic.librarymaneger.commands.EmployeeCommand;
-import matmic.librarymaneger.converters.EmployeeCommandToEmployee;
-import matmic.librarymaneger.converters.EmployeeToEmployeeCommand;
+
 import matmic.librarymaneger.model.Employee;
 import matmic.librarymaneger.model.rolemodel.EmployeeRole;
 import matmic.librarymaneger.repositories.EmployeeRepository;
@@ -31,17 +29,15 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
     private final RoleRepository roleRepository;
     private final EmployeeRoleRepository employeeRoleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final EmployeeCommandToEmployee employeeCommandToEmployee;
-    private final EmployeeToEmployeeCommand employeeToEmployeeCommand;
+
 
     public EmployeeServiceImpl(EmployeeRepository employeeRepository, RoleRepository roleRepository,
-                               EmployeeRoleRepository employeeRoleRepository, BCryptPasswordEncoder bCryptPasswordEncoder, EmployeeCommandToEmployee employeeCommandToEmployee, EmployeeToEmployeeCommand employeeToEmployeeCommand) {
+                               EmployeeRoleRepository employeeRoleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.employeeRepository = employeeRepository;
         this.roleRepository = roleRepository;
         this.employeeRoleRepository = employeeRoleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.employeeCommandToEmployee = employeeCommandToEmployee;
-        this.employeeToEmployeeCommand = employeeToEmployeeCommand;
+
     }
 
     @Override
@@ -59,11 +55,8 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
 
     @Override
     @Transactional
-    public EmployeeCommand saveEmployee(EmployeeCommand employeeCommand) {
-        System.out.println("service?");
-        employeeCommand.setPassword(bCryptPasswordEncoder.encode(employeeCommand.getPassword()));
-        Employee employee = employeeCommandToEmployee.convert(employeeCommand);
-
+    public Employee saveEmployee(Employee employee) {
+        employee.setPassword(bCryptPasswordEncoder.encode(employee.getPassword()));
 
         if(employeeRepository.findAll().size() < 1){
             employee.getEmployeeRoles().add(new EmployeeRole(employee, roleRepository.findByName("ADMIN")));
@@ -74,20 +67,17 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
         }
 
         Employee savedEmployee = employeeRepository.save(employee);
-        return employeeToEmployeeCommand.convert(savedEmployee);
+        return savedEmployee;
     }
 
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println(email);
         Employee employee = findEmployeeByEmail(email);
         if(employee == null){
-            System.out.println(email);
             return null;
         }
-        System.out.println();
         List<GrantedAuthority> authorities = getUserAuthority(employee.getEmployeeRoles());
         return buildUserForAuthentication(employee, authorities);
     }
@@ -105,34 +95,5 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
     private UserDetails buildUserForAuthentication(Employee employee, List<GrantedAuthority> authorities) {
         return new User(employee.getEmail(), employee.getPassword(), employee.isActive(), true, true, true, authorities);
     }
-//    @Override
-//    @Transactional
-//    public UserDetails loadUserByUsername(String employeeEmail) throws UsernameNotFoundException {
-//        Employee employee = employeeRepository.findByEmail(employeeEmail);
-//        if (employee == null){
-//            System.out.println("null " + employeeEmail);
-//        }
-//        Set<GrantedAuthority> authorities = new HashSet<>();
-//
-//        for (EmployeeRole role: employee.getEmployeeRoles()){
-//            authorities.add(new SimpleGrantedAuthority(role.getRole().getName()));
-//        }
-//        return new org.springframework.security.core.userdetails
-//                .User(employee.getEmail(), employee.getPassword(), authorities);
-//    }
-
-//    private List<GrantedAuthority> getEmployeeAuthority(Set<EmployeeRole> userRoles) {
-//        Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
-//        for (EmployeeRole role : userRoles) {
-//            roles.add(new SimpleGrantedAuthority(role.getRole().getName()));
-//        }
-//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
-//        return grantedAuthorities;
-//    }
-//
-//    private UserDetails buildEmployeeForAuthentication(Employee employee, List<GrantedAuthority> authorities){
-//        return new org.springframework.security.core.userdetails.User(employee.getEmail(), employee.getPassword(),
-//                authorities);
-//    }
 }
 

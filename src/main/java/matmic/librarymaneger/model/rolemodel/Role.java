@@ -26,7 +26,4 @@ public class Role implements Serializable{
     private Set<EmployeeRole> employeeRoles = new HashSet<>();
 
 
-//    public void addRole(EmployeeRole newRole){
-//        this.employeeRoles.add(newRole);
-//    }
 }

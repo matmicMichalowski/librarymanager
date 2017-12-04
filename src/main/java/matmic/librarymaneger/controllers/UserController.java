@@ -1,6 +1,7 @@
 package matmic.librarymaneger.controllers;
 
-import matmic.librarymaneger.commands.UserCommand;
+
+import matmic.librarymaneger.model.User;
 import matmic.librarymaneger.services.ItemService;
 import matmic.librarymaneger.services.UserService;
 import org.springframework.stereotype.Controller;
@@ -33,25 +34,25 @@ public class UserController {
 
     @RequestMapping("userpanel/newuser")
     public String newUser(Model model){
-        model.addAttribute("user", new UserCommand());
+        model.addAttribute("user", new User());
 
         return "userpanel/userform";
     }
 
     @PostMapping
     @RequestMapping("userpanel")
-    public String saveOrUpdate(@ModelAttribute UserCommand command){
-        System.out.println("newUser userCmd ID" + command.getId());
-        UserCommand savedUserCommand = userService.saveUserCommand(command);
+    public String saveOrUpdate(@ModelAttribute User user){
+        System.out.println("newUser userCmd ID" + user.getId());
+        User savedUser = userService.saveUser(user);
 
-        System.out.println(savedUserCommand.getId() + " saved user id");
-        return "redirect:/userpanel/" + savedUserCommand.getId() + "/show";
+        System.out.println(savedUser.getId() + " saved user id");
+        return "redirect:/userpanel/" + savedUser.getId() + "/show";
     }
 
 
     @RequestMapping("userpanel/{id}/userupdate")
     public String updateUser(@PathVariable String id, Model model){
-        model.addAttribute("user", userService.findCommandById(Long.valueOf(id)));
+        model.addAttribute("user", userService.findUserById(Long.valueOf(id)));
         return "userpanel/userform";
     }
 

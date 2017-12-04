@@ -1,8 +1,6 @@
 package matmic.librarymaneger.services;
 
-import matmic.librarymaneger.commands.UserCommand;
-import matmic.librarymaneger.converters.UserCommandToUser;
-import matmic.librarymaneger.converters.UserToUserCommand;
+
 import matmic.librarymaneger.model.User;
 import matmic.librarymaneger.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -16,13 +14,10 @@ import java.util.Set;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
-    private final UserToUserCommand userToUserCommand;
-    private final UserCommandToUser userCommandToUser;
 
-    public UserServiceImpl(UserRepository userRepository, UserToUserCommand userToUserCommand, UserCommandToUser userCommandToUser) {
+
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userToUserCommand = userToUserCommand;
-        this.userCommandToUser = userCommandToUser;
     }
 
 
@@ -52,19 +47,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public UserCommand findCommandById(Long id) {
-        return userToUserCommand.convert(findById(id));
+    public User findUserById(Long id) {
+        return userRepository.findUserById(id);
     }
 
     @Override
     @Transactional
-    public UserCommand saveUserCommand(UserCommand userCommand) {
-        System.out.println("user id " + userCommand.getId());
-        User user = userCommandToUser.convert(userCommand);
-
+    public User saveUser(User user) {
 
         User savedUser = userRepository.save(user);
 
-        return userToUserCommand.convert(savedUser);
+        return savedUser;
     }
 }
