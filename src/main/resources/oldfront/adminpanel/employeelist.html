@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee List</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+<!--/*@thymesVar id="employee" type="matmic.librarymaneger.model.Employee"*/-->
+<!--/*@thymesVar id="items" type="java.util.List"*/-->
+
+<div class="row content">
+    <div class="col-md-6 col-md-offset-3">
+       <div class="panel panel-default">
+           <div class="panel-heading" style="display: inline-block; width: 100%">
+                <div style="float: left">
+                    <h2>Employees</h2>
+                </div>
+                <div style="float: right">
+                    <a href="#" th:href="@{'/mainpanel'}" class="btn-default btn-lg" style="border: 1px solid black; text-decoration: none" role="button">Home</a>
+                </div>
+           </div>
+           <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name Last name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:remove="all" >
+                                <td>1</td>
+                                <td>Tomas Edison</td>
+                                <td>Tomas Edison</td>
+                                <td>Tomas Edison</td>
+                                <td>Tomas Edison</td>
+                            </tr>
+                            <tr th:remove="all">
+                                <td>1</td>
+                                <td>Tomas Edison</td>
+                                <td>Tomas Edison</td>
+                                <td>Tomas Edison</td>
+                                <td>Tomas Edison</td>
+                            </tr>
+                            <tr style="cursor: pointer" th:each="employee : ${employees}">
+                                <td th:text="${employee.id}">1</td>
+                                <td th:text="${employee.firstName} + ' ' + ${employee.lastName}">Tomas Edison</td>
+                                <td th:text="${employee.email}">Tomas Edison</td>
+                                <td><a th:text="${employee.active}" href="#" th:href="@{'/employee/' + ${employee.id} + '/show'}">Active</a></td>
+                                <td><a href="#" th:href="@{'/employee/' + ${employee.id} + '/delete'}">Delete</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+           </div>
+       </div>
+    </div>
+</div>
+</body>
+</html>

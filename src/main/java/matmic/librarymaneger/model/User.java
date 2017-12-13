@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-public class User {
+public class User extends ImageSuperclass{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,9 @@ public class User {
     private String city;
     private String address;
     private String postCode;
+
+//    @Lob
+//    private Byte[] userImage;
 
 
     @OneToMany(cascade = CascadeType.ALL)

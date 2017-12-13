@@ -16,10 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -49,7 +46,12 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
     public Set<Employee> getEmployees(){
         Set<Employee> employees = new HashSet<>();
 
-        employeeRepository.findAll().iterator().forEachRemaining(employees::add);
+        employeeRepository.findAll().iterator().forEachRemaining(employee -> {
+            if(employee.getEmployeeRoles().size() < 2){
+                employees.add(employee);
+            }
+        });
+
         return employees;
     }
 
@@ -65,9 +67,8 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
         }else{
             employee.getEmployeeRoles().add(new EmployeeRole(employee, roleRepository.findByName("EMPLOYEE")));
         }
-
-        Employee savedEmployee = employeeRepository.save(employee);
-        return savedEmployee;
+        employeeRepository.save(employee);
+        return employee;
     }
 
 
@@ -75,25 +76,57 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Employee employee = findEmployeeByEmail(email);
+
+
         if(employee == null){
-            return null;
+            EmployeeRole role = new EmployeeRole(employee, roleRepository.findByName("EMPLOYEE"));
+            Set<EmployeeRole> roleSet = new HashSet<>();
+            roleSet.add(role);
+            return new User(" ", " ", true, true, true, true,
+                    getUserAuthority(roleSet));
         }
-        List<GrantedAuthority> authorities = getUserAuthority(employee.getEmployeeRoles());
-        return buildUserForAuthentication(employee, authorities);
+        return new User(employee.getEmail(), employee.getPassword(), employee.isActive(), true, true, true,
+                getUserAuthority(employee.getEmployeeRoles()));
+//        List<GrantedAuthority> authorities = getUserAuthority(employee.getEmployeeRoles());
+//        return buildUserForAuthentication(employee, authorities);
     }
 
-    private List<GrantedAuthority> getUserAuthority(Set<EmployeeRole> userRoles) {
-        Set<GrantedAuthority> roles = new HashSet<>();
-        for (EmployeeRole role : userRoles) {
-            roles.add(new SimpleGrantedAuthority(role.getRole().getName()));
+    private List<GrantedAuthority> getUserAuthority(Set<EmployeeRole> employeeRoles) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (EmployeeRole role : employeeRoles) {
+            authorities.add(new SimpleGrantedAuthority(role.getRole().getName()));
         }
 
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
-        return grantedAuthorities;
+//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
+        return authorities;
     }
 
-    private UserDetails buildUserForAuthentication(Employee employee, List<GrantedAuthority> authorities) {
-        return new User(employee.getEmail(), employee.getPassword(), employee.isActive(), true, true, true, authorities);
+//    private UserDetails buildUserForAuthentication(Employee employee, List<GrantedAuthority> authorities) {
+//        return new User(employee.getEmail(), employee.getPassword(), employee.isActive(), true, true, true, authorities);
+//    }
+
+    @Override
+    @Transactional
+    public  void switchEmployeeStatus(Long id){
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if (employee.isPresent()){
+           Employee employee1 = employee.get();
+           if(employee1.isActive()){
+               employee1.setActive(false);
+           }else{
+               employee1.setActive(true);
+           }
+           employeeRepository.save(employee1);
+        }
     }
+
+    @Override
+    public void deleteEmployee(Long id){
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if (employee.isPresent()){
+            employeeRepository.delete(employee.get());
+        }
+    }
+
 }
 

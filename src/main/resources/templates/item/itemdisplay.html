@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Item Display</title>
+
+    <script th:src="@{js/jquery-3.2.1.js}"></script>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.css"/>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.js"></script>
+
+    <script th:src="@{/js/librarian.js}"></script>
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+    <link th:href="@{/css/tables-pages.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <nav class="navbar navbar-colors"  id="navbar-baner-profile">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="row">
+                <div class="navbar-header navbar-left" style="float: left" >
+                    <button type="button" class="navbar-toggle collapsed resized-menu-button" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#" id="navbar-header-style">Librarian</a>
+                </div>
+                <ul class="nav navbar-right" style="float: right">
+                    <li class="dropdown profile-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="profile-dropdown">Logged employee<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">My Profile</a></li>
+                            <li><a href="#">Logout</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-resized-menu" id="navbar-collapse"  style="float: left;">
+                <ul class="nav navbar-nav">
+                    <li class="active-menu-item"><a href="#" >Users <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Items</a></li>
+                    <li><a href="#">Employees</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading details-title" id="panel-heading-title">
+                    Item Details
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" id="content-tabs">
+                        <li class="active"><a href="#home" data-toggle="tab">Home</a>
+                        </li>
+                        <li class=""><a href="#profile" data-toggle="tab">Edit</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="home">
+                            <label class="tab-title">Home Tab</label>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" id="panel-body-heading">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <p class="panel-title" th:text=" 'Item id #' + ${item.id} + ' item ISN ' + ${item.internationalSegregationNumber}">Item #id</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                        <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 details-box">
+                                            <div class="col-md-12 col-xs-12 display-fields" >
+                                                <label>Title</label>
+                                                <p th:text="${item.title}">Adam</p>
+                                            </div>
+                                            <div class="col-md-12  col-xs-12 display-fields" >
+                                                <label>Author</label>
+                                                <p th:text="${item.author}">Novy</p>
+                                            </div>
+                                            <div class="col-md-12  col-xs-12 display-fields">
+                                                <label>Publisher</label>
+                                                <p th:text="${user.phone}">77887888e</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 details-box" >
+                                            <div class="col-md-12 col-xs-12 display-fields" >
+                                                <label>Availability</label>
+                                                <p th:text="${item.availability}">adam@mail.com</p>
+                                            </div>
+                                            <div class="col-md-12 col-xs-12 display-fields" >
+                                                <label>Release</label>
+                                                <p  th:text="${item.releaseNumber}">London</p>
+                                            </div>
+                                            <div class="col-md-12 col-xs-12 display-fields" >
+                                                <label>Genre</label>
+                                                <p th:text="${item.genre}">Baker Street 221B A41</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 details-box" >
+                                                <div class="col-md-12 col-xs-12 display-fields" >
+                                                    <label>Publication Type</label>
+                                                    <p th:text="${item.itemType}">adam@mail.com</p>
+                                                </div>
+                                                <div class="col-md-12 col-xs-12 display-fields" >
+                                                    <label>Distribution Type</label>
+                                                    <p  th:text="${item.distributionType}">London</p>
+                                                </div>
+                                                <div class="col-md-12 col-xs-12 display-fields" >
+                                                    <label>Year</label>
+                                                    <p th:text="${item.year}">Baker Street 221B A41</p>
+                                                </div>
+                                        </div>
+                                    <div class="col-lg-3 col-md-2 col-sm-12 col-xs-12" id="item-image">
+                                        <img src="../../static/tacos400x400.jpg"
+                                             th:src="@{'/itempanel/' + ${item.id} + '/showimage'}" width="250" height="317" style="max-width: 100%;">
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        <div class="tab-pane fade" id="profile">
+                            <label class="tab-title">Profile Tab</label>
+                            <form th:object="${item}" th:action="@{/itempanel}" method="post">
+                                <input type="hidden" th:field="*{id}"/>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading " id="panel-body-heading-form">
+                                        <h1 class="panel-title">Edit Item Information</h1>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-5 form-group">
+                                                <label>Title:</label>
+                                                <input type="text" class="form-control" th:field="*{title}"/>
+                                            </div>
+                                            <div class="col-md-3 form-group">
+                                                <label>Item Type:</label>
+                                                <select class="form-control" th:field="*{itemType}" style="height: 34px">
+                                                    <option th:each="type : ${T(matmic.librarymaneger.model.enums.ItemType).values()}"
+                                                            th:value="${type.name()}"
+                                                            th:text="${type.name()}">type</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5 form-group">
+                                                <label>Author:</label>
+                                                <input type="text" class="form-control" th:field="*{author}"/>
+                                            </div>
+                                            <div class="col-md-3 form-group">
+                                                <label>Distribution Type:</label>
+                                                <select class="form-control" th:field="*{distributionType}" style="height: 34px">
+                                                    <option th:each="distType : ${T(matmic.librarymaneger.model.enums.DistributionType).values()}"
+                                                            th:value="${distType.name()}"
+                                                            th:text="${distType.name()}" style="padding: 5px">DistType</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3 form-group">
+                                                <label>ISN Number:</label>
+                                                <input type="text" class="form-control" th:field="*{internationalSegregationNumber}">
+                                            </div>
+                                            <div class="col-lg-1 col-md-2 form-group">
+                                                <label>Publish Year:</label>
+                                                <input type="number" class="form-control" th:field="*{publisher}">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 form-group">
+                                                <label>Publisher:</label>
+                                                <input type="text" class="form-control" th:field="*{year}"/>
+                                            </div>
+                                            <div class="col-md-2 form-group">
+                                                <label>Genre:</label>
+                                                <input type="text" class="form-control" th:field="*{genre}"/>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-12 col-12">
+                                                <label>User Image</label>
+                                                <div class="input-group">
+                                                    <label class="input-group-btn">
+                                                                    <span class="btn btn-default">
+                                                                        Browse&hellip; <input type="file" style="display: none;">
+                                                                    </span>
+                                                    </label>
+                                                    <input type="text" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+

@@ -9,4 +9,6 @@ public interface EmployeeService {
     Employee findEmployeeByEmail(String email);
     Employee saveEmployee(Employee employee);
     Set<Employee> getEmployees();
+    void switchEmployeeStatus(Long id);
+    void deleteEmployee(Long id);
 }

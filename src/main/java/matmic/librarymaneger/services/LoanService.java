@@ -1,9 +1,9 @@
 package matmic.librarymaneger.services;
 
 
-import matmic.librarymaneger.model.Loan;
+import matmic.librarymaneger.command.LoanCommand;
 
 public interface LoanService {
-    Loan saveLoan(Loan loanCommand);
+    LoanCommand saveLoan(LoanCommand loanCommand);
     void deleteLoanById(Long loanId);
 }

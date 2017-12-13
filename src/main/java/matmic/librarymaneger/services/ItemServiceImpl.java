@@ -43,6 +43,7 @@ public class ItemServiceImpl implements ItemService{
     public Set<Item> getItems() {
         Set<Item> items = new HashSet<>();
         itemRepository.findAll().iterator().forEachRemaining(items::add);
+        System.out.println(items.size() + " _");
         return items;
     }
 

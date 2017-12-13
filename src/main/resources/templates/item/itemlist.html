@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Items List</title>
+
+    <script th:src="@{js/jquery-3.2.1.js}"></script>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+
+
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.1/js/responsive.bootstrap.min.js"></script>
+
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.bootstrap.min.css" rel="stylesheet">
+
+
+    <script th:src="@{/js/librarian.js}"></script>
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+    <link th:href="@{/css/tables-pages.css}" rel="stylesheet">
+    <script th:src="@{js/itemlist.js}"></script>
+
+
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <nav class="navbar navbar-colors"  id="navbar-baner-profile">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="row">
+                <div class="navbar-header navbar-left" style="float: left" >
+                    <button type="button" class="navbar-toggle collapsed resized-menu-button" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#" id="navbar-header-style">Librarian</a>
+                </div>
+                <ul class="nav navbar-right" style="float: right">
+                    <li class="dropdown profile-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="profile-dropdown">Logged user <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">My Profile</a></li>
+                            <li><a href="#">Logout</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-resized-menu" id="navbar-collapse"  style="float: left;">
+                    <ul class="nav navbar-nav">
+                        <li><a href="../user/userlist.html" >Users</a></li>
+                        <li class="active"><a href="itemlist.html">Items<span class="sr-only">(current)</span></a></li>
+                        <li><a href="../employee/employeelist.html">Employees</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!--overview start-->
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading details-title" id="panel-heading-title">
+                   ITEMS LIST
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12">
+                        <div class="panel panel-for-table">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <h1 class="table-title">Items</h1>
+                                    <div class="add-new">
+                                        <a class="btn btn-lg btn-success table-btn" href="newitem.html"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" id="table-panel-body">
+                                <table id="main-items-list" class="table table-hover table-striped table-bordered table-responsive">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Item Type</th>
+                                        <th>Distribution</th>
+                                        <th>ISN</th>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                        <th>Genre</th>
+                                        <th>Publisher</th>
+                                        <th>Year</th>
+                                        <th>Availability</th>
+                                        <th class="no-sort">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Horror</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Borrowed</td>
+                                        <td class="td-align">
+                                            <div class="action-buttons btn-group">
+                                                <a class="btn btn-primary table-btn" href="itemdisplay.html"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Available</td>
+                                        <td class="td-align">
+                                            <div class="action-buttons btn-group">
+                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Available</td>
+                                        <td class="td-align">
+                                            <div class="action-buttons btn-group">
+                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>23545-234-213</td>
+                                        <td class="td-align">
+                                            <div class="action-buttons btn-group">
+                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>23545-234-213</td>
+                                        <td class="td-align">
+                                            <div class="action-buttons btn-group">
+                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>23545-234-213</td>
+                                        <td class="td-align">
+                                            <div class="action-buttons btn-group">
+                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>23545-234-213</td>
+                                        <td class="td-align">
+                                            <div class="action-buttons btn-group">
+                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>23545-234-213</td>
+                                        <td class="td-align">
+                                            <div class="action-buttons btn-group">
+                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>book</td>
+                                        <td>paper</td>
+                                        <td>23545-234-213</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>23545-234-213</td>
+                                        <td class="td-align">
+                                            <div class="action-buttons btn-group">
+                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>magazine</td>
+                                        <td>paper</td>
+                                        <td>23545-234-213</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>23545-234-213</td>
+                                        <td class="td-align">
+                                            <div class="action-buttons btn-group">
+                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>book</td>
+                                        <td>paper</td>
+                                        <td>23545-234-213</td>
+                                        <td>mail@mail.com</td>
+                                        <td>23545-234-213</td>
+                                        <td>Don Dada</td>
+                                        <td>mail@mail.com</td>
+                                        <td>2353</td>
+                                        <td>Available</td>
+                                        <td class="td-align">
+                                            <div class="action-buttons btn-group">
+                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+

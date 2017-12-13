@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Display</title>
+
+    <script th:src="@{/js/jquery-3.2.1.js}"></script>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.css"/>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.js"></script>
+
+    <script th:src="@{/js/librarian.js}"></script>
+        <link th:href="@{/css/main.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
+
+
+<div class="container-fluid">
+    <nav class="navbar navbar-colors"  id="navbar-baner-profile">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div id="navigation-bar" class="row">
+                <div class="navbar-header navbar-left" style="float: left" >
+                    <button type="button" class="navbar-toggle collapsed resized-menu-button" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#" id="navbar-header-style">Librarian</a>
+                </div>
+                <ul class="nav navbar-right" style="float: right">
+                    <li class="dropdown profile-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="profile-dropdown">Logged user <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">My Profile</a></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-resized-menu" id="navbar-collapse"  style="float: left;">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="userlist.html" >Users <span class="sr-only">(current)</span></a></li>
+                    <li><a href="itemlist.html">Items</a></li>
+                    <li><a href="employeelist.html">Employees</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading details-title" id="panel-heading-title">
+                    User Details
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" id="content-tabs">
+                        <li class="active"><a href="#home" data-toggle="tab">Home</a>
+                        </li>
+                        <li class=""><a href="#edit" data-toggle="tab">Loans</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="home">
+                            <label class="tab-title">Home Tab</label>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" id="panel-body-heading">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <p class="panel-title" th:text=" 'User id #' + ${user.id}">User #id</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 details-box">
+                                            <div class="col-md-12  col-xs-12 display-fields" >
+                                                <label>First Name</label>
+                                                <p th:text="${user.firstName}">Adam</p>
+                                            </div>
+                                            <div class="col-md-12  col-xs-12 display-fields" >
+                                                <label>Last Name</label>
+                                                <p th:text="${user.lastName}">Novy</p>
+                                            </div>
+                                            <div class="col-md-12  col-xs-12 display-fields">
+                                                <label>Phone</label>
+                                                <p th:text="${user.phoneNumber}">77887888e</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 details-box">
+                                            <div class="col-md-12 col-xs-12 display-fields" >
+                                                <label>Email</label>
+                                                <p th:text="${user.email}">adam@mail.com</p>
+                                            </div>
+                                            <div class="col-md-12 col-xs-12 display-fields" >
+                                                <label>City</label>
+                                                <p  th:text="${user.city}">London</p>
+                                            </div>
+                                            <div class="col-md-12 col-xs-12 display-fields" >
+                                                <label>User Address</label>
+                                                <p th:text="${user.address} + ' ' + ${user.postCode}">Baker Street 221B A41</p>
+                                            </div>
+                                        </div>
+                                    <div class="col-lg-3 col-md-3" id="user-photo">
+                                        <img src="../../static/tacos400x400.jpg"
+                                             th:src="@{'/user/' + ${user.id} + '/showimage'}" width="200" height="250" style="max-width: 100%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="edit">
+                            <label class="tab-title" style="float: left">User Loans</label>
+                            <div class="col-lg-8 col-lg-offset-1  col-md-12 col-sm-12 col-xs-12" >
+                                <div class="panel" >
+                                    <div class="panel-heading panel-heading-table">
+                                        <label>Active Loans</label>
+                                    </div>
+                                    <table id="user-loan-table" class="table table-hover table-striped table-bordered table-responsive" style="min-width: 100%">
+                                        <thead >
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Date</th>
+                                                <th class="no-sort">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="height: 100%">
+                                            <tr th:remove="all">
+                                                <td > this</td>
+                                                <td > this</td>
+                                                <td > this</td>
+                                            </tr>
+                                            <tr th:remove="all">
+                                                <td > this</td>
+                                                <td > this</td>
+                                                <td > this</td>
+                                            </tr> <tr th:remove="all">
+                                                <td > this</td>
+                                                <td > this</td>
+                                                <td > this</td>
+                                            </tr> <tr th:remove="all">
+                                                <td > this</td>
+                                                <td > this</td>
+                                                <td > this</td>
+                                            </tr> <tr th:remove="all">
+                                                <td > this</td>
+                                                <td > this</td>
+                                                <td > this</td>
+                                            </tr> <tr th:remove="all">
+                                                <td > this</td>
+                                                <td > this</td>
+                                                <td > this</td>
+                                            </tr> <tr th:remove="all">
+                                                <td > this</td>
+                                                <td > this</td>
+                                                <td > this</td>
+                                            </tr> <tr th:remove="all">
+                                                <td > this</td>
+                                                <td > this</td>
+                                                <td > this</td>
+                                            </tr> <tr th:remove="all">
+                                                <td > this</td>
+                                                <td > this</td>
+                                                <td > this</td>
+                                            </tr>
+                                            <tr th:remove="all">
+                                                <td > this</td>
+                                                <td > this</td>
+                                                <td > this</td>
+                                            </tr>
+                                            <tr th:each="loan : ${user.loanLine}">
+                                                <td th:text="${loan.item.title}"> item title</td>
+                                                <td th:text="${loan.loanDate}">date</td>
+                                                <td><a href="#" th:href="@{'/loanpanel/user/' + ${user.id} + '/loan/' + ${loan.id} + '/deleteloan'}"
+                                                       class="btn-danger btn-xs" style="text-decoration: none" role="button">Delete</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-4" style="float: left">
+                                <a href="#" th:href="@{'/user/' + ${user.id} + '/loan/newloan'}" role="button" class="btn btn-info">New Loan</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+

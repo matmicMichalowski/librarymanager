@@ -19,18 +19,33 @@ public class Loan {
 
     private String loanDate;
 
+    private boolean beforeDeadline;
+
     @OneToOne
     private Item item;
 
     @ManyToOne
     private User user;
 
+    @ManyToOne
+    private Employee employee;
+
     public Loan(){
         this.setLoanDate();
+        this.beforeDeadline = true;
+    }
+
+    public Loan(User user, Item item, Employee employee){
+        this.setLoanDate();
+        this.beforeDeadline = true;
+        this.setItem(item);
+        this.setUser(user);
+        this.setEmployee(employee);
     }
 
     public Loan(User user, Item item){
         this.setLoanDate();
+        this.beforeDeadline = true;
         this.setItem(item);
         this.setUser(user);
     }

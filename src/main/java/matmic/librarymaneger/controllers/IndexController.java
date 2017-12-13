@@ -10,11 +10,11 @@ public class IndexController {
 
     @RequestMapping("/index")
     public String getIndexPage(){
-        return "index";
+        return "dashboard";
     }
 
     @RequestMapping("mainpanel")
     public String goToMain(){
-        return "index";
+        return "redirect:/index";
     }
 }

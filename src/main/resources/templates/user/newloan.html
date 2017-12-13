@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>New Loan</title>
+
+    <script th:src="@{/js/jquery-3.2.1.js}"></script>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.css"/>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.js"></script>
+
+
+    <script th:src="@{/js/newloan.js}"></script>
+    <script th:src="@{/js/librarian.js}"></script>
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<!--/*@thymesVar id="item" type="matmic.librarymaneger.model.Item"*/-->
+<!--/*@thymesVar id="loan" type="matmic.librarymaneger.model.Loan"*/-->
+<!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
+<!--/*@thymesVar id="items" type="java.util.List"*/-->
+
+<div class="container-fluid">
+    <nav class="navbar navbar-colors"  id="navbar-baner-profile">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="row">
+                <div class="navbar-header navbar-left" style="float: left" >
+                    <a class="navbar-brand" href="#" id="navbar-header-style">Librarian</a>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+            <div class="panel panel-default registration">
+                <div class="panel-heading details-title" id="panel-heading-title">
+                    New Item
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin-top: 35px; float: left">
+                        <div class="panel">
+                            <div class="panel-heading panel-heading-table">
+                                <label>Items List</label>
+                            </div>
+                            <table id="user-newloan-table" class="table table-hover display" >
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Genre</th>
+                                    <th>Distribution</th>
+                                    <th>Publisher</th>
+                                    <th>Year</th>
+                                </tr>
+                                </thead>
+                                <tbody style="height: 100%">
+                                <tr th:remove="all">
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > funky year</td>
+                                </tr>
+                                <tr th:remove="all">
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                </tr> <tr th:remove="all">
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                </tr> <tr th:remove="all">
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                </tr> <tr th:remove="all">
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                </tr> <tr th:remove="all">
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                </tr> <tr th:remove="all">
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                </tr> <tr th:remove="all">
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                </tr> <tr th:remove="all">
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                </tr>
+                                <tr th:remove="all">
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                    <td > this</td>
+                                </tr>
+                                <tr th:each="item : ${items}">
+                                    <td th:text="${item.id}"> item title</td>
+                                    <td th:text="${item.itemType}">date</td>
+                                    <td th:text="${item.title}">title</td>
+                                    <td th:text="${item.author}">author</td>
+                                    <td th:text="${item.genre}"> this</td>
+                                    <td th:text="${item.distributionType}"> this</td>
+                                    <td th:text="${item.publisher}"> this</td>
+                                    <td th:text="${item.year}">funk year</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6" style="float: right; margin-right: auto">
+                            <div class="panel panel-default">
+                                <div class="panel-heading " id="item-to-loan-heading-form">
+                                    <p class="panel-title">Item to loan id #<span id="item-id-field" ></span></p>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-5 form-group">
+                                            <label>Title:</label>
+                                            <input id="item-title" disabled type="text" class="form-control"/>
+                                        </div>
+                                        <div class=" col-lg-3 col-md-5 form-group">
+                                            <label>Type:</label>
+                                            <input id="item-type" disabled type="text" class="form-control" />
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 form-group">
+                                            <label>Genre:</label>
+                                            <input id="item-genre" disabled type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-5 form-group">
+                                            <label>Author:</label>
+                                            <input id="item-author" disabled type="text" class="form-control"/>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label>Distribution:</label>
+                                            <input id="item-distribution" disabled type="text" class="form-control"/>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 form-group">
+                                            <label>Year:</label>
+                                            <input id="item-year" disabled type="number" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-5 form-group">
+                                            <label>Publisher:</label>
+                                            <input id="item-publisher" disabled type="text" class="form-control"/>
+                                        </div>
+                                        <div class="col-lg-5 col-md-6 form-group">
+                                            <label>ISN:</label>
+                                            <input id="item-isn" disabled type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <form th:object="${loan}" th:action="@{/saveloan}" method="post">
+                                                        <input type="hidden" th:field="*{id}"/>
+                                                        <input class="item-id-field" type="hidden" th:field="*{}">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+                <!-- /.panel-body -->
+    </div>
+            <!-- /.panel -->
+
+</div>
+
+</body>
+</html>
+

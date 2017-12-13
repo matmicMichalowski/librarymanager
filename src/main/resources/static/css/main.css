@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,500,600,700,800&subset=latin-ext');
+
+
+
+/*Primary Indgo*/
+/*#3f51b5 P*/
+/*#757de8 PL*/
+/*#002984 PD*/
+
+/*Secondary Blue Grey*/
+/*#455a64 S*/
+/*#718792 SL*/
+/*#1c313a SD*/
+
+/*#E1E2E1*/
+
+body{
+    font-family: "Nunito", sans-serif;
+    background: #3f51b5;
+}
+
+
+/*Start navigation*/
+
+.profile-dropdown{
+    margin-right: 16px;
+}
+
+.navbar-colors{
+    background: #002984;
+}
+
+#navbar-header-style{
+    color: #ffffff;
+
+}
+
+.active-menu-item{
+    background-color: #757de8;
+}
+
+
+.resized-menu-button{
+    border: 2px solid #ffffff;
+}
+
+.resized-menu-button .icon-bar{
+   background-color: #ffffff;
+}
+
+.navbar-resized-menu{
+    border-top: 1px solid #ffffff;
+}
+
+.navbar-resized-menu ul li a{
+    color: #ffffff;
+    background-color: #002984;
+}
+
+.navbar-resized-menu ul li a:hover{
+    background-color: #757de8;
+}
+
+#navbar-collapse ul li a:focus{
+    background-color: #757de8;
+}
+
+#profile-dropdown{
+    color: #ffffff;
+    font-size: 16px;
+    padding: 15px;
+    background: #002984;
+}
+
+#profile-dropdown:hover{
+    background: #757de8;
+}
+
+#profile-dropdown:focus{
+    background: #757de8;
+}
+
+
+#profile-dropdown ul li:hover{
+    background: #718792;
+}
+
+@media (min-width: 768px){
+
+    #navbar-header-style{
+        font-size: 36px;
+        padding: 20px;
+    }
+
+    #navbar-baner-profile{
+        height: 72px;
+    }
+
+   #navbar-collapse{
+       display: inline-block;
+       font-size: 20px;
+       font-weight: 600;
+       border: none;
+   }
+}
+
+/*End navigation*/
+
+.active{
+    border-bottom: 1px solid #ffffff;
+}
+
+.table-title{
+    float: left;
+}
+
+.panel{
+    border: none;
+    margin-top: 5px;
+}
+
+#panel-heading-title{
+    color: #ffffff;
+    background: #1c313a;
+    font-size: 24px;
+    font-weight: 600;
+    padding-top: 20px;
+}
+
+.tab-title{
+    font-size: 24px;
+    color: #455a64;
+    padding: 10px;
+}
+
+.registration{
+    margin: auto;
+}
+
+.add-new{
+    padding: 10px;
+    float: right;
+    margin-top: 10px;
+}
+
+@media(min-width: 1200px){
+    .details-box div{
+        padding: 20px;
+    }
+    .details-box div p{
+        padding: 5px;
+    }
+
+}
+
+.details-box{
+    margin-left: 1%;
+    float: left;
+    border: 1px solid black;
+    padding: 0;
+}
+
+#panel-body-heading{
+    background: #455a64;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px;
+}
+
+#panel-body-heading-form{
+    background: #455a64;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px;
+}
+#item-to-loan-heading-form{
+    background: #455a64;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px;
+}
+
+
+@media (min-width: 768px) {
+    #user-photo{
+        float: right;
+        bottom: 150px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #user-photo{
+        bottom: 0;
+        float: right;
+        margin-right: 5%;
+    }
+    #item-image{
+        margin-left: 20%;
+    }
+}
+
+
+
+#item-image img{
+    float: right;
+}
+
+
+@media (max-width: 768px) {
+    #item-image{
+    margin: auto;
+    display: block;
+    width: 50%;
+    }
+}
+
+.item-image-top{
+    bottom: 251px;
+    left: 12%;
+}
+
+.panel-heading-table{
+    float: left;
+    margin-right: 20%;
+}
+
+#user-loan-table_filter{
+    float: right;
+}
+
+
+#user-newloan-table{
+    min-width: 100%;
+}
+
+#user-newloan-table_length{
+    float: right;
+}
+
+#locked-action-col-table{
+    min-width: 100%;
+}
+
+.form-login-heading{
+    padding: 20px 0;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.dataTables_scrollHeadInner{
+    min-width: 100%;
+}

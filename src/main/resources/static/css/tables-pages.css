@@ -1,0 +1,39 @@
+
+.stats-box{
+    min-height: 140px;
+    background: #1c313a;
+    margin-bottom: 30px;
+    padding: 20px;
+    color: #ffffff;
+    box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
+}
+
+.stats-box .count{
+    margin-top: 15px;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.stats-box .title{
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.no-sort{
+    width: 10%;
+    text-align: center;
+}
+
+.td-align{
+    margin: auto;
+    text-align: center;
+}
+
+#statistics-boxes{
+    margin-top: 10px;
+}
+
+#main-items-list{
+    min-width: 100%;
+}

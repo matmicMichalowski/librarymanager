@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Items List</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+<!--/*@thymesVar id="item" type="matmic.librarymaneger.model.Item"*/-->
+<!--/*@thymesVar id="items" type="java.util.List"*/-->
+
+<div class="row content">
+    <div class="col-md-6 col-md-offset-3">
+       <div class="panel panel-default">
+           <div class="panel-heading">
+                <h2>Items</h2>
+           </div>
+           <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Item Title</th>
+                            <th>Author</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:remove="all" >
+                                <td>1</td>
+                                <td>Tomas Edison</td>
+                                <td>Tomas Edison</td>
+                            </tr>
+                            <tr th:remove="all">
+                                <td>1</td>
+                                <td>Tomas Edison</td>
+                                <td>Tomas Edison</td>
+                            </tr>
+                            <tr style="cursor: pointer" th:each="item : ${items}">
+                                <td th:text="${item.id}">1</td>
+                                <td><a th:text="${item.title}" href="#" th:href="@{'/itempanel/' + ${item.id} + '/show'}">Tomas Edison</a></td>
+                                <td th:text="${item.author}">Tomas Edison</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+           </div>
+       </div>
+    </div>
+</div>
+</body>
+</html>

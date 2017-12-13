@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,7 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Log4j2
 @Configuration
 @EnableWebSecurity
-
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Autowired
@@ -42,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .usersByUsernameQuery(
                         "select email,password,active from employee where username=?")
                 .authoritiesByUsernameQuery(
-                       "select e.email, r.role from employee e inner join employee_role er on(e.id=er.employee_id) inner join role r on(er.role_id=r.id) where e.email=?");
+                       "select e.email, r.name from employee as e inner join employee_role as er on(e.id=er.employee_id) inner join role as r on(er.role_id=r.id) where e.email=?");
 
     }
 
@@ -50,23 +51,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-       http
-                .authorizeRequests()
-                    .antMatchers("/login*").permitAll()
-                    .antMatchers("/registration*").permitAll()
-                    .antMatchers("/admin/**").hasRole("ADMIN")
-                    .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                    .loginPage("/login").successForwardUrl("/index")
-                    .usernameParameter("email")
-                    .passwordParameter("password")
-                    .permitAll()
-                    .and()
-                .logout().logoutSuccessUrl("/")
-                    .permitAll()
-                    .and()
-                .exceptionHandling().accessDeniedPage("/403");
+//       http
+//                .authorizeRequests()
+//                    .antMatchers("/login*").permitAll()
+//                    .antMatchers("/registration*").permitAll()
+//                    .antMatchers("/employee/*").hasAuthority("ADMIN")
+//                    .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                    .loginPage("/login").successForwardUrl("/index")
+//                    .usernameParameter("email")
+//                    .passwordParameter("password")
+//                    .permitAll()
+//                    .and()
+//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .logoutSuccessUrl("/")
+//                    .and()
+//                .exceptionHandling().accessDeniedPage("/403");
     }
 
     @Override
@@ -80,7 +81,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
 

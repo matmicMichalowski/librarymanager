@@ -28,6 +28,10 @@ public class Employee implements Serializable{
     private String lastName;
     private boolean isActive;
 
+
+    @OneToMany(fetch= FetchType.EAGER)
+    private Set<Loan> loansByEmployee = new HashSet<>();
+
     @OneToMany(mappedBy = "employee", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<EmployeeRole> employeeRoles = new HashSet<>();
 

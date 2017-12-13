@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Employee Display</title>
+
+    <script th:src="@{js/jquery-3.2.1.js}"></script>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.css"/>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.js"></script>
+
+    <script th:src="@{/js/librarian.js}"></script>
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <nav class="navbar navbar-colors"  id="navbar-baner-profile">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="row">
+                <div class="navbar-header navbar-left" style="float: left" >
+                    <a class="navbar-brand" href="#" id="navbar-header-style">Librarian</a>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+            <div class="panel panel-default registration">
+                <div class="panel-heading details-title" id="panel-heading-title">
+                    New Item
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form th:object="${item}" th:action="@{/itempanel}" method="post">
+                        <input type="hidden" th:field="*{id}"/>
+                        <div class="panel panel-default">
+                            <div class="panel-heading " id="panel-body-heading-form">
+                                <h1 class="panel-title">Item Details</h1>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-5 form-group">
+                                        <label>Title:</label>
+                                        <input type="text" class="form-control" th:field="*{title}"/>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label>Item Type:</label>
+                                        <select class="form-control" th:field="*{itemType}" style="height: 34px">
+                                            <option th:each="type : ${T(matmic.librarymaneger.model.enums.ItemType).values()}"
+                                                    th:value="${type.name()}"
+                                                    th:text="${type.name()}">type</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 form-group">
+                                        <label>Author:</label>
+                                        <input type="text" class="form-control" th:field="*{author}"/>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label>Distribution Type:</label>
+                                        <select class="form-control" th:field="*{distributionType}" style="height: 34px">
+                                            <option th:each="distType : ${T(matmic.librarymaneger.model.enums.DistributionType).values()}"
+                                                    th:value="${distType.name()}"
+                                                    th:text="${distType.name()}" style="padding: 5px">DistType</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-5 form-group">
+                                        <label>ISN Number:</label>
+                                        <input type="text" class="form-control" th:field="*{internationalSegregationNumber}">
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 form-group">
+                                        <label>Publish Year:</label>
+                                        <input type="number" class="form-control" th:field="*{publisher}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 form-group">
+                                        <label>Publisher:</label>
+                                        <input type="text" class="form-control" th:field="*{year}"/>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label>Genre:</label>
+                                        <input type="text" class="form-control" th:field="*{genre}"/>
+                                    </div>
+                                    <div class="col-lg-8 col-sm-12 col-12">
+                                        <label>Item Image</label>
+                                        <div class="input-group">
+                                            <label class="input-group-btn">
+                                                                    <span class="btn btn-default">
+                                                                        Browse&hellip; <input type="file" style="display: none;">
+                                                                    </span>
+                                            </label>
+                                            <input type="text" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="itemlist.html" role="button" class="btn btn-default">Back</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+                <!-- /.panel-body -->
+    </div>
+            <!-- /.panel -->
+</div>
+
+
+
+
+</body>
+</html>
+

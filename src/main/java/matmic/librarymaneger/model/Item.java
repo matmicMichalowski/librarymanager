@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Item {
+public class Item extends ImageSuperclass{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,8 +42,8 @@ public class Item {
     @Enumerated(value = EnumType.STRING)
     private Availability isAvailable = Availability.AVAILABLE;
 
-    @Lob
-    private Byte[] itemImage;
+//    @Lob
+//    private Byte[] itemImage;
 
     @OneToOne
     private Loan loan;

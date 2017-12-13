@@ -20,16 +20,17 @@ public class UserController {
         this.itemService = itemService;
     }
 
-    @RequestMapping("userpanel/showlist")
+    @RequestMapping("user/userslist")
     public String showUsersPanel(Model model){
         model.addAttribute("users", userService.getUsers());
-        return "userpanel/userslist";
+        return "user/userlist";
     }
 
-    @RequestMapping("userpanel/{id}/show")
+    @RequestMapping("user/{id}/userdisplay")
     public String showById(@PathVariable String id, Model model){
         model.addAttribute("user", userService.findById(new Long(id)));
-        return "userpanel/show";
+        model.addAttribute("items", itemService.getItems());
+        return "user/userdisplay";
     }
 
     @RequestMapping("userpanel/newuser")
@@ -40,13 +41,11 @@ public class UserController {
     }
 
     @PostMapping
-    @RequestMapping("userpanel")
+    @RequestMapping("saveuser")
     public String saveOrUpdate(@ModelAttribute User user){
-        System.out.println("newUser userCmd ID" + user.getId());
         User savedUser = userService.saveUser(user);
 
-        System.out.println(savedUser.getId() + " saved user id");
-        return "redirect:/userpanel/" + savedUser.getId() + "/show";
+        return "redirect:/user/" + savedUser.getId() + "/userdisplay";
     }
 
 
@@ -59,7 +58,7 @@ public class UserController {
     @GetMapping("userpanel/{id}/delete")
     public String deleteUserById(@PathVariable String id){
         userService.deleteById(Long.valueOf(id));
-        return "index";
+        return "redirect:/userpanel/userslist";
 
     }
 

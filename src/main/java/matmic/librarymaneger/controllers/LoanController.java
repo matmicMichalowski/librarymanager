@@ -1,9 +1,9 @@
 package matmic.librarymaneger.controllers;
 
 
+import matmic.librarymaneger.command.LoanCommand;
 import matmic.librarymaneger.model.Item;
 import matmic.librarymaneger.model.Loan;
-import matmic.librarymaneger.model.User;
 import matmic.librarymaneger.model.enums.Availability;
 import matmic.librarymaneger.services.ItemService;
 import matmic.librarymaneger.services.LoanService;
@@ -11,8 +11,9 @@ import matmic.librarymaneger.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class LoanController {
     }
 
 
-    @GetMapping("loanpanel/user/{id}/newloan")
+    @GetMapping("user/{id}/loan/newloan")
     public String searchForItemToBorrow(@PathVariable String id, Model model){
         List<Item> itemsToBorrow = new ArrayList<>();
 
@@ -44,33 +45,43 @@ public class LoanController {
 
         model.addAttribute("items", itemsToBorrow);
         model.addAttribute("user", userService.findById(Long.valueOf(id)));
-        return "loanpanel/itemlist";
+        model.addAttribute("loan", new LoanCommand());
+        return "user/newloan";
     }
 
-    @GetMapping("loanpanel/user/{id}/item/{itemId}/newloan")
+
+    @GetMapping("loan/user/{id}/item/{itemId}/newloan")
     public String showLoanForm(@PathVariable String id, @PathVariable String itemId,  Model model){
         model.addAttribute("item", itemService.findById(Long.valueOf(itemId)));
         model.addAttribute("user", userService.findById(Long.valueOf(id)));
+        model.addAttribute("loan", new Loan());
         return "loanpanel/newloanform";
     }
 
-    @RequestMapping("loanpanel/user/{userId}/item/{itemId}/saveloan")
-    public String saveLoan(@PathVariable String userId, @PathVariable String itemId){
-        System.out.println("do I start?" );
-        Item item = itemService.findItemById(Long.valueOf(itemId));
-        User user = userService.findUserById(Long.valueOf(userId));
-        Loan loan = new Loan();
-        loan.setUser(user);
-        loan.setItem(item);
-
-        loanService.saveLoan(loan);
-
-        return "redirect:/userpanel/" + user.getId() + "/show";
+    @PostMapping("saveloan")
+    public String saveLoan(@ModelAttribute LoanCommand loanCommand){
+        LoanCommand savedLoan = loanService.saveLoan(loanCommand);
+        return "redirect:/user/" + savedLoan.getUserId() + "/userdisplay";
     }
 
-    @GetMapping("loanpanel/loan/{loanId}/deleteloan")
-    public String deleteLoan(@PathVariable String loanId){
+
+//    @RequestMapping("loan/user/{userId}/item/{itemId}/saveloan")
+//    public String saveLoan(@PathVariable String userId, @PathVariable String itemId){
+//        System.out.println("do I start?" );
+//        Item item = itemService.findItemById(Long.valueOf(itemId));
+//        User user = userService.findUserById(Long.valueOf(userId));
+//        Loan loan = new Loan();
+//        loan.setUser(user);
+//        loan.setItem(item);
+//
+//        loanService.saveLoan(loan);
+//
+//        return "redirect:/userpanel/" + user.getId() + "/show";
+//    }
+
+    @GetMapping("loanpanel/user/{userId}/loan/{loanId}/deleteloan")
+    public String deleteLoan(@PathVariable String loanId, @PathVariable String userId){
         loanService.deleteLoanById(Long.valueOf(loanId));
-        return "index";
+        return "redirect:/userpanel/" + userId + "/show";
     }
 }
