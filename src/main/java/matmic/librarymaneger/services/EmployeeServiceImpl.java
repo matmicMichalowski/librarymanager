@@ -1,10 +1,12 @@
 package matmic.librarymaneger.services;
 
 
+import matmic.librarymaneger.command.EmployeeCommand;
+import matmic.librarymaneger.converter.EmployeeCommandToEmployee;
+import matmic.librarymaneger.converter.EmployeeToEmployeeCommand;
 import matmic.librarymaneger.model.Employee;
 import matmic.librarymaneger.model.rolemodel.EmployeeRole;
 import matmic.librarymaneger.repositories.EmployeeRepository;
-import matmic.librarymaneger.repositories.EmployeeRoleRepository;
 import matmic.librarymaneger.repositories.RoleRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,22 +26,29 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
 
     private final EmployeeRepository employeeRepository;
     private final RoleRepository roleRepository;
-    private final EmployeeRoleRepository employeeRoleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final EmployeeToEmployeeCommand employeeToEmployeeCommand;
+    private final EmployeeCommandToEmployee employeeCommandToEmployee;
 
 
     public EmployeeServiceImpl(EmployeeRepository employeeRepository, RoleRepository roleRepository,
-                               EmployeeRoleRepository employeeRoleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+                               BCryptPasswordEncoder bCryptPasswordEncoder, EmployeeToEmployeeCommand employeeToEmployeeCommand, EmployeeCommandToEmployee employeeCommandToEmployee) {
         this.employeeRepository = employeeRepository;
         this.roleRepository = roleRepository;
-        this.employeeRoleRepository = employeeRoleRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.employeeToEmployeeCommand = employeeToEmployeeCommand;
+        this.employeeCommandToEmployee = employeeCommandToEmployee;
     }
 
     @Override
     public Employee findEmployeeByEmail(String email) {
         return employeeRepository.findByEmail(email);
+    }
+
+    @Override
+    public EmployeeCommand findEmployeeCommandById(Long id) {
+        return employeeToEmployeeCommand.convert(employeeRepository.findById(id).get());
     }
 
     @Override
@@ -71,6 +80,28 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
         return employee;
     }
 
+    @Override
+    @Transactional
+    public EmployeeCommand updateEmployee(EmployeeCommand employeeCommand) {
+
+
+        Employee updatedEmployee = employeeCommandToEmployee.convert(employeeCommand);
+        employeeRepository.save(updatedEmployee);
+
+        return employeeToEmployeeCommand.convert(updatedEmployee);
+    }
+
+    @Override
+    public Optional<Employee> findEmployeeByResetToken(String resetToken) {
+        return employeeRepository.findByResetToken(resetToken);
+    }
+
+//    @Override
+//    @Transactional
+//    public EmployeeCommand updateEmployee(EmployeeCommand employeeCommand){
+//
+//    }
+
 
     @Override
     @Transactional
@@ -87,8 +118,6 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
         }
         return new User(employee.getEmail(), employee.getPassword(), employee.isActive(), true, true, true,
                 getUserAuthority(employee.getEmployeeRoles()));
-//        List<GrantedAuthority> authorities = getUserAuthority(employee.getEmployeeRoles());
-//        return buildUserForAuthentication(employee, authorities);
     }
 
     private List<GrantedAuthority> getUserAuthority(Set<EmployeeRole> employeeRoles) {
@@ -97,13 +126,10 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
             authorities.add(new SimpleGrantedAuthority(role.getRole().getName()));
         }
 
-//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
+
         return authorities;
     }
 
-//    private UserDetails buildUserForAuthentication(Employee employee, List<GrantedAuthority> authorities) {
-//        return new User(employee.getEmail(), employee.getPassword(), employee.isActive(), true, true, true, authorities);
-//    }
 
     @Override
     @Transactional

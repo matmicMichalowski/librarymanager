@@ -23,7 +23,7 @@
 <body>
 
 <!--/*@thymesVar id="item" type="matmic.librarymaneger.model.Item"*/-->
-<!--/*@thymesVar id="loan" type="matmic.librarymaneger.model.Loan"*/-->
+<!--/*@thymesVar id="loan" type="matmic.librarymaneger.command.LoanCommand"*/-->
 <!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
 <!--/*@thymesVar id="items" type="java.util.List"*/-->
 
@@ -33,7 +33,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="row">
                 <div class="navbar-header navbar-left" style="float: left" >
-                    <a class="navbar-brand" href="#" id="navbar-header-style">Librarian</a>
+                    <a class="navbar-brand" href="#" th:href="@{'/dashboard'}" id="navbar-header-style">Librarian</a>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -42,7 +42,7 @@
         <div class="col-lg-10 col-lg-offset-1 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
             <div class="panel panel-default registration">
                 <div class="panel-heading details-title" id="panel-heading-title">
-                    New Item
+                    New Loan
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -173,6 +173,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-6" style="float: right; margin-right: auto">
+
                             <div class="panel panel-default">
                                 <div class="panel-heading " id="item-to-loan-heading-form">
                                     <p class="panel-title">Item to loan id #<span id="item-id-field" ></span></p>
@@ -218,9 +219,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <span id="user-id"  th:text="${user.id}"></span>
                              <form th:object="${loan}" th:action="@{/saveloan}" method="post">
                                                         <input type="hidden" th:field="*{id}"/>
-                                                        <input class="item-id-field" type="hidden" th:field="*{}">
+                                                        <input class="item-id-field" type="text" th:field="*{itemId}">
+                                                        <input class="user-id-field" type="text" th:value="${user.id}" th:field="*{userId}">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                     </div>

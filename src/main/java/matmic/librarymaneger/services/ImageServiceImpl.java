@@ -16,10 +16,12 @@ public class ImageServiceImpl implements ImageService{
 
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
+    private final UserService userService;
 
-    public ImageServiceImpl(UserRepository userRepository, ItemRepository itemRepository) {
+    public ImageServiceImpl(UserRepository userRepository, ItemRepository itemRepository, UserService userService) {
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -28,8 +30,8 @@ public class ImageServiceImpl implements ImageService{
 
         try{
             ImageSuperclass owner;
-            if(imageOwnerClass.equalsIgnoreCase("userpanel")){
-                owner = userRepository.findUserById(imageOwnerId);
+            if(imageOwnerClass.equalsIgnoreCase("user")){
+                owner = userService.findUserById(imageOwnerId);
             }else{
                 owner = itemRepository.findItemById(imageOwnerId).get();
             }
@@ -43,7 +45,7 @@ public class ImageServiceImpl implements ImageService{
             }
             owner.setImage(bytesObject);
 
-            if(imageOwnerClass.equals("userpanel")){
+            if(imageOwnerClass.equals("user")){
                 userRepository.save((User) owner);
             }else{
                 itemRepository.save((Item) owner);

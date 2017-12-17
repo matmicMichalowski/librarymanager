@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Employee Display</title>
 
-   <script th:src="@{js/jquery-3.2.1.js}"></script>
+   <script th:src="@{/js/jquery-3.2.1.js}"></script>
    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.css"/>
@@ -20,13 +20,16 @@
 </head>
 <body>
 
+<!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
+
+
 <div class="container-fluid">
     <nav class="navbar navbar-colors"  id="navbar-baner-profile">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="row">
                 <div class="navbar-header navbar-left" style="float: left" >
-                    <a class="navbar-brand" href="#" id="navbar-header-style">Librarian</a>
+                    <a class="navbar-brand" href="#" th:href="@{'/dashboard'}" id="navbar-header-style">Librarian</a>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -39,7 +42,7 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form th:object="${item}" th:action="@{/itempanel}" method="post">
+                    <form th:object="${user}" th:action="@{/saveuser}" method="post">
                         <input type="hidden" th:field="*{id}"/>
                         <div class="panel panel-default">
                             <div class="panel-heading " id="panel-body-heading-form">
@@ -79,23 +82,13 @@
                                         <label>Email:</label>
                                         <input type="text" class="form-control" th:field="*{email}"/>
                                     </div>
-                                    <div class="col-lg-7 col-sm-12 col-12">
-                                        <label>User Image</label>
-                                        <div class="input-group">
-                                            <label class="input-group-btn">
-                                                                    <span class="btn btn-default">
-                                                                        Browse&hellip; <input type="file" style="display: none;">
-                                                                    </span>
-                                            </label>
-                                            <input type="text" class="form-control" readonly>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="userlist.html" role="button" class="btn btn-default">Back</a>
+                        <a href="#" th:href="@{'/user/' + ${user.id} + '/display'}" role="button" class="btn btn-default">Back</a>
                     </form>
+
                 </div>
             </div>
         </div>

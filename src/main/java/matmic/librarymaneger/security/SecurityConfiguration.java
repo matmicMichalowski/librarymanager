@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Log4j2
 @Configuration
@@ -51,30 +52,33 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-//       http
-//                .authorizeRequests()
-//                    .antMatchers("/login*").permitAll()
-//                    .antMatchers("/registration*").permitAll()
-//                    .antMatchers("/employee/*").hasAuthority("ADMIN")
-//                    .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                    .loginPage("/login").successForwardUrl("/index")
-//                    .usernameParameter("email")
-//                    .passwordParameter("password")
-//                    .permitAll()
-//                    .and()
-//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/")
-//                    .and()
-//                .exceptionHandling().accessDeniedPage("/403");
+       http
+                .authorizeRequests()
+                    .antMatchers("/login").permitAll()
+                    .antMatchers("/register").permitAll()
+                    .antMatchers("/registration").permitAll()
+                    .antMatchers("/reset-request").permitAll()
+                    .antMatchers("/reset").permitAll()
+                    .antMatchers("/employee/list*").hasAuthority("ADMIN")
+                    .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                    .loginPage("/login").defaultSuccessUrl("/dashboard")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                    .permitAll()
+                    .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
+                    .and()
+                .exceptionHandling().accessDeniedPage("/403");
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers( "/resources/**","/static/**" ,"/css/**", "/js/**", "/images/**", "/webjars/**");
+                .antMatchers( "/resources/**","/static/**" ,"/css/**", "/js/**", "/images/**", "/webjars/**", "/bootstrap/**");
     }
 
 

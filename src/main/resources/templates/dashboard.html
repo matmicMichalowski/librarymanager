@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
 
-    <script th:src="@{js/jquery-3.2.1.js}"></script>
+    <script th:src="@{/js/jquery-3.2.1.js}"></script>
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
     <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 
@@ -26,6 +27,12 @@
 </head>
 <body>
 
+<!--/*@thymesVar id="loan" type="matmic.librarymaneger.model.Loan"*/-->
+<!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
+<!--/*@thymesVar id="employee" type="matmic.librarymaneger.model.Employee"*/-->
+<!--/*@thymesVar id="loans" type="java.util.List"*/-->
+
+
 <div class="container-fluid">
     <nav class="navbar navbar-colors"  id="navbar-baner-profile">
         <div class="container-fluid">
@@ -38,14 +45,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#" id="navbar-header-style">Librarian</a>
+                    <a class="navbar-brand" href="#" th:href="@{'/dashboard'}" id="navbar-header-style">Librarian</a>
                 </div>
                 <ul class="nav navbar-right" style="float: right">
                     <li class="dropdown profile-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="profile-dropdown">Logged user <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">My Profile</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="#" th:href="@{'/employee/display'}">My Profile</a></li>
+                            <li><a href="#" th:href="@{/logout}">Logout</a></li>
 
                         </ul>
                     </li>
@@ -54,10 +61,11 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-resized-menu" id="navbar-collapse"  style="float: left;">
                     <ul class="nav navbar-nav">
-                        <li><a href="user/userlist.html" >Users</a></li>
-                        <li class="active"><a href="item/itemlist.html">Items<span class="sr-only">(current)</span></a></li>
-                        <li><a href="employee/employeelist.html">Employees</a></li>
-                    </ul>
+                                         <li ><a href="#" th:href="@{'/user/list'}" >Users</a></li>
+                                         <li ><a href="#" th:href="@{'/item/list'}">Items</a></li>
+                                         <li sec:authorize="hasAuthority('ADMIN')" ><a href="#" th:href="@{'/employee/list'}">Employees</a></li>
+                                    </ul>
+
                 </div><!-- /.navbar-collapse -->
             </div>
         </div><!-- /.container-fluid -->
@@ -116,9 +124,6 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <h1 class="table-title">Active Loans</h1>
-                                    <div class="add-new">
-                                        <a class="btn btn-lg btn-success table-btn" href="item/newitem.html"><span class="glyphicon glyphicon-plus-sign"></span></a>
-                                    </div>
                                 </div>
                             </div>
                             <div class="panel-body" id="table-panel-body">
@@ -128,6 +133,7 @@
                                         <th>Date</th>
                                         <th>ID</th>
                                         <th>User</th>
+                                        <th>Employee</th>
                                         <th>Title</th>
                                         <th class="no-sort">Actions</th>
                                     </tr>
@@ -197,10 +203,12 @@
                                         <td th:text="${loan.loanDate}">date</td>
                                         <td th:text="${loan.id}">10</td>
                                         <td th:text="'#' + ${loan.user.id} + ' ' + ${loan.user.lastName}">book</td>
+                                        <td th:if="${loan.employee == null}" th:text="'N/D'">book</td>
+                                        <td th:if="${loan.employee != null}" th:text="${loan.employee.id}">book</td>
                                         <td th:text="${loan.item.title}">paper</td>
                                         <td class="td-align">
                                             <div class="action-buttons btn-group">
-                                                <a class="btn btn-primary table-btn" href="#" th:href="@{'/user/' + ${loan.user.id} + '/userdisplay'}"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-primary table-btn" href="#" th:href="@{'/user/' + ${loan.user.id} + '/display'}"><span class="glyphicon glyphicon-folder-open"></span></a>
                                                 <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
                                             </div>
                                         </td>

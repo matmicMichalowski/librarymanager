@@ -15,9 +15,13 @@ public class LoanCommandToLoan implements Converter<LoanCommand, Loan> {
     private final ItemService itemService;
     private final UserService userService;
 
+
+
     public LoanCommandToLoan(ItemService itemService, UserService userService) {
         this.itemService = itemService;
         this.userService = userService;
+
+
     }
 
     @Synchronized
@@ -30,9 +34,14 @@ public class LoanCommandToLoan implements Converter<LoanCommand, Loan> {
 
         final Loan loan = new Loan();
 
+
         loan.setId(loanCommand.getId());
-        loan.setItem(itemService.findItemById(loanCommand.getItemId()));
+
         loan.setUser(userService.findUserById(loanCommand.getUserId()));
+        loan.setItem(itemService.findItemById(loanCommand.getItemId()));
+
+
+
 
         return loan;
     }

@@ -59,6 +59,10 @@ public class Loan {
 
     public void setUser(User user){
 
+        if(sameAsFormerUser(user)){
+            return;
+        }
+
         User actualUser = this.user;
         this.user = user;
 
@@ -69,6 +73,11 @@ public class Loan {
             user.getLoanLine().add(this);
         }
     }
+
+    private boolean sameAsFormerUser(User newUser){
+        return user == null ? newUser == null : user.equals(newUser);
+    }
+
 
     public void setItem(Item item){
 
@@ -91,4 +100,24 @@ public class Loan {
         return item == null ? newItem == null : item.equals(newItem);
     }
 
+    public void setEmployee(Employee employee){
+
+        if(sameAsFormerEmployee(employee)){
+            return;
+        }
+
+        Employee actualEmployee = this.employee;
+        this.employee = employee;
+
+        if(actualEmployee != null){
+            actualEmployee.getLoansByEmployee().remove(this);
+        }
+        if(employee != null){
+            employee.getLoansByEmployee().add(this);
+        }
+    }
+
+    private boolean sameAsFormerEmployee(Employee newEmployee){
+        return user == null ? newEmployee == null : user.equals(newEmployee);
+    }
 }

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Items List</title>
 
-    <script th:src="@{js/jquery-3.2.1.js}"></script>
+    <script th:src="@{/js/jquery-3.2.1.js}"></script>
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
     <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 
@@ -22,12 +23,16 @@
     <script th:src="@{/js/librarian.js}"></script>
     <link th:href="@{/css/main.css}" rel="stylesheet">
     <link th:href="@{/css/tables-pages.css}" rel="stylesheet">
-    <script th:src="@{js/itemlist.js}"></script>
+    <script th:src="@{/js/itemlist.js}"></script>
 
 
 
 </head>
 <body>
+
+<!--/*@thymesVar id="item" type="matmic.librarymaneger.model.Item"*/-->
+<!--/*@thymesVar id="items" type="java.util.List"*/-->
+
 
 <div class="container-fluid">
     <nav class="navbar navbar-colors"  id="navbar-baner-profile">
@@ -41,14 +46,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#" id="navbar-header-style">Librarian</a>
+                    <a class="navbar-brand" href="#" th:href="@{'/dashboard'}" id="navbar-header-style">Librarian</a>
                 </div>
                 <ul class="nav navbar-right" style="float: right">
                     <li class="dropdown profile-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="profile-dropdown">Logged user <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">My Profile</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="#" th:href="@{'/employee/display'}">My Profile</a></li>
+                            <li><a href="#" th:href="@{/logout}">Logout</a></li>
 
                         </ul>
                     </li>
@@ -57,9 +62,9 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-resized-menu" id="navbar-collapse"  style="float: left;">
                     <ul class="nav navbar-nav">
-                        <li><a href="../user/userlist.html" >Users</a></li>
-                        <li class="active"><a href="itemlist.html">Items<span class="sr-only">(current)</span></a></li>
-                        <li><a href="../employee/employeelist.html">Employees</a></li>
+                         <li><a href="#" th:href="@{'/user/list'}" >Users</a></li>
+                         <li class="active"><a href="#" th:href="@{'/item/list'}">Items<span class="sr-only">(current)</span></a></li>
+                         <li sec:authorize="hasRole('BOSS')"><a href="#" th:href="@{'/employee/list'}">Employees</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>
@@ -81,7 +86,7 @@
                                 <div class="row">
                                     <h1 class="table-title">Items</h1>
                                     <div class="add-new">
-                                        <a class="btn btn-lg btn-success table-btn" href="newitem.html"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                                        <a class="btn btn-lg btn-success table-btn" href="itemform.html"><span class="glyphicon glyphicon-plus-sign"></span></a>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +108,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
+                                    <tr th:remove="all">
                                         <td>1</td>
                                         <td>mail@mail.com</td>
                                         <td>23545-234-213</td>
@@ -121,7 +126,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr th:remove="all">
                                         <td>2</td>
                                         <td>mail@mail.com</td>
                                         <td>23545-234-213</td>
@@ -139,7 +144,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr th:remove="all">
                                         <td>3</td>
                                         <td>mail@mail.com</td>
                                         <td>23545-234-213</td>
@@ -157,7 +162,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr th:remove="all">
                                         <td>4</td>
                                         <td>mail@mail.com</td>
                                         <td>23545-234-213</td>
@@ -175,7 +180,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr th:remove="all">
                                         <td>5</td>
                                         <td>mail@mail.com</td>
                                         <td>23545-234-213</td>
@@ -193,7 +198,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr th:remove="all">
                                         <td>5</td>
                                         <td>mail@mail.com</td>
                                         <td>23545-234-213</td>
@@ -211,7 +216,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr th:remove="all">
                                         <td>6</td>
                                         <td>mail@mail.com</td>
                                         <td>23545-234-213</td>
@@ -229,7 +234,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr th:remove="all">
                                         <td>7</td>
                                         <td>mail@mail.com</td>
                                         <td>23545-234-213</td>
@@ -247,7 +252,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr th:remove="all">
                                         <td>8</td>
                                         <td>book</td>
                                         <td>paper</td>
@@ -265,7 +270,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr th:remove="all">
                                         <td>9</td>
                                         <td>magazine</td>
                                         <td>paper</td>
@@ -283,21 +288,21 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>10</td>
-                                        <td>book</td>
-                                        <td>paper</td>
-                                        <td>23545-234-213</td>
-                                        <td>mail@mail.com</td>
-                                        <td>23545-234-213</td>
-                                        <td>Don Dada</td>
-                                        <td>mail@mail.com</td>
-                                        <td>2353</td>
-                                        <td>Available</td>
+                                    <tr th:each="item : ${items}">
+                                        <td th:text="${item.id}">10</td>
+                                        <td th:text="${item.itemType}">book</td>
+                                        <td th:text="${item.distributionType}">paper</td>
+                                        <td th:text="${item.internationalSegregationNumber}">23545-234-213</td>
+                                        <td th:text="${item.title}">mail@mail.com</td>
+                                        <td th:text="${item.author}">23545-234-213</td>
+                                        <td th:text="${item.genre}">Don Dada</td>
+                                        <td th:text="${item.publisher}">mail@mail.com</td>
+                                        <td th:text="${item.year}">2353</td>
+                                        <td th:text="${item.isAvailable}">Available</td>
                                         <td class="td-align">
                                             <div class="action-buttons btn-group">
-                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a class="btn btn-primary table-btn" href="#" th:href="@{'/item/' + ${item.id} + '/display'}"><span class="glyphicon glyphicon-folder-open"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#" th:href="@{'/item/' + ${item.id} + '/delete'}"><span class="glyphicon glyphicon-trash"></span></a>
                                             </div>
                                         </td>
                                     </tr>

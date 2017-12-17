@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Employee Display</title>
 
-    <script th:src="@{js/jquery-3.2.1.js}"></script>
+    <script th:src="@{/js/jquery-3.2.1.js}"></script>
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
     <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.css"/>
@@ -20,13 +20,16 @@
 </head>
 <body>
 
+<!--/*@thymesVar id="item" type="matmic.librarymaneger.model.Item"*/-->
+
+
 <div class="container-fluid">
     <nav class="navbar navbar-colors"  id="navbar-baner-profile">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="row">
                 <div class="navbar-header navbar-left" style="float: left" >
-                    <a class="navbar-brand" href="#" id="navbar-header-style">Librarian</a>
+                    <a class="navbar-brand" href="#" th:href="@{'/dashboard'}" id="navbar-header-style">Librarian</a>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -39,7 +42,7 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form th:object="${item}" th:action="@{/itempanel}" method="post">
+                    <form th:object="${item}" th:action="@{/saveitem}" method="post">
                         <input type="hidden" th:field="*{id}"/>
                         <div class="panel panel-default">
                             <div class="panel-heading " id="panel-body-heading-form">
@@ -81,13 +84,17 @@
                                     </div>
                                     <div class="col-lg-3 col-md-3 form-group">
                                         <label>Publish Year:</label>
-                                        <input type="number" class="form-control" th:field="*{publisher}">
+                                        <input type="number" class="form-control" th:field="*{year}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-5 form-group">
                                         <label>Publisher:</label>
-                                        <input type="text" class="form-control" th:field="*{year}"/>
+                                        <input type="text" class="form-control" th:field="*{publisher}"/>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 form-group">
+                                        <label>Release Number:</label>
+                                        <input type="number" class="form-control" th:field="*{releaseNumber}"/>
                                     </div>
                                     <div class="col-md-3 form-group">
                                         <label>Genre:</label>
@@ -108,7 +115,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="itemlist.html" role="button" class="btn btn-default">Back</a>
+                        <a href="#" th:href="@{'/item/' + ${item.id} + '/showitem'}" role="button" class="btn btn-default">Back</a>
                     </form>
                 </div>
             </div>

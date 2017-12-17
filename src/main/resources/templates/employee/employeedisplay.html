@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Employee Display</title>
 
-    <script th:src="@{js/jquery-3.2.1.js}"></script>
+    <script th:src="@{/js/jquery-3.2.1.js}"></script>
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
     <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.css"/>
@@ -15,16 +16,22 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.js"></script>
 
     <script th:src="@{/js/librarian.js}"></script>
-    <link th:href="@{/css/main.css}" rel="stylesheet">
+        <link th:href="@{/css/main.css}" rel="stylesheet">
 
 </head>
 <body>
+
+<!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
+<!--/*@thymesVar id="employee" type="matmic.librarymaneger.model.Employee"*/-->
+<!--/*@thymesVar id="loan" type="matmic.librarymaneger.model.Loan"*/-->
+
+
 
 <div class="container-fluid">
     <nav class="navbar navbar-colors"  id="navbar-baner-profile">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="row">
+            <div id="navigation-bar" class="row">
                 <div class="navbar-header navbar-left" style="float: left" >
                     <button type="button" class="navbar-toggle collapsed resized-menu-button" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
@@ -32,15 +39,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#" id="navbar-header-style">Librarian</a>
+                    <a class="navbar-brand" href="#" th:href="@{'/dashboard'}" id="navbar-header-style">Librarian</a>
                 </div>
                 <ul class="nav navbar-right" style="float: right">
                     <li class="dropdown profile-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="profile-dropdown">Logged employee <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="profile-dropdown">Logged user <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">My Profile</a></li>
-                            <li><a href="#">Logout</a></li>
-
+                            <li><a href="#" th:href="@{'/employee/display'}">My Profile</a></li>
+                            <li><a href="#" th:href="@{/logout}">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -48,19 +54,21 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-resized-menu" id="navbar-collapse"  style="float: left;">
                 <ul class="nav navbar-nav">
-                    <li class="active-menu-item"><a href="#" >Users <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Items</a></li>
-                    <li><a href="#">Employees</a></li>
+                     <li ><a href="#" th:href="@{'/user/list'}" >Users</a></li>
+                     <li ><a href="#" th:href="@{'/item/list'}">Items<span class="sr-only">(current)</span></a></li>
+                     <li class="active" sec:authorize="hasAuthority('ADMIN')" ><a href="#" th:href="@{'/employee/list'}">Employees</a></li>
+
                 </ul>
             </div><!-- /.navbar-collapse -->
             </div>
         </div><!-- /.container-fluid -->
     </nav>
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-8 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading details-title" id="panel-heading-title">
-                    User Details
+                    <a th:href="@{'/employee/' + ${employee.id} + '/update/details'}" href="#" role="button" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></a>
+                    Employee Details
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -68,7 +76,7 @@
                     <ul class="nav nav-tabs" id="content-tabs">
                         <li class="active"><a href="#home" data-toggle="tab">Home</a>
                         </li>
-                        <li class=""><a href="#profile" data-toggle="tab">Edit</a>
+                        <li class=""><a href="#loans" data-toggle="tab">Employee Loans</a>
                         </li>
                     </ul>
                     <!-- Tab panes -->
@@ -79,146 +87,73 @@
                                 <div class="panel-heading" id="panel-body-heading">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <p class="panel-title" th:text=" 'User id #' + ${user.id}">Employee #id</p>
+                                            <p class="panel-title" th:text=" 'Employee id #' + ${employee.id}">Employee #id</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="panel-body">
-                                        <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 details-box">
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 details-box">
                                             <div class="col-md-12  col-xs-12 display-fields" >
                                                 <label>First Name</label>
-                                                <p th:text="${user.firstName}">Adam</p>
+                                                <p th:text="${employee.firstName}">Adam</p>
                                             </div>
                                             <div class="col-md-12  col-xs-12 display-fields" >
                                                 <label>Last Name</label>
-                                                <p th:text="${user.lastName}">Novy</p>
+                                                <p th:text="${employee.lastName}">Novy</p>
                                             </div>
                                             <div class="col-md-12  col-xs-12 display-fields">
+                                                <label>Phone</label>
+                                                <p th:text="${employee.mobile}">77887888e</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 details-box">
+                                            <div class="col-md-12 col-xs-12 display-fields" >
                                                 <label>Email</label>
-                                                <p th:text="${user.phone}">77887888e</p>
+                                                <p th:text="${employee.email}">adam@mail.com</p>
                                             </div>
                                         </div>
-                                    <div class="col-lg-4 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12" id="loan-table" style="float: left;">
-                                        <div class="panel" >
-                                            <div class="panel-heading panel-heading-table">
-                                                <label>Employee Loans</label>
-                                            </div>
-                                            <table id="user-loan-table" class="table table-hover display">
-                                                <thead class="thead-inverse">
-                                                <tr>
-                                                    <th>Title</th>
-                                                    <th>Date</th>
-                                                    <th>User Id</th>
-                                                    <th class="no-sort">Delete</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody style="height: 100%">
-                                                <tr th:remove="all">
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                </tr>
-                                                <tr th:remove="all">
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                </tr> <tr th:remove="all">
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                </tr> <tr th:remove="all">
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                </tr> <tr th:remove="all">
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                </tr> <tr th:remove="all">
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                </tr> <tr th:remove="all">
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                </tr> <tr th:remove="all">
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                </tr> <tr th:remove="all">
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                </tr>
-                                                <tr th:remove="all">
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                    <td > this</td>
-                                                </tr>
-                                                <tr th:each="loan : ${user.loanLine}">
-                                                    <td th:text="${loan.item.title}"> item title</td>
-                                                    <td th:text="${loan.loanDate}">date</td>
-                                                    <td th:text="${loan.user.id}">id</td>
-                                                    <td><a href="#" th:href="@{'/loanpanel/user/' + ${user.id} + '/loan/' + ${loan.id} + '/deleteloan'}"
-                                                           class="btn-danger btn-xs" style="text-decoration: none" role="button">Delete</a></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="profile">
-                            <label class="tab-title">Edit Tab</label>
-                            <form th:object="${employee}" th:action="@{/itempanel}" method="post">
-                                <input type="hidden" th:field="*{id}"/>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading " id="panel-body-heading-form">
-                                        <h1 class="panel-title">Edit Employee Profile</h1>
+                        <div class="tab-pane fade" id="loans">
+                            <label class="tab-title" style="float: left">Loans</label>
+                            <div class="col-lg-8 col-lg-offset-1  col-md-12 col-sm-12 col-xs-12" >
+                                <div class="panel" >
+                                    <div class="panel-heading panel-heading-table">
+                                        <label>Active Loans</label>
                                     </div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-5 form-group">
-                                                <label>First Name:</label>
-                                                <input type="text" class="form-control" th:field="*{firstName}"/>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-5 form-group">
-                                                <label>Last Name:</label>
-                                                <input type="text" class="form-control" th:field="*{lastName}"/>
-                                            </div>
-                                            <div class="col-md-3 form-group">
-                                                <label>Password:</label>
-                                                <input type="password" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3 form-group">
-                                                <label>Email:</label>
-                                                <input type="text" class="form-control" th:field="*{email}">
-                                            </div>
-                                            <div class="col-md-3 form-group">
-                                                <label>Confirm Password:</label>
-                                                <input type="password" class="form-control" th:field="*{password}">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <table id="user-loan-table" class="table table-hover table-striped table-bordered table-responsive" style="min-width: 100%">
+                                        <thead >
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Title</th>
+                                                <th>User</th>
+                                                <th class="no-sort">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="height: 100%">
+                                            <tr th:remove="all">
+                                                <td > this</td>
+                                                <td > this</td>
+                                                <td > this</td>
+                                            </tr>
+                                            <tr th:remove="all">
+                                                <td > this</td>
+                                                <td > this</td>
+                                                <td > this</td>
+                                            </tr>
+                                            <tr th:each="loan : ${employee.loansByEmployee}">
+                                                <td th:text="${loan.item.title}"> item title</td>
+                                                <td th:text="${loan.loanDate}">date</td>
+                                                <td th:text="${loan.user.id}">date</td>
+                                                <td><a href="#" th:href="@{'/loan/user/' + ${loan.user.id} + '/loan/' + ${loan.id} + '/delete'}"
+                                                       class="btn-danger btn-xs" style="text-decoration: none" role="button">Delete</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>

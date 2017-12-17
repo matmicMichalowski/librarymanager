@@ -32,10 +32,10 @@ public class ImageController {
         this.itemService = itemService;
     }
 
-    @GetMapping("/{imageOwner}/{id}/uploadimage")
+    @GetMapping("/{imageOwner}/{id}/update/image")
     public String showUploadFormForUser (@PathVariable String  imageOwner, @PathVariable String id, Model model){
 
-        if (imageOwner.equalsIgnoreCase("userpanel")) {
+        if (imageOwner.equalsIgnoreCase("user")) {
             model.addAttribute("user", userService.findUserById(Long.valueOf(id)));
             return imageOwner +  "/imageuploadform";
         }else{
@@ -46,19 +46,18 @@ public class ImageController {
     }
 
 
-
-    @PostMapping("{imageOwner}/{id}/image")
+    @PostMapping("{imageOwner}/{id}/save/image")
     public String handleItemImagePost(@PathVariable String imageOwner, @PathVariable String id, @RequestParam("imagefile")MultipartFile imageFile){
         imageService.saveImageFile(imageOwner, Long.valueOf(id), imageFile);
 
-        return "redirect:/" + imageOwner + "/" + id + "/show";
+        return "redirect:/" + imageOwner + "/" + id + "/display";
     }
 
     @GetMapping("{imageOwner}/{id}/showimage")
     public void renderImageFromDB (@PathVariable String imageOwner, @PathVariable String id, HttpServletResponse response) throws IOException {
         ImageSuperclass owner;
 
-        if (imageOwner.equalsIgnoreCase("userpanel")){
+        if (imageOwner.equalsIgnoreCase("user")){
             owner = userService.findUserById(Long.valueOf(id));
         }else{
              owner = itemService.findItemById(Long.valueOf(id));

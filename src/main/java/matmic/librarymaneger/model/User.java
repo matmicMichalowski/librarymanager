@@ -25,8 +25,6 @@ public class User extends ImageSuperclass{
     private String address;
     private String postCode;
 
-//    @Lob
-//    private Byte[] userImage;
 
 
     @OneToMany(cascade = CascadeType.ALL)

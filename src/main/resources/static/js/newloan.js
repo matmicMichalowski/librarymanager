@@ -26,14 +26,25 @@ $(document).ready(function () {
     });
 });
 
+// $(document).ready(function(){
+//
+//     console.log(userId);
+//       $(function(){
+//           //$(".user-id-field").val("jumbo");
+//       })
+// })
+
 
 $(document).ready(function(){
 
     var tableData = $("#user-newloan-table").DataTable();
+    var userId = $("#user-id").text();
+
 
     $("#user-newloan-table tbody").on('click', 'tr', function () {
         var data = tableData.row(this).data();
-        $(".item-id-field").text(data[0]);
+        $(".user-id-field").val(userId);
+        $(".item-id-field").val(data[0]);
         $("#item-author").val(data[2]);
     })
 

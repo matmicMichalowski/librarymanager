@@ -42,10 +42,8 @@ public class Item extends ImageSuperclass{
     @Enumerated(value = EnumType.STRING)
     private Availability isAvailable = Availability.AVAILABLE;
 
-//    @Lob
-//    private Byte[] itemImage;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Loan loan;
 
     public void setLoan(Loan loan){

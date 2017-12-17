@@ -1,10 +1,14 @@
 package matmic.librarymaneger.services;
 
 
+import matmic.librarymaneger.command.ItemCommand;
+import matmic.librarymaneger.converter.ItemCommandToItem;
+import matmic.librarymaneger.converter.ItemToItemCommand;
 import matmic.librarymaneger.model.Item;
 import matmic.librarymaneger.repositories.ItemRepository;
 import matmic.librarymaneger.repositories.LoanRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -15,11 +19,15 @@ public class ItemServiceImpl implements ItemService{
 
     private final ItemRepository itemRepository;
     private final LoanRepository loanRepository;
+    private final ItemCommandToItem itemCommandToItem;
+    private final ItemToItemCommand itemToItemCommand;
 
     public ItemServiceImpl(ItemRepository itemRepository,
-                            LoanRepository loanRepository) {
+                           LoanRepository loanRepository, ItemCommandToItem itemCommandToItem, ItemToItemCommand itemToItemCommand) {
         this.itemRepository = itemRepository;
         this.loanRepository = loanRepository;
+        this.itemCommandToItem = itemCommandToItem;
+        this.itemToItemCommand = itemToItemCommand;
     }
 
     @Override
@@ -33,17 +41,23 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public Item saveItem(Item item) {
+    @Transactional
+    public ItemCommand findItemCommandById(Long id){
+        return itemToItemCommand.convert(findItemById(id));
+    }
 
-        Item savedItem = itemRepository.save(item);
-        return savedItem;
+    @Override
+    public ItemCommand saveItem(ItemCommand itemToSave) {
+        Item detachedItem = itemCommandToItem.convert(itemToSave);
+
+        Item savedItem = itemRepository.save(detachedItem);
+        return itemToItemCommand.convert(savedItem);
     }
 
     @Override
     public Set<Item> getItems() {
         Set<Item> items = new HashSet<>();
         itemRepository.findAll().iterator().forEachRemaining(items::add);
-        System.out.println(items.size() + " _");
         return items;
     }
 

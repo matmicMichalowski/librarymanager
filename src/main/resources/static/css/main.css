@@ -250,3 +250,46 @@ body{
 .dataTables_scrollHeadInner{
     min-width: 100%;
 }
+
+#register-link{
+    font-size: 18px;
+    color: #ffffff;
+    cursor: pointer;
+    float: left;
+}
+
+#reset-password-link{
+    font-size: 18px;
+    color: #ffffff;
+    cursor: pointer;
+    float: right;
+}
+
+#confirm-password{
+    margin-bottom: 5px;
+}
+
+#password-alert{
+    display: none;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+
+.showMsg{
+    border: 2px solid #8e0000;
+    border-radius: 5px;
+    background: #ff5f52;
+    color: #8e0000;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.showInfoMsg{
+    border: 2px solid #6f79a8;
+    border-radius: 5px;
+    background: #d1d9ff;
+    color: #6f79a8;
+    padding: 10px;
+    margin-bottom: 20px;
+}

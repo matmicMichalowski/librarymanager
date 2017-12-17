@@ -1,5 +1,6 @@
 package matmic.librarymaneger.services;
 
+import lombok.extern.slf4j.Slf4j;
 import matmic.librarymaneger.command.LoanCommand;
 import matmic.librarymaneger.converter.LoanCommandToLoan;
 import matmic.librarymaneger.converter.LoanToLoanCommand;
@@ -16,8 +17,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
+@Slf4j
 @Service
 public class LoanServiceImpl implements LoanService{
 
@@ -49,22 +53,35 @@ public class LoanServiceImpl implements LoanService{
 
         Employee employee = employeeRepository.findByEmail(username);
 
-        if(!userOptional.isPresent() || !itemOptional.isPresent()){
-            return new LoanCommand();
-        }else {
 
+
+        if(userOptional.isPresent() && itemOptional.isPresent()){
             Item item = itemOptional.get();
+
+            User user = userOptional.get();
 
             Loan loanToSave = loanCommandToLoan.convert(loanCommand);
 
+
             loanToSave.setItem(item);
-            loanToSave.setUser(userOptional.get());
+            loanToSave.setUser(user);
             loanToSave.setEmployee(employee);
             loanRepository.save(loanToSave);
 
 
             return loanToLoanCommand.convert(loanToSave);
+
+        }else {
+            return new LoanCommand();
         }
+    }
+
+    @Override
+    public Set<Loan> getLoans() {
+        Set<Loan> loans = new HashSet<>();
+
+        loanRepository.findAll().iterator().forEachRemaining(loans::add);
+        return loans;
     }
 
     @Override
@@ -82,7 +99,6 @@ public class LoanServiceImpl implements LoanService{
 
             loanRepository.delete(toBeDeleted);
 
-            itemRepository.save(item);
         }
     }
 }

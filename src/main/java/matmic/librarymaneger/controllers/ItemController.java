@@ -1,6 +1,7 @@
 package matmic.librarymaneger.controllers;
 
 
+import matmic.librarymaneger.command.ItemCommand;
 import matmic.librarymaneger.model.Item;
 import matmic.librarymaneger.services.ItemService;
 import org.springframework.stereotype.Controller;
@@ -16,40 +17,40 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @RequestMapping("itempanel/itemslist")
+    @RequestMapping("item/list")
     public String showItemsList (Model model){
         model.addAttribute("items", itemService.getItems());
-        return "itempanel/itemslist";
+        return "item/itemlist";
     }
 
-    @GetMapping("itempanel/{id}/show")
+    @GetMapping("item/{id}/display")
     public String showById(@PathVariable String id, Model model){
         model.addAttribute("item", itemService.findById(new Long(id)));
-        return "itempanel/show";
+        return "item/itemdisplay";
     }
 
-    @GetMapping("itempanel/newitem")
+    @GetMapping("item/newitem")
     public String newItem(Model model){
         model.addAttribute("item", new Item());
-        return "itempanel/itemform";
+        return "item/newitem";
     }
 
-    @PostMapping("itempanel")
-    public String saveOrUpdate(@ModelAttribute Item item){
-        Item savedItem = itemService.saveItem(item);
-        return "redirect:/itempanel/" + savedItem.getId() + "/show";
+    @PostMapping("saveitem")
+    public String saveOrUpdate(@ModelAttribute("item") ItemCommand itemCommand){
+        ItemCommand savedItem = itemService.saveItem(itemCommand);
+        return "redirect:/item/" + savedItem.getId() + "/display";
     }
 
-    @GetMapping("itempanel/{id}/itemupdate")
+    @GetMapping("item/{id}/update/details")
     public String updateItem(@PathVariable String id, Model model){
-        model.addAttribute("item", itemService.findItemById(Long.valueOf(id)));
-        return "itempanel/itemform";
+        model.addAttribute("item", itemService.findItemCommandById(Long.valueOf(id)));
+        return "item/itemform";
     }
 
-    @GetMapping("itempanel/{id}/delete")
+    @GetMapping("item/{id}/delete")
     public String deleteItemById(@PathVariable String id){
         itemService.deleteById(Long.valueOf(id));
-        return "redirect:/itempanel/itemslist";
+        return "redirect:/item/itemlist";
     }
 
 }

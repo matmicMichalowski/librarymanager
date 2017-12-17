@@ -1,6 +1,7 @@
 package matmic.librarymaneger.controllers;
 
 
+import matmic.librarymaneger.command.UserCommand;
 import matmic.librarymaneger.model.User;
 import matmic.librarymaneger.services.ItemService;
 import matmic.librarymaneger.services.UserService;
@@ -20,45 +21,45 @@ public class UserController {
         this.itemService = itemService;
     }
 
-    @RequestMapping("user/userslist")
+    @RequestMapping("user/list")
     public String showUsersPanel(Model model){
         model.addAttribute("users", userService.getUsers());
         return "user/userlist";
     }
 
-    @RequestMapping("user/{id}/userdisplay")
+    @GetMapping("user/{id}/display")
     public String showById(@PathVariable String id, Model model){
         model.addAttribute("user", userService.findById(new Long(id)));
         model.addAttribute("items", itemService.getItems());
         return "user/userdisplay";
     }
 
-    @RequestMapping("userpanel/newuser")
+    @GetMapping("user/new")
     public String newUser(Model model){
         model.addAttribute("user", new User());
 
-        return "userpanel/userform";
+        return "user/userform";
     }
 
     @PostMapping
     @RequestMapping("saveuser")
-    public String saveOrUpdate(@ModelAttribute User user){
-        User savedUser = userService.saveUser(user);
+    public String saveOrUpdate(@ModelAttribute("user") UserCommand userCommand){
+        UserCommand savedUser = userService.saveUser(userCommand);
 
-        return "redirect:/user/" + savedUser.getId() + "/userdisplay";
+        return "redirect:/user/" + savedUser.getId() + "/display";
     }
 
 
-    @RequestMapping("userpanel/{id}/userupdate")
+    @GetMapping("user/{id}/update/details")
     public String updateUser(@PathVariable String id, Model model){
-        model.addAttribute("user", userService.findUserById(Long.valueOf(id)));
-        return "userpanel/userform";
+        model.addAttribute("user", userService.findUserCommandById(Long.valueOf(id)));
+        return "user/userform";
     }
 
-    @GetMapping("userpanel/{id}/delete")
+    @GetMapping("user/{id}/delete")
     public String deleteUserById(@PathVariable String id){
         userService.deleteById(Long.valueOf(id));
-        return "redirect:/userpanel/userslist";
+        return "redirect:/user/user/list";
 
     }
 

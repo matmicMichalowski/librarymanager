@@ -12,7 +12,25 @@ $(document).ready(function () {
     });
 });
 
+$(function(){
+    $('#submit-button').click(function () {
+        var password = $('#password').val();
+        var confirm_password = $('#confirm-password').val();
+        if(password != confirm_password){
+            $('#password-error').text('Passwords Don\'t Match');
+            $('#password-alert').show();
+            return false;
+        }
 
+        return true;
+
+    });
+});
+
+
+
+
+//List buttons orientation, changing on window size
 
 $(window).resize(function(){
 
@@ -44,6 +62,7 @@ $(document).ready(function () {
     });
 });
 
+//Enable
 
 $(function ($) {
     var window = $(window),
@@ -56,6 +75,7 @@ $(function ($) {
     })
 });
 
+//Image position in Item view.
 
 $(window).resize(function(){
 
@@ -71,6 +91,8 @@ $(window).resize(function(){
 
 
 });
+
+
 
 $(window).resize(function(){
 
@@ -88,7 +110,8 @@ $(window).resize(function(){
 });
 
 
-// Enable showing chosen file name
+// Enable showing chosen file name in image input field.
+
 $(function(){
     $(document).on('change', ':file', function(){
         var input = $(this),

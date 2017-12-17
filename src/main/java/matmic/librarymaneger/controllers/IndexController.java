@@ -1,20 +1,27 @@
 package matmic.librarymaneger.controllers;
 
+import matmic.librarymaneger.services.LoanService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller
 public class IndexController {
 
 
+    private final LoanService loanService;
 
-    @RequestMapping("/index")
-    public String getIndexPage(){
+    public IndexController(LoanService loanService) {
+        this.loanService = loanService;
+    }
+
+
+    @GetMapping("/dashboard")
+    public String getDashboardPage(Model model){
+
+        model.addAttribute("loans", loanService.getLoans());
         return "dashboard";
     }
 
-    @RequestMapping("mainpanel")
-    public String goToMain(){
-        return "redirect:/index";
-    }
 }
