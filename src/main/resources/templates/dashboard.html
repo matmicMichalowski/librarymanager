@@ -152,42 +152,6 @@
                                         </td>
                                     </tr>
                                     <tr th:remove="all">
-                                        <td>2</td>
-                                        <td>mail@mail.com</td>
-                                        <td>23545-234-213</td>
-                                        <td>Don Dada</td>
-                                        <td class="td-align">
-                                            <div class="action-buttons btn-group">
-                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr th:remove="all">
-                                        <td>3</td>
-                                        <td>mail@mail.com</td>
-                                        <td>23545-234-213</td>
-                                        <td>Don Dada</td>
-                                        <td class="td-align">
-                                            <div class="action-buttons btn-group">
-                                                <a class="btn btn-primary table-btn" href="#" ><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr th:remove="all">
-                                        <td>4</td>
-                                        <td>mail@mail.com</td>
-                                        <td>23545-234-213</td>
-                                        <td>Don Dada</td>
-                                        <td class="td-align">
-                                            <div class="action-buttons btn-group">
-                                                <a class="btn btn-primary table-btn" href="#"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr th:remove="all">
                                         <td>5</td>
                                         <td>mail@mail.com</td>
                                         <td>23545-234-213</td>
@@ -209,7 +173,7 @@
                                         <td class="td-align">
                                             <div class="action-buttons btn-group">
                                                 <a class="btn btn-primary table-btn" href="#" th:href="@{'/user/' + ${loan.user.id} + '/display'}"><span class="glyphicon glyphicon-folder-open"></span></a>
-                                                <a class="btn btn-danger table-btn" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a class="btn btn-danger table-btn" href="#" th:href="@{'/user/' + ${loan.user.id} + '/loan/' + ${loan.id} + '/delete'}"><span class="glyphicon glyphicon-trash"></span></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -224,8 +188,6 @@
         </div>
     </div>
 </div>
-
-
 </body>
 </html>
 

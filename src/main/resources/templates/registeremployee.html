@@ -15,6 +15,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.js"></script>
 
     <script th:src="@{/js/librarian.js}"></script>
+    <script th:src="@{/js/message.js}"></script>
     <link th:href="@{/css/main.css}" rel="stylesheet">
 
 </head>
@@ -80,8 +81,11 @@
                                             <span id="password-error"></span>
                                         </div>
                                     </div>
-
                                 </div>
+                                <div id="error-container">
+                                 <span id="email-error" th:text="${emailTaken}"></span>
+                                </div>
+
                             </div>
                         </div>
                         <button id="submit-button" type="submit" class="btn btn-primary">Register</button>

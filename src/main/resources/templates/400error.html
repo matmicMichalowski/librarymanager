@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>400 BAD REQUEST</title>
+
+    <script th:src="@{/js/jquery-3.2.1.js}"></script>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.css"/>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.5.0/b-html5-1.5.0/r-2.2.1/datatables.min.js"></script>
+
+    <script th:src="@{/js/librarian.js}"></script>
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<!--/*@thymesVar id="employee" type="matmic.librarymaneger.model.Employee"*/-->
+
+<div class="container-fluid">
+    <nav class="navbar navbar-colors"  id="navbar-baner-profile">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="row">
+                <div class="navbar-header navbar-left" style="float: left" >
+                    <a class="navbar-brand" href="#" th:href="@{'/dashboard'}" id="navbar-header-style">Librarian</a>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+            <div class="panel panel-default registration">
+                <div class="panel-heading details-title" id="panel-heading-title">
+                    Error!
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <h1>400</h1> <span style="font-size: 16px; font-weight: 700">Bad Request</span>
+                    <p>Your request contains bad syntax and cannot be fulfilled.</p>
+                </div>
+            </div>
+        </div>
+                <!-- /.panel-body -->
+    </div>
+            <!-- /.panel -->
+</div>
+
+
+
+
+</body>
+</html>
+

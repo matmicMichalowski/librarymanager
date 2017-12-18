@@ -150,44 +150,11 @@
                                                 <td > this</td>
                                                 <td > this</td>
                                                 <td > this</td>
-                                            </tr> <tr th:remove="all">
-                                                <td > this</td>
-                                                <td > this</td>
-                                                <td > this</td>
-                                            </tr> <tr th:remove="all">
-                                                <td > this</td>
-                                                <td > this</td>
-                                                <td > this</td>
-                                            </tr> <tr th:remove="all">
-                                                <td > this</td>
-                                                <td > this</td>
-                                                <td > this</td>
-                                            </tr> <tr th:remove="all">
-                                                <td > this</td>
-                                                <td > this</td>
-                                                <td > this</td>
-                                            </tr> <tr th:remove="all">
-                                                <td > this</td>
-                                                <td > this</td>
-                                                <td > this</td>
-                                            </tr> <tr th:remove="all">
-                                                <td > this</td>
-                                                <td > this</td>
-                                                <td > this</td>
-                                            </tr> <tr th:remove="all">
-                                                <td > this</td>
-                                                <td > this</td>
-                                                <td > this</td>
-                                            </tr>
-                                            <tr th:remove="all">
-                                                <td > this</td>
-                                                <td > this</td>
-                                                <td > this</td>
                                             </tr>
                                             <tr th:each="loan : ${user.loanLine}">
                                                 <td th:text="${loan.item.title}"> item title</td>
                                                 <td th:text="${loan.loanDate}">date</td>
-                                                <td><a href="#" th:href="@{'/loan/user/' + ${user.id} + '/loan/' + ${loan.id} + '/delete'}"
+                                                <td><a href="#" th:href="@{'/user/' + ${user.id} + '/loan/' + ${loan.id} + '/delete'}"
                                                        class="btn-danger btn-xs" style="text-decoration: none" role="button">Delete</a></td>
                                             </tr>
                                         </tbody>
