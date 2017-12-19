@@ -54,7 +54,6 @@ public class LoanServiceImpl implements LoanService{
         Employee employee = employeeRepository.findByEmail(username);
 
 
-
         if(userOptional.isPresent() && itemOptional.isPresent()){
             Item item = itemOptional.get();
 

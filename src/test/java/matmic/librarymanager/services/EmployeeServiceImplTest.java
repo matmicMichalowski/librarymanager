@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class EmployeeServiceImplTest {
     @Mock
     private EmployeeCommandToEmployee employeeCommandToEmployee;
 
-    @Autowired
+    @Mock
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private EmployeeServiceImpl service;
@@ -49,7 +48,6 @@ public class EmployeeServiceImplTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-
 
 
          service = new EmployeeServiceImpl(employeeRepository, roleRepository, bCryptPasswordEncoder,
@@ -104,7 +102,6 @@ public class EmployeeServiceImplTest {
         employee1.getEmployeeRoles().add(new EmployeeRole(employee1, testRole2));
         List<Employee> employees = new ArrayList<>();
 
-        System.out.println(employee.getEmployeeRoles().size() + " " + employee1.getEmployeeRoles().size());
         employees.add(employee);
         employees.add(employee1);
 

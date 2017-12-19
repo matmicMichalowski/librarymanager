@@ -1,9 +1,10 @@
 package matmic.librarymanager.converter;
 
-import matmic.librarymanager.command.ItemCommand;
+
 import matmic.librarymanager.command.LoanCommand;
-import matmic.librarymanager.command.UserCommand;
+import matmic.librarymanager.model.Item;
 import matmic.librarymanager.model.Loan;
+import matmic.librarymanager.model.User;
 import matmic.librarymanager.repositories.ItemRepository;
 import matmic.librarymanager.repositories.UserRepository;
 import matmic.librarymanager.services.ItemService;
@@ -15,8 +16,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
 public class LoanCommandToLoanTest {
 
@@ -38,9 +43,6 @@ public class LoanCommandToLoanTest {
     @Mock
     private UserService userService;
 
-    private UserCommand user;
-
-    private ItemCommand item;
 
 
     private LoanCommandToLoan converter;
@@ -52,26 +54,30 @@ public class LoanCommandToLoanTest {
         itemService = new ItemServiceImpl(itemRepository, new ItemCommandToItem(itemRepository), new ItemToItemCommand());
         converter = new LoanCommandToLoan(itemService, userService);
 
-        user = new UserCommand();
-        user.setId(USER_ID);
-        userService.saveUser(user);
-
-        item = new ItemCommand();
-        item.setId(ITEM_ID);
-        itemService.saveItem(item);
-
-        System.out.println(userService.getUsers().size() + "  " + itemService.getItems().size());
     }
 
 
     @Test
     public void convert() throws Exception {
+
         LoanCommand loanCommand = new LoanCommand();
-
-
         loanCommand.setId(ID);
-        loanCommand.setUserId(user.getId());
-        loanCommand.setItemId(item.getId());
+        loanCommand.setUserId(USER_ID);
+        loanCommand.setItemId(ITEM_ID);
+
+        User user = new User();
+        user.setId(USER_ID);
+
+        Optional<User> optional = Optional.of(user);
+
+        Item item = new Item();
+        item.setId(ITEM_ID);
+
+        Optional<Item> itemOptional = Optional.of(item);
+
+        when(userRepository.findUserById(anyLong())).thenReturn(optional);
+        when(itemRepository.findItemById(anyLong())).thenReturn(itemOptional);
+
 
         Loan loan = converter.convert(loanCommand);
 

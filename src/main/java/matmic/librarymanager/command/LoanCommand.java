@@ -12,5 +12,4 @@ public class LoanCommand {
 
     private Long itemId;
     private Long userId;
-
 }

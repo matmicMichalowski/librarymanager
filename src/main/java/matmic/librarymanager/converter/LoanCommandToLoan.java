@@ -40,9 +40,6 @@ public class LoanCommandToLoan implements Converter<LoanCommand, Loan> {
         loan.setUser(userService.findUserById(loanCommand.getUserId()));
         loan.setItem(itemService.findItemById(loanCommand.getItemId()));
 
-
-
-
         return loan;
     }
 }

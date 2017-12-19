@@ -20,22 +20,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
-//
-//    private EmployeeServiceImpl employeeService;
-//
-//    public SecurityConfiguration(BCryptPasswordEncoder bCryptPasswordEncoder, EmployeeServiceImpl employeeService) {
-//
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-//        this.employeeService = employeeService;
-//    }
-
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth)throws Exception{
-//
-//        auth.userDetailsService(employeeService)
-//                .passwordEncoder(bCryptPasswordEncoder);
-//    }
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
@@ -82,12 +66,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
 
 
-
-
-//    @Bean
-//    public BCryptPasswordEncoder passwordEncoder(){
-//        return bCryptPasswordEncoder;
-//    }
 
     @Autowired
     public DriverManagerDataSource dataSource(){

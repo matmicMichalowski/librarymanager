@@ -99,6 +99,15 @@ public class UserControllerTest {
     }
 
     @Test
+    public void showByIdBadRequest() throws Exception {
+
+        mockMvc.perform(get("/user/asd/display"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(view().name("400error"));
+    }
+
+
+    @Test
     public void newUser() throws Exception {
 
         mockMvc.perform(get("/user/new"))

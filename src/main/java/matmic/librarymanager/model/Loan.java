@@ -118,6 +118,6 @@ public class Loan {
     }
 
     private boolean sameAsFormerEmployee(Employee newEmployee){
-        return user == null ? newEmployee == null : user.equals(newEmployee);
+        return employee == null ? newEmployee == null : employee.equals(newEmployee);
     }
 }

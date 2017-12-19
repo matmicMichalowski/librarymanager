@@ -6,6 +6,7 @@ import matmic.librarymanager.converter.UserCommandToUser;
 import matmic.librarymanager.converter.UserToUserCommand;
 import matmic.librarymanager.model.User;
 import matmic.librarymanager.repositories.UserRepository;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService{
         Optional<User> userOptional = userRepository.findUserById(id);
 
         if(!userOptional.isPresent()){
-            //throw new NotFoundException("User not found.");
+            throw new NotFoundException("User not found.");
         }
 
         return userOptional.get();

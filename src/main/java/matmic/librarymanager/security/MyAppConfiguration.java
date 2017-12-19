@@ -14,7 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class MyAppConfiguration {
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){return new BCryptPasswordEncoder();}
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
     @Lazy
     @Autowired

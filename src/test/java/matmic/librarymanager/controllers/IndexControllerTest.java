@@ -7,8 +7,6 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import java.util.HashSet;
@@ -28,14 +26,14 @@ public class IndexControllerTest {
 
     private IndexController controller;
 
-    private MockMvc mockMvc;
+
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
         controller = new IndexController(loanService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
     }
 
     @Test
