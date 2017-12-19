@@ -25,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
         auth.jdbcAuthentication().dataSource(dataSource())
                 .usersByUsernameQuery(
-                        "select email,password,active from employee where username=?")
+                        "select email,password,active from employee where email=?")
                 .authoritiesByUsernameQuery(
                        "select e.email, r.name from employee as e inner join employee_role as er on(e.id=er.employee_id) inner join role as r on(er.role_id=r.id) where e.email=?");
 

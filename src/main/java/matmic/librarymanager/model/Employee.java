@@ -6,6 +6,8 @@ import lombok.Setter;
 import matmic.librarymanager.model.rolemodel.EmployeeRole;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +28,12 @@ public class Employee implements Serializable{
     private String password;
     private String firstName;
     private String lastName;
+
+    @Pattern(regexp = "(?:\\d{3}-){2}\\d{3}", message = "Please provide your phone number in this pattern '123-123-123'")
+    @NotEmpty(message = "Please provide your mobile phone in this way '999-999-999'")
     private String mobile;
+
+    @Column(name = "active")
     private boolean isActive;
     private String resetToken;
 
