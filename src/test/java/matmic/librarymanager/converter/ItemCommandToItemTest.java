@@ -24,7 +24,7 @@ public class ItemCommandToItemTest {
     private static final String RELEASE_NUMBER = "12/2017";
     private static final String AUTHOR = "Editor-in-chief";
     private static final String GENRE = "Science";
-    private static final int YEAR = 2017;
+    private static final Integer YEAR = 2017;
 
 
     @Mock

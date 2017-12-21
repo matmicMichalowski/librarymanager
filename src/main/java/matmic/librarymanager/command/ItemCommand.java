@@ -7,6 +7,8 @@ import matmic.librarymanager.model.enums.DistributionType;
 import matmic.librarymanager.model.enums.ItemType;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Setter
@@ -20,6 +22,7 @@ public class ItemCommand {
     private DistributionType distributionType;
 
     @NotEmpty(message = "Please provide item ISN")
+    @Pattern(regexp = "^([0-9]{9,12}-)[0-9xX]$")
     private String internationalSegregationNumber;
 
     @Size(min=2, max=600)
@@ -35,11 +38,13 @@ public class ItemCommand {
     private String releaseNumber;
 
     @NotEmpty(message = "Please provide item Author")
+    @Size(min = 2, max = 64)
     private String author;
 
     @NotEmpty(message = "Please provide item Genre")
+    @Size(min = 4, max = 36)
     private String genre;
 
-    @NotEmpty(message = "Please provide item Year")
+    @NotNull(message = "Please provide item Year")
     private int year;
 }

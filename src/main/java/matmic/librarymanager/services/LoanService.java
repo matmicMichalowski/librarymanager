@@ -9,5 +9,6 @@ import java.util.Set;
 public interface LoanService {
     LoanCommand saveLoan(LoanCommand loanCommand);
     Set<Loan> getLoans();
+    void updateLoansDeadline();
     void deleteLoanById(Long loanId);
 }

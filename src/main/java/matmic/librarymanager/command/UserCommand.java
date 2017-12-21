@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
@@ -30,5 +31,7 @@ public class UserCommand {
 
     @NotEmpty(message = "Please provide user Address")
     private String address;
+
+    @Pattern(regexp = "(?:\\d{2}-)\\d{3}")
     private String postCode;
 }

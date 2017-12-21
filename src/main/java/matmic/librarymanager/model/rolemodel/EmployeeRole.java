@@ -17,7 +17,7 @@ public class EmployeeRole implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long employeeRoleId;
+    private Long employeeRoleId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")

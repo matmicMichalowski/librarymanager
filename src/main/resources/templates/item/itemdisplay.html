@@ -22,8 +22,8 @@
 </head>
 <body>
 
-<!--/*@thymesVar id="item" type="matmic.librarymaneger.model.Item"*/-->
-<!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
+<!--/*@thymesVar id="item" type="matmic.librarymanager.model.Item"*/-->
+<!--/*@thymesVar id="user" type="matmic.librarymanager.model.User"*/-->
 
 
 
@@ -64,7 +64,7 @@
         </div><!-- /.container-fluid -->
     </nav>
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-10 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading details-title" id="panel-heading-title">
                     <a th:href="@{'/item/' + ${item.id} + '/update/details'}" href="#" role="button" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></a>
@@ -86,7 +86,7 @@
                                 <div class="panel-heading" id="panel-body-heading">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <p class="panel-title" th:text=" 'Item id #' + ${item.id} + ' item ISN ' + ${item.internationalSegregationNumber}">Item #id</p>
+                                            <p class="panel-title" th:text=" 'Item id #' + ${item.id}">Item #id</p>
                                         </div>
                                     </div>
                                 </div>
@@ -110,32 +110,36 @@
                                                 <label>Availability</label>
                                                 <p th:text="${item.isAvailable}">adam@mail.com</p>
                                             </div>
-                                            <div class="col-md-12 col-xs-12 display-fields" >
+                                            <div class="col-md-7 col-xs-12 display-fields" >
                                                 <label>Actual Loan</label>
                                                 <p th:if="${item.loan == null}" th:text="'N/D'">loan</p>
-                                                <p th:if="${item.loan != null}" th:text="${item.loan.id + ' ' + item.loan.loanDate}">an</p>
+                                                <p th:if="${item.loan != null}" th:text="${'ID#' + item.loan.id + ' ' + item.loan.loanDate}">an</p>
                                             </div>
                                             <div class="col-md-5 col-xs-12 display-fields" >
                                                 <label>Release</label>
                                                 <p  th:text="${item.releaseNumber}">London</p>
                                             </div>
-                                            <div class="col-md-5 col-xs-12 display-fields" >
+                                            <div class="col-md-12 col-xs-12 display-fields" >
                                                 <label>Genre</label>
                                                 <p th:text="${item.genre}">Baker Street 221B A41</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 details-box" >
                                                 <div class="col-md-12 col-xs-12 display-fields" >
-                                                    <label>Publication Type</label>
+                                                    <label>Publication</label>
                                                     <p th:text="${item.itemType}">adam@mail.com</p>
                                                 </div>
-                                                <div class="col-md-12 col-xs-12 display-fields" >
-                                                    <label>Distribution Type</label>
+                                                <div class="col-md-7 col-xs-12 display-fields" >
+                                                    <label>Distribution</label>
                                                     <p  th:text="${item.distributionType}">London</p>
                                                 </div>
-                                                <div class="col-md-12 col-xs-12 display-fields" >
+                                                <div class="col-md-3 col-xs-12 display-fields" >
                                                     <label>Year</label>
                                                     <p th:text="${item.year}">Baker Street 221B A41</p>
+                                                </div>
+                                                <div class="col-md-12 col-xs-12 display-fields" >
+                                                    <label>Segregation number</label>
+                                                    <p th:text="${item.internationalSegregationNumber}">ISN</p>
                                                 </div>
                                         </div>
                                     <div class="col-lg-3 col-md-2 col-sm-12 col-xs-12" id="item-image">

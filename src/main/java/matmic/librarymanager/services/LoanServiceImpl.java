@@ -16,7 +16,9 @@ import matmic.librarymanager.repositories.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -74,6 +76,23 @@ public class LoanServiceImpl implements LoanService{
             return new LoanCommand();
         }
     }
+
+    @Override
+    @Transactional
+    public void updateLoansDeadline(){
+        LocalDate actualDate = LocalDate.now();
+
+        Set<Loan> loanSet = getLoans();
+
+         loanSet.forEach(loan -> {
+            if (loan.getLoanDeadline().compareTo(actualDate) < 0){
+                loan.setBeforeDeadline(false);
+            }
+        });
+
+         loanRepository.saveAll(loanSet);
+    }
+
 
     @Override
     public Set<Loan> getLoans() {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Employee Display</title>
+    <title>Image upload</title>
 
     <script th:src="@{/js/jquery-3.2.1.js}"></script>
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
@@ -38,14 +38,14 @@
         <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
             <div class="panel panel-default registration">
                 <div class="panel-heading details-title" id="panel-heading-title">
-                    New Item
+                    User image upload
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <form action="http:\\localhost" method="post" enctype="multipart/form-data"
                         th:action="@{'/user/' + ${user.id} + '/save/image'}">
                          <div class="col-lg-8 col-sm-12 col-12">
-                             <label>Item Image</label>
+                             <label>User Image</label>
                              <div class="input-group">
                                  <label class="input-group-btn">
                                     <span class="btn btn-default">

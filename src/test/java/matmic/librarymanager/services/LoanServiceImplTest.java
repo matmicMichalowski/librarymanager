@@ -19,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -124,6 +125,26 @@ public class LoanServiceImplTest {
         assertEquals(1, foundLoans.size());
         verify(loanRepository, times(1)).findAll();
         verify(loanRepository, never()).findLoanById(anyLong());
+    }
+
+    @Test
+    public void updateLoansDeadline() throws Exception {
+        LocalDate dateToCheck = LocalDate.now().minusMonths(1);
+        Loan loan = new Loan();
+        loan.setLoanDeadline(dateToCheck);
+
+        Loan loan2 = new Loan();
+
+        Set<Loan> loans = new HashSet<>();
+        loans.add(loan);
+        loans.add(new Loan());
+
+        when(loanService.getLoans()).thenReturn(loans);
+
+        loanService.updateLoansDeadline();
+
+        assertEquals(false, loan.isBeforeDeadline());
+        assertEquals(true, loan2.isBeforeDeadline());
 
     }
 

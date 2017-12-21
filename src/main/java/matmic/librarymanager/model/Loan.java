@@ -5,8 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+
 
 @Entity
 @Setter
@@ -17,7 +18,9 @@ public class Loan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String loanDate;
+    private LocalDate loanDate;
+
+    private LocalDate loanDeadline;
 
     private boolean beforeDeadline;
 
@@ -51,10 +54,23 @@ public class Loan {
     }
 
     public void setLoanDate(){
-        SimpleDateFormat formater = new SimpleDateFormat("dd/M/yyyy");
-        Date currentDate = new Date();
 
-        loanDate = formater.format(currentDate);
+        Long loanDays = 14L;
+
+        LocalDate currentDate = LocalDate.now();
+
+        LocalDate deadlineDate = currentDate.plusDays(loanDays);
+
+
+        if (deadlineDate.getDayOfWeek() == DayOfWeek.SUNDAY){
+            deadlineDate = deadlineDate.plusDays( 1);
+        }else if( deadlineDate.getDayOfWeek() == DayOfWeek.SATURDAY){
+            deadlineDate = deadlineDate.minusDays(1);
+        }
+
+
+        loanDeadline = deadlineDate;
+        loanDate = currentDate;
     }
 
     public void setUser(User user){

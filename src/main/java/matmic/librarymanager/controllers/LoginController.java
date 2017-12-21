@@ -6,15 +6,12 @@ import matmic.librarymanager.model.Employee;
 import matmic.librarymanager.services.EmailService;
 import matmic.librarymanager.services.EmployeeServiceImpl;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -43,16 +40,6 @@ public class LoginController {
         return "loginpage";
     }
 
-    @GetMapping(value="/home")
-    public ModelAndView dashboard(){
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Employee employee = employeeService.findEmployeeByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + employee.getFirstName() + " " + employee.getLastName() + " (" + employee.getEmail() + ")");
-        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-        modelAndView.setViewName("/home");
-        return modelAndView;
-    }
 
     @GetMapping("/reset-request")
     public String displayForgottenPasswordPage(Model model){

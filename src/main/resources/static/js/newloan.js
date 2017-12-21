@@ -21,18 +21,15 @@ $(document).ready(function () {
                 "targets": [7],
                 "visible": false,
                 "searchable": false
+            },{
+                "targets": [8],
+                "visible": false,
+                "searchable": false
             }
         ]
     });
 });
 
-// $(document).ready(function(){
-//
-//     console.log(userId);
-//       $(function(){
-//           //$(".user-id-field").val("jumbo");
-//       })
-// })
 
 
 $(document).ready(function(){
@@ -45,7 +42,17 @@ $(document).ready(function(){
         var data = tableData.row(this).data();
         $(".user-id-field").val(userId);
         $(".item-id-field").val(data[0]);
-        $("#item-author").val(data[2]);
+        $("#item-author").val(data[3]);
+        $("#item-title").val(data[2]);
+        $("#item-type").val(data[1]);
+        $("#item-distribution").val(data[5]);
+        $("#item-genre").val(data[4]);
+        $("#item-year").val(data[7]);
+        $("#item-publisher").val(data[6]);
+        $("#item-isn").val(data[8]);
+
+
+
     })
 
 });

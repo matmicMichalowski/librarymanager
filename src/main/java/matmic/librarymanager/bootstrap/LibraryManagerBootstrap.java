@@ -9,13 +9,12 @@ import matmic.librarymanager.model.rolemodel.Role;
 import matmic.librarymanager.repositories.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+//@Component
 public class LibraryManagerBootstrap implements ApplicationListener<ContextRefreshedEvent>{
 
     private final UserRepository userRepository;
@@ -38,8 +37,8 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        itemRepository.saveAll(getBooks());
-        userRepository.saveAll(getUsers());
+//        itemRepository.saveAll(getBooks());
+//        userRepository.saveAll(getUsers());
     }
 
     private List<Item> getBooks(){
@@ -50,7 +49,7 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         novelBook.setItemType(ItemType.BOOK);
         novelBook.setAuthor("Jhon Novy");
         novelBook.setGenre("Horror");
-        novelBook.setInternationalSegregationNumber("78-987-678-00");
+        novelBook.setInternationalSegregationNumber("7898-7678");
         novelBook.setPublisher("PwN");
         novelBook.setYear(1999);
         novelBook.setTitle("In the wild");
@@ -62,7 +61,7 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         book1.setItemType(ItemType.BOOK);
         book1.setAuthor("Thomas Doe");
         book1.setGenre("Drama");
-        book1.setInternationalSegregationNumber("78-987-777-00");
+        book1.setInternationalSegregationNumber("ISBN 978-0-596-52068-7");
         book1.setPublisher("NWP");
         book1.setYear(1909);
         book1.setTitle("No Man's Land");
@@ -74,7 +73,7 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         book2.setItemType(ItemType.BOOK);
         book2.setAuthor("Britany Beloved");
         book2.setGenre("Sci-Fi");
-        book2.setInternationalSegregationNumber("99-877-678-00");
+        book2.setInternationalSegregationNumber("978-2-1234-5680-3");
         book2.setPublisher("No-name");
         book2.setYear(2000);
         book2.setTitle("Milenial Sky");
@@ -105,6 +104,14 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
 
         Item loanable2 = itemToLoan2.get();
 
+        Optional<Item> itemToLoan3 = itemRepository.findItemByTitle("In the wild");
+
+        if(!itemToLoan3.isPresent()){
+            throw new RuntimeException("Expected Book Not Found");
+        }
+
+        Item loanable3 = itemToLoan3.get();
+
 
         Role role1 = new Role();
         role1.setName("ADMIN");
@@ -112,17 +119,6 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         Role role2 = new Role();
         role2.setName("EMPLOYEE");
         roleRepository.save(role2);
-
-
-
-
-
-//        List<Item> itemsAgain = new ArrayList<>();
-//        itemsAgain.add(loanable1);
-//        itemsAgain.add(loanable2);
-
-
-
 
 
         User user1 = new User();
@@ -147,7 +143,10 @@ public class LibraryManagerBootstrap implements ApplicationListener<ContextRefre
         user2.setPhoneNumber("222-388-588");
         user2.setAddress("Miejska 23/23");
         user2.setPostCode("00-001");
-
+        Loan loan = new Loan(user2, itemToLoan3.get());
+        loan.setBeforeDeadline(false);
+        //loan.setLoanDeadline("12/10/2017");
+        user2.addLoan(loan);
 
         users.add(user2);
 

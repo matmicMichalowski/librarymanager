@@ -27,9 +27,9 @@
 </head>
 <body>
 
-<!--/*@thymesVar id="loan" type="matmic.librarymaneger.model.Loan"*/-->
-<!--/*@thymesVar id="user" type="matmic.librarymaneger.model.User"*/-->
-<!--/*@thymesVar id="employee" type="matmic.librarymaneger.model.Employee"*/-->
+<!--/*@thymesVar id="loan" type="matmic.librarymanager.model.Loan"*/-->
+<!--/*@thymesVar id="user" type="matmic.librarymanager.model.User"*/-->
+<!--/*@thymesVar id="employee" type="matmic.librarymanager.model.Employee"*/-->
 <!--/*@thymesVar id="loans" type="java.util.List"*/-->
 
 
@@ -82,7 +82,7 @@
                     <div class="stats-1-2 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="stats-box light-main-bg">
-                                <div class="count">554</div>
+                                <div class="count" th:text="${users}">554</div>
                                 <div class="title">Users</div>
                             </div>
                             <!--/.info-box-->
@@ -90,7 +90,7 @@
                         <!--/.col-->
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="stats-box light-main-bg">
-                                <div class="count">34</div>
+                                <div class="count" th:text="${loans.size()}">34</div>
                                 <div class="title">Active Loans</div>
                             </div>
                             <!--/.info-box-->
@@ -100,15 +100,20 @@
                     <div class="stats-3-4 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="stats-box light-main-bg">
-                                <div class="count">362</div>
-                                <div class="title">Loans After Deadline</div>
+                                <div class="count" th:text="${afterDeadline}">362</div>
+                                <div class="col-lg-7 col-md-7">
+                                    <div class="title ">Loans After Deadline</div>
+                                </div>
+                                <div class="col-lg-5 col-md-5" style="float: right">
+                                    <a role="button" href="#" th:href="@{'/updateloans'}" class="btn btn-default">Update</a>
+                                </div>
                             </div>
                             <!--/.info-box-->
                         </div>
                         <!--/.col-->
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="stats-box light-main-bg">
-                                <div class="count">426</div>
+                                <div class="count" th:text="${items}">426</div>
                                 <div class="title">Stock</div>
                             </div>
                             <!--/.info-box-->
@@ -131,7 +136,8 @@
                                     <thead>
                                     <tr>
                                         <th>Date</th>
-                                        <th>ID</th>
+                                        <th>Deadline</th>
+                                        <th>Loan ID</th>
                                         <th>User</th>
                                         <th>Employee</th>
                                         <th>Title</th>
@@ -165,6 +171,7 @@
                                     </tr>
                                     <tr th:each="loan : ${loans}">
                                         <td th:text="${loan.loanDate}">date</td>
+                                        <td th:text="${loan.loanDeadline}">date</td>
                                         <td th:text="${loan.id}">10</td>
                                         <td th:text="'#' + ${loan.user.id} + ' ' + ${loan.user.lastName}">book</td>
                                         <td th:if="${loan.employee == null}" th:text="'N/D'">book</td>

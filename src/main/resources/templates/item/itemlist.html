@@ -64,7 +64,7 @@
                     <ul class="nav navbar-nav">
                          <li><a href="#" th:href="@{'/user/list'}" >Users</a></li>
                          <li class="active"><a href="#" th:href="@{'/item/list'}">Items<span class="sr-only">(current)</span></a></li>
-                         <li sec:authorize="hasRole('BOSS')"><a href="#" th:href="@{'/employee/list'}">Employees</a></li>
+                         <li sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{'/employee/list'}">Employees</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>
