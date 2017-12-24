@@ -7,6 +7,7 @@ import matmic.librarymanager.model.Employee;
 import matmic.librarymanager.model.Item;
 import matmic.librarymanager.model.Loan;
 import matmic.librarymanager.model.User;
+import matmic.librarymanager.model.enums.Availability;
 import matmic.librarymanager.repositories.EmployeeRepository;
 import matmic.librarymanager.repositories.ItemRepository;
 import matmic.librarymanager.repositories.LoanRepository;
@@ -155,19 +156,27 @@ public class LoanServiceImplTest {
         Item item = new Item();
         item.setId(4L);
 
+        Employee employee = new Employee();
+
+        User user = new User();
+
         Loan loan = new Loan();
         loan.setId(delete);
         loan.setItem(item);
+        loan.setUser(user);
+        loan.setEmployee(employee);
         Optional<Loan> optional = Optional.of(loan);
+
 
         when(loanRepository.findById(anyLong())).thenReturn(optional);
 
         loanService.deleteLoanById(delete);
 
+        assertEquals(Availability.AVAILABLE, item.getIsAvailable());
+        assertEquals(0, user.getLoanLine().size());
+        assertEquals(0, employee.getLoansByEmployee().size());
         verify(loanRepository, times(1)).findById(anyLong());
         verify(loanRepository, times(1)).delete(any());
         verify(loanRepository, never()).deleteAll();
-
     }
-
 }

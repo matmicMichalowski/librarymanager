@@ -4,6 +4,7 @@ import matmic.librarymanager.command.ItemCommand;
 import matmic.librarymanager.converter.ItemCommandToItem;
 import matmic.librarymanager.converter.ItemToItemCommand;
 import matmic.librarymanager.model.Item;
+import matmic.librarymanager.model.Loan;
 import matmic.librarymanager.repositories.ItemRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -124,11 +125,30 @@ public class ItemServiceImplTest {
     @Test
     public void deleteById() throws Exception {
         Long deleted = 1L;
+        Item item = new Item();
+        item.setId(deleted);
 
-        itemService.deleteById(deleted);
+        when(itemRepository.findItemById(anyLong())).thenReturn(Optional.of(item));
+
+        boolean isDeleted = itemService.deleteById(deleted);
 
         verify(itemRepository, times(1)).deleteById(anyLong());
+        assertEquals(isDeleted, true);
+    }
 
+    @Test
+    public void deleteByIdError() throws Exception {
+        Long deleted = 1L;
+        Item item = new Item();
+        item.setId(deleted);
+        item.setLoan(new Loan());
+
+        when(itemRepository.findItemById(anyLong())).thenReturn(Optional.of(item));
+
+        boolean isDeleted = itemService.deleteById(deleted);
+
+        verify(itemRepository, never()).deleteById(anyLong());
+        assertEquals(isDeleted, false);
     }
 
 }

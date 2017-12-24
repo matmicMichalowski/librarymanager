@@ -8,8 +8,10 @@ import matmic.librarymanager.model.Employee;
 import matmic.librarymanager.model.rolemodel.EmployeeRole;
 import matmic.librarymanager.repositories.EmployeeRepository;
 import matmic.librarymanager.repositories.RoleRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -157,7 +159,21 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
 
     @Override
     public void deleteEmployee(Long id){
-        employeeRepository.deleteById(id);
+        Optional<Employee> optional = employeeRepository.findEmployeeById(id);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        Employee employee = employeeRepository.findByEmail(username);
+        if (optional.isPresent()){
+            Employee toBeDeleted = optional.get();
+            if(toBeDeleted.getLoansByEmployee().size() > 0){
+                toBeDeleted.getLoansByEmployee().forEach(loan -> {
+                    loan.setEmployee(employee);
+                });
+            }
+            employeeRepository.deleteById(id);
+        }
+
     }
 
 }

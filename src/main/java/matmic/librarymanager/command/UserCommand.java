@@ -15,23 +15,27 @@ public class UserCommand {
 
     private Long id;
 
-    @NotEmpty(message = "Please provide user First Name")
+    @NotEmpty(message = "{required}")
     private String firstName;
 
-    @NotEmpty(message = "Please provide user Last Name")
+    @NotEmpty(message = "{required}")
     private String lastName;
 
-    @NotEmpty(message = "Please provide user Phone Number")
+
+    @Pattern(regexp = "(?:\\d{3}-){2}\\d{3}", message = "{pattern.phoneNumber}")
     private String phoneNumber;
 
     @Email
-    @NotEmpty(message = "Please provide user Email")
+    @NotEmpty(message = "{required}")
     private String email;
+
+    @NotEmpty(message = "{required}")
     private String city;
 
-    @NotEmpty(message = "Please provide user Address")
+    @NotEmpty(message = "{required}")
     private String address;
 
-    @Pattern(regexp = "(?:\\d{2}-)\\d{3}")
+
+    @Pattern(regexp = "(?:\\d{2}-)\\d{3}", message = "{pattern.postCode}")
     private String postCode;
 }

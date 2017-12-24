@@ -3,6 +3,7 @@ package matmic.librarymanager.services;
 import matmic.librarymanager.command.UserCommand;
 import matmic.librarymanager.converter.UserCommandToUser;
 import matmic.librarymanager.converter.UserToUserCommand;
+import matmic.librarymanager.model.Loan;
 import matmic.librarymanager.model.User;
 import matmic.librarymanager.repositories.UserRepository;
 import org.junit.Before;
@@ -78,11 +79,33 @@ public class UserServiceImplTest {
     }
 
     @Test
+    public void deleteByIdError() throws Exception {
+        Long toBeDeleted = 4L;
+        User user = new User();
+        user.setId(toBeDeleted);
+        user.getLoanLine().add(new Loan());
+
+        when(userRepository.findUserById(anyLong())).thenReturn(Optional.of(user));
+
+        boolean deleteCheck = userService.deleteById(toBeDeleted);
+
+        assertEquals(deleteCheck, false);
+        verify(userRepository, never()).deleteById(anyLong());
+        verify(userRepository, never()).delete(any());
+    }
+
+    @Test
     public void deleteById() throws Exception {
         Long toBeDeleted = 4L;
+        User user = new User();
+        user.setId(toBeDeleted);
 
-        userService.deleteById(toBeDeleted);
 
+        when(userRepository.findUserById(anyLong())).thenReturn(Optional.of(user));
+
+        boolean deleteCheck = userService.deleteById(toBeDeleted);
+
+        assertEquals(deleteCheck, true);
         verify(userRepository, times(1)).deleteById(anyLong());
         verify(userRepository, never()).delete(any());
     }

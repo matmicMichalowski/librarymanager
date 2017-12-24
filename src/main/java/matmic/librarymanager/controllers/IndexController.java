@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
-
 @Controller
 public class IndexController {
 
@@ -19,6 +18,7 @@ public class IndexController {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
     private final LoanRepository loanRepository;
+    private boolean updateLoans = false;
 
 
     public IndexController(LoanService loanService, UserRepository userRepository, ItemRepository itemRepository, LoanRepository loanRepository) {
@@ -32,6 +32,11 @@ public class IndexController {
     @GetMapping("/dashboard")
     public String getDashboardPage(Model model){
 
+        if (!updateLoans){
+            System.out.println("I'm executed");
+            loanService.updateLoansDeadline();
+            updateLoans = true;
+        }
 
         model.addAttribute("users", userRepository.count());
         model.addAttribute("items", itemRepository.count());

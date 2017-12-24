@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Employee Display</title>
+    <title>Register Employee</title>
 
     <script th:src="@{/js/jquery-3.2.1.js}"></script>
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
@@ -21,7 +21,7 @@
 </head>
 <body>
 
-<!--/*@thymesVar id="employee" type="matmic.librarymaneger.model.Employee"*/-->
+<!--/*@thymesVar id="employee" type="matmic.librarymanager.model.Employee"*/-->
 
 <div class="container-fluid">
     <nav class="navbar navbar-colors"  id="navbar-baner-profile">
@@ -42,7 +42,10 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form th:object="${employee}" th:action="@{/registration}" method="post">
+                    <form th:object="${employee}" th:action="@{/register}" method="post">
+                        <div th:if="${#fields.hasErrors('*')}" class="showMsg">
+                            <p>Please Correct Errors Below</p>
+                        </div>
                         <input type="hidden" th:field="*{id}"/>
                         <div class="panel panel-default">
                             <div class="panel-heading " id="panel-body-heading-form">
@@ -50,40 +53,55 @@
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-lg-8 col-lg-offset-2 form-group">
+                                    <div class="col-lg-8 col-lg-offset-2 form-group" th:class="${#fields.hasErrors('firstName')}?
+                                    'col-lg-8 col-lg-offset-2 form-group has-error' : 'col-lg-8 col-lg-offset-2 form-group'">
                                         <label>First Name:</label>
-                                        <input type="text" class="form-control" th:field="*{firstName}"/>
+                                        <input required type="text" class="form-control" th:field="*{firstName}" th:errorclass="has-error"/>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-8 col-lg-offset-2  form-group">
+                                    <div class="col-lg-8 col-lg-offset-2 form-group" th:class="${#fields.hasErrors('lastName')}?
+                                    'col-lg-8 col-lg-offset-2 form-group has-error' : 'col-lg-8 col-lg-offset-2 form-group'">
                                         <label>Last Name:</label>
-                                        <input type="text" class="form-control" th:field="*{lastName}"/>
+                                        <input required type="text" class="form-control" th:field="*{lastName}" th:errorclass="has-error"/>
                                     </div>
-                                    <div class="col-lg-8 col-lg-offset-2 form-group">
+                                    <div class="col-lg-8 col-lg-offset-2 form-group" th:class="${#fields.hasErrors('email')}?
+                                    'col-lg-8 col-lg-offset-2 form-group has-error' : 'col-lg-8 col-lg-offset-2 form-group'">
                                         <label>Email:</label>
-                                        <input type="email" class="form-control" th:field="*{email}">
+                                        <input required type="email" class="form-control" th:field="*{email}" th:errorclass="has-error"/>
                                     </div>
-                                    <div class="col-lg-8 col-lg-offset-2 form-group">
+                                    <div class="col-lg-8 col-lg-offset-2 form-group" th:class="${#fields.hasErrors('mobile')}?
+                                    'col-lg-8 col-lg-offset-2 form-group has-error' : 'col-lg-8 col-lg-offset-2 form-group'">
                                         <label>Mobile:</label>
-                                        <input type="text" class="form-control" th:field="*{mobile}">
+                                        <input required type="text" class="form-control" placeholder="Phone number pattern: 123-123-123" th:field="*{mobile}" th:errorclass="has-error">
+                                        <span class="warn-block" th:if="${#fields.hasErrors('mobile')}">
+                                            <ul class="showMsg">
+                                                <li th:each="err : ${#fields.errors('mobile')}" th:text="${err}"></li>
+                                            </ul>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-8 col-lg-offset-2 form-group">
+                                    <div class="col-lg-8 col-lg-offset-2 form-group" th:class="${#fields.hasErrors('password')}?
+                                    'col-lg-8 col-lg-offset-2 form-group has-error' : 'col-lg-8 col-lg-offset-2 form-group'">
                                         <label>Password:</label>
-                                        <input id="password" type="password" class="form-control"  th:field="*{password}">
+                                        <input required id="password" type="password" class="form-control"  th:field="*{password}" th:errorclass="has-error">
+                                        <span class="warn-block" th:if="${#fields.hasErrors('password')}">
+                                            <ul class="showMsg">
+                                                <li th:each="err : ${#fields.errors('password')}" th:text="${err}"></li>
+                                            </ul>
+                                        </span>
                                     </div>
                                     <div class="col-lg-8 col-lg-offset-2 form-group">
                                         <label>Confirm Password:</label>
-                                        <input id="confirm-password" type="password" class="form-control">
-                                        <div id="password-alert" class="alert alert-danger" role="alert">
-                                            <span id="password-error"></span>
+                                        <input required id="confirm-password" type="password" class="form-control">
+                                        <div id="password-alert">
+                                            <span id="password-error" th:text="${badPassword}"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div id="error-container">
-                                 <span id="email-error" th:text="${emailTaken}"></span>
+                                    <span id="email-error" th:text="${emailTaken}"></span>
                                 </div>
 
                             </div>

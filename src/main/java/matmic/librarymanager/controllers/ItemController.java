@@ -6,7 +6,10 @@ import matmic.librarymanager.model.Item;
 import matmic.librarymanager.services.ItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class ItemController {
@@ -36,9 +39,12 @@ public class ItemController {
     }
 
     @PostMapping("saveitem")
-    public String saveOrUpdate(@ModelAttribute("item") ItemCommand itemCommand){
-        ItemCommand savedItem = itemService.saveItem(itemCommand);
-        return "redirect:/item/" + savedItem.getId() + "/display";
+    public String saveOrUpdate(@Valid @ModelAttribute("item") ItemCommand itemCommand, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            return "item/itemform";
+        }
+            ItemCommand savedItem = itemService.saveItem(itemCommand);
+            return "redirect:/item/" + savedItem.getId() + "/display";
     }
 
     @GetMapping("item/{id}/update/details")
@@ -48,9 +54,13 @@ public class ItemController {
     }
 
     @GetMapping("item/{id}/delete")
-    public String deleteItemById(@PathVariable String id){
-        itemService.deleteById(Long.valueOf(id));
-        return "redirect:/item/itemlist";
+    public String deleteItemById(@PathVariable String id, Model model){
+        if (!itemService.deleteById(Long.valueOf(id))){
+            model.addAttribute("activeLoanError", "You can not delete the borrowed item.");
+            model.addAttribute("items", itemService.getItems());
+            return "item/itemlist";
+        }
+        return "redirect:/item/list";
     }
 
 }

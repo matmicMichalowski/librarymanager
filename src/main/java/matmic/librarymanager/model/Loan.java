@@ -19,9 +19,7 @@ public class Loan {
     private Long id;
 
     private LocalDate loanDate;
-
     private LocalDate loanDeadline;
-
     private boolean beforeDeadline;
 
     @OneToOne

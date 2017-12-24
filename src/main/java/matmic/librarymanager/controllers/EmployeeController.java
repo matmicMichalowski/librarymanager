@@ -5,11 +5,15 @@ import matmic.librarymanager.model.Employee;
 import matmic.librarymanager.repositories.EmployeeRepository;
 import matmic.librarymanager.services.EmployeeService;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class EmployeeController {
@@ -53,7 +57,18 @@ public class EmployeeController {
     }
 
     @PostMapping("/update")
-    public String saveUpdatedDetails(@ModelAttribute("employee") EmployeeCommand employeeCommand){
+    public String saveUpdatedDetails(@Valid @ModelAttribute("employee") EmployeeCommand employeeCommand, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "employee/employeeupdateform";
+        }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        if (!username.equals(employeeCommand.getEmail())) {
+            Authentication update = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials());
+            SecurityContextHolder.getContext().setAuthentication(update);
+        }
         employeeService.updateEmployee(employeeCommand);
         return "redirect:/employee/display";
     }
@@ -65,21 +80,23 @@ public class EmployeeController {
     }
 
 
-    @PostMapping("/registration")
-    public String saveNewEmployee(@ModelAttribute("employee") Employee employee, Model model) {
+    @PostMapping("register")
+    public String saveNewEmployee(@Valid @ModelAttribute("employee") Employee employee, BindingResult bindingResult, Model model) {
 
-        Employee employeeToCreate = employeeService.findEmployeeByEmail(employee.getEmail());
+        if (bindingResult.hasErrors()){
+            return "registeremployee";
+        }else {
+            Employee employeeToCreate = employeeService.findEmployeeByEmail(employee.getEmail());
 
-            if(employeeToCreate == null){
-
+            if (employeeToCreate == null) {
                 employeeService.saveEmployee(employee);
                 return "redirect:/login";
 
-            }else{
+            } else {
                 model.addAttribute("emailTaken", "This email address is already registered. If you don't remember your password please use \"reset password\" option.");
                 return "registeremployee";
             }
-
+        }
     }
 
 

@@ -129,6 +129,11 @@ public class UserControllerTest {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
                 .param("firstName", "Name")
+                .param("lastName", "Jones")
+                .param("phoneNumber", "123-312-231")
+                .param("address", "Spring Valley 342")
+                .param("city", "New Jersey")
+                .param("postCode", "00-999")
                 .param("email", "mail@mail.com"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/user/1/display"));
@@ -152,10 +157,30 @@ public class UserControllerTest {
     @Test
     public void deleteUserById() throws Exception {
 
+        when(userService.deleteById(anyLong())).thenReturn(true);
+
         mockMvc.perform(get("/user/2/delete"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/user/list"));
 
+        verify(userService, times(1)).deleteById(anyLong());
+
+    }
+
+    @Test
+    public void deleteUserByIdError() throws Exception {
+        Set<User> users = new HashSet<>();
+        users.add(new User());
+        users.add(new User());
+
+        when(userService.deleteById(anyLong())).thenReturn(false);
+        when(userService.getUsers()).thenReturn(users);
+
+        mockMvc.perform(get("/user/2/delete"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("user/userlist"));
+
+        verify(userService, times(1)).getUsers();
         verify(userService, times(1)).deleteById(anyLong());
 
     }

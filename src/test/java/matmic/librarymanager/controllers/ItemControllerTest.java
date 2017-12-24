@@ -100,6 +100,11 @@ public class ItemControllerTest {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
                 .param("title", "item title")
+                .param("author", "item author")
+                .param("genre", "item genre")
+                .param("isbn", "021932099-3")
+                .param("publisher", "item publisher")
+                .param("releaseNumber", "3")
                 .param("year", "1990"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/item/2/display"));
@@ -123,11 +128,27 @@ public class ItemControllerTest {
     @Test
     public void deleteItemById() throws Exception {
 
+        when(itemService.deleteById(anyLong())).thenReturn(true);
+
         mockMvc.perform(get("/item/3/delete"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/item/itemlist"));
+                .andExpect(view().name("redirect:/item/list"));
 
         verify(itemService, times(1)).deleteById(anyLong());
     }
+
+    @Test
+        public void deleteItemByIdError() throws Exception {
+
+            when(itemService.deleteById(anyLong())).thenReturn(false);
+
+            mockMvc.perform(get("/item/3/delete"))
+                    .andExpect(status().isOk())
+                    .andExpect(view().name("item/itemlist"));
+
+            verify(itemService, times(1)).deleteById(anyLong());
+            verify(itemService, times(1)).getItems();
+
+        }
 
 }

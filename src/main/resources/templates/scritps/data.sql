@@ -10,7 +10,7 @@ INSERT INTO user VALUES (6, null, 'Flash Street 23', 'Central City', 'fast@mail.
 INSERT INTO user VALUES (7, null, 'Good Street 23', 'New York', 'spidey@mail.com', 'Peter', 'Parker', '115-081-962', '00-001');
 INSERT INTO user VALUES (8, null, 'Sharp Street 23', 'Ontario', 'logan@mail.com', 'James', 'Howlett', '118-110-974', '00-003');
 INSERT INTO user VALUES (9, null, 'Greek Street 2', 'New York', 'wonder@mail.com', 'Diana', 'Themyscira', '108-121-941', '80-098');
-INSERT INTO user VALUES (10,null,  'Rent Street 1', 'New York', 'first@mail.com', 'Wade', 'Wilson', '123-123-123', '55-555');
+INSERT INTO user VALUES (10,null,  'Rent Street 1', 'New York', 'wadepool@mail.com', 'Wade', 'Wilson', '123-123-123', '55-555');
 
 
 

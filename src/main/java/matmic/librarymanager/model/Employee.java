@@ -10,7 +10,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,8 +17,8 @@ import java.util.Set;
 @Setter
 @Entity
 @NoArgsConstructor
-public class Employee implements Serializable{
-    private static final long serialVersionUID = 902783495L;
+public class Employee{
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +30,6 @@ public class Employee implements Serializable{
     private String email;
 
     @NotEmpty
-    @Size(min = 6, max = 16)
     private String password;
 
     @NotEmpty
@@ -42,15 +40,13 @@ public class Employee implements Serializable{
     @Size(min = 2, max=50)
     private String lastName;
 
-    @Pattern(regexp = "(?:\\d{3}-){2}\\d{3}", message = "Please provide your phone number in this pattern '123-123-123'")
-    @NotEmpty(message = "Please provide your mobile phone in this way '999-999-999'")
+    @NotEmpty(message = "{required}")
+    @Pattern(regexp = "(?:\\d{3}-){2}\\d{3}", message = "{pattern.phoneNumber}")
     private String mobile;
 
     @Column(name = "active")
     private boolean isActive;
     private String resetToken;
-
-
 
 
     @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL)

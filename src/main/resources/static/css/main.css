@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,500,600,700,800&subset=latin-ext');
 
-
-
 /*Primary Indgo*/
 /*#3f51b5 P*/
 /*#757de8 PL*/
@@ -18,7 +16,6 @@ body{
     font-family: "Nunito", sans-serif;
     background: #3f51b5;
 }
-
 
 /*Start navigation*/
 
@@ -277,19 +274,22 @@ body{
 
 
 .showMsg{
-    border: 2px solid #8e0000;
+    border: 1px solid #8e0000;
     border-radius: 5px;
-    background: #ff5f52;
+    background: #ffaeb1;
     color: #8e0000;
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    list-style: none;
 }
 
 .showInfoMsg{
-    border: 2px solid #6f79a8;
+    border: 1px solid #6f79a8;
     border-radius: 5px;
     background: #d1d9ff;
     color: #6f79a8;
     padding: 10px;
     margin-bottom: 20px;
+    margin-top:3px;
 }

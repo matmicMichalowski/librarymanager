@@ -12,5 +12,5 @@ public interface ItemService {
     ItemCommand saveItem(ItemCommand itemToSave);
     Set<Item> getItems();
     Item findById(Long id);
-    void deleteById(Long id);
+    boolean deleteById(Long id);
 }

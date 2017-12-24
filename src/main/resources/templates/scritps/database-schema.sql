@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS librarian;
 CREATE DATABASE IF NOT EXISTS librarian;
 
 USE librarian;
@@ -27,7 +28,7 @@ CREATE TABLE IF NOT EXISTS employee (
 
 CREATE TABLE IF NOT EXISTS user (
   id BIGINT NOT NULL auto_increment,
-  image LONGBLOB,
+  image LONGBLOB DEFAULT NULL,
   address VARCHAR(255),
   city VARCHAR(255),
   email VARCHAR(255),
@@ -41,7 +42,7 @@ CREATE TABLE IF NOT EXISTS user (
 
 CREATE TABLE IF NOT EXISTS item (
   id BIGINT NOT NULL auto_increment,
-  image longblob,
+  image longblob DEFAULT NULL,
   author VARCHAR(255),
   distribution_type VARCHAR(255),
   genre VARCHAR(255),
@@ -79,8 +80,8 @@ CREATE TABLE IF NOT EXISTS role (
 ) engine=InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS employee_loans (
-  employee_id BIGINT NOT NULL ,
+CREATE TABLE IF NOT EXISTS employee_loans_by_employee (
+  employee_id BIGINT NOT NULL auto_increment,
   loans_by_employee_id BIGINT NOT NULL,
   PRIMARY KEY (employee_id, loans_by_employee_id),
   CONSTRAINT employee_loans_unique UNIQUE (loans_by_employee_id),
@@ -90,7 +91,7 @@ CREATE TABLE IF NOT EXISTS employee_loans (
 
 
 CREATE TABLE IF NOT EXISTS employee_role (
-  employee_role_id BIGINT NOT NULL,
+  employee_role_id BIGINT NOT NULL auto_increment,
   employee_id BIGINT,
   role_id BIGINT,
   PRIMARY KEY (employee_role_id),
@@ -100,7 +101,7 @@ CREATE TABLE IF NOT EXISTS employee_role (
 
 
 CREATE TABLE IF NOT EXISTS user_loan_line (
-  user_id BIGINT NOT NULL ,
+  user_id BIGINT NOT NULL auto_increment,
   loan_line_id BIGINT NOT NULL ,
   PRIMARY KEY (user_id, loan_line_id),
   CONSTRAINT user_loans_unique UNIQUE (loan_line_id),

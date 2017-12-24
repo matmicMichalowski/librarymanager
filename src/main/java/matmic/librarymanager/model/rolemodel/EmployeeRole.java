@@ -6,14 +6,13 @@ import lombok.Setter;
 import matmic.librarymanager.model.Employee;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
-public class EmployeeRole implements Serializable {
-    private static final long serialVersionUID = 890345L;
+public class EmployeeRole {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -29,6 +29,14 @@ public class UserServiceImpl implements UserService{
     }
 
 
+    @Override
+    public User findUserByEmail(String email) {
+        Optional<User> optional = userRepository.findUserByEmail(email);
+        if (optional.isPresent()){
+            return optional.get();
+        }
+        return null;
+    }
 
     @Override
     public Set<User> getUsers() {
@@ -50,8 +58,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
+        User userToDelete = findUserById(id);
+        if(userToDelete.getLoanLine().size() > 0){
+            return false;
+        }
         userRepository.deleteById(id);
+        return true;
     }
 
     @Override

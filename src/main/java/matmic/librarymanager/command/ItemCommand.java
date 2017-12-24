@@ -21,30 +21,31 @@ public class ItemCommand {
     private ItemType itemType;
     private DistributionType distributionType;
 
-    @NotEmpty(message = "Please provide item ISN")
-    @Pattern(regexp = "^([0-9]{9,12}-)[0-9xX]$")
+
+    @Pattern(regexp = "^([0-9]{9,12}-)[0-9xX]$", message = "{pattern.isn}")
     private String internationalSegregationNumber;
 
     @Size(min=2, max=600)
-    @NotEmpty(message = "Please provide item Title")
+    @NotEmpty(message = "{required}")
     private String title;
 
     @Size(min=2, max=50)
-    @NotEmpty(message = "Please provide item Publisher")
+    @NotEmpty(message = "{required}")
     private String publisher;
 
 
-    @NotEmpty(message = "Please provide item Release Number")
+
+    @Pattern(regexp = "^[0-9]{1,4}$|[0-9]{1,4}/[0-9]{2,4}$", message ="{item.release}")
     private String releaseNumber;
 
-    @NotEmpty(message = "Please provide item Author")
+    @NotEmpty(message = "{required}")
     @Size(min = 2, max = 64)
     private String author;
 
-    @NotEmpty(message = "Please provide item Genre")
+    @NotEmpty(message = "{required}")
     @Size(min = 4, max = 36)
     private String genre;
 
-    @NotNull(message = "Please provide item Year")
+    @NotNull
     private int year;
 }

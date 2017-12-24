@@ -21,12 +21,10 @@ $(function(){
             $('#password-alert').show();
             return false;
         }
-
         return true;
 
     });
 });
-
 
 
 
@@ -88,8 +86,6 @@ $(window).resize(function(){
     }else {
         $("#item-image").removeClass("item-image-top");
     }
-
-
 });
 
 
@@ -132,4 +128,13 @@ $(function(){
             }
         });
     });
+});
+
+$(window).resize(function(){
+   var window = $(window),
+       element = $("#loan-update");
+
+   if (window.width() < 769){
+       return element.addClass("btn-sm");
+   }
 });

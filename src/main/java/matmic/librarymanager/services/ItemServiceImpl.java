@@ -27,6 +27,7 @@ public class ItemServiceImpl implements ItemService{
         this.itemToItemCommand = itemToItemCommand;
     }
 
+
     @Override
     public Item findItemById(Long id) {
         Optional<Item> itemToFind = itemRepository.findItemById(id);
@@ -44,12 +45,14 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
+    @Transactional
     public ItemCommand saveItem(ItemCommand itemToSave) {
         Item detachedItem = itemCommandToItem.convert(itemToSave);
 
         Item savedItem = itemRepository.save(detachedItem);
         return itemToItemCommand.convert(savedItem);
     }
+
 
     @Override
     public Set<Item> getItems() {
@@ -58,19 +61,26 @@ public class ItemServiceImpl implements ItemService{
         return items;
     }
 
+
     @Override
     public Item findById(Long id) {
         Optional<Item> itemOptional = itemRepository.findById(id);
 
         if(!itemOptional.isPresent()){
-            throw new RuntimeException("No item with give id");
+            throw new RuntimeException("No item with given id");
         }
 
         return itemOptional.get();
     }
 
+
     @Override
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
+        Item toBeDeleted = findItemById(id);
+        if(toBeDeleted.getLoan() != null){
+            return false;
+        }
         itemRepository.deleteById(id);
+        return true;
     }
 }

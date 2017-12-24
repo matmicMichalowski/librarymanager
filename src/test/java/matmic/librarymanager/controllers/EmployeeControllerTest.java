@@ -129,10 +129,28 @@ public class EmployeeControllerTest {
         mockMvc.perform(post("/update")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "1")
-                .param("firstName", "Tomas"))
+                .param("firstName", "Tomas")
+                .param("lastName", "Novy")
+                .param("email", "tomas@mail.com")
+                .param("mobile", "342-432-234"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/employee/display"));
+    }
 
+    @Test
+    public void saveUpdatedDetailsEmptyField() throws Exception {
+
+        EmployeeCommand employeeCommand = new EmployeeCommand();
+        employeeCommand.setId(1L);
+
+        mockMvc.perform(post("/update")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", "1")
+                .param("firstName", "Tomas")
+                .param("lastName", "Novy")
+                .param("mobile", "342-432-234"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("employee/employeeupdateform"));
     }
 
     @Test
@@ -152,11 +170,15 @@ public class EmployeeControllerTest {
         employee.setEmail("employee@mail.com");
 
         when(employeeService.findEmployeeByEmail(any())).thenReturn(null);
+
         when(employeeService.saveEmployee(any())).thenReturn(employee);
 
-        mockMvc.perform(post("/registration")
+        mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("id", "2")
+                .param("firstName", "Tom")
+                .param("lastName", "Mot")
+                .param("mobile", "123-321-213")
+                .param("password", "password")
                 .param("email", "newemployee@mail.com"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/login"));
@@ -172,10 +194,13 @@ public class EmployeeControllerTest {
         when(employeeService.findEmployeeByEmail(any())).thenReturn(employee);
         when(employeeService.saveEmployee(any())).thenReturn(employee);
 
-        mockMvc.perform(post("/registration")
+        mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "1")
-                .param("email", "newemployee@mail.com"))
+                .param("firstName", "Jon")
+                .param("lastName", "Smith")
+                .param("mobile", "123-321-213")
+                .param("email", "employee@mail.com"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("registeremployee"));
 

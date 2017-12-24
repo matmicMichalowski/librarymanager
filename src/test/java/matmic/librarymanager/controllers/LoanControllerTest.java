@@ -54,7 +54,6 @@ public class LoanControllerTest {
         User user = new User();
         user.setId(2L);
 
-
         when(userService.findById(anyLong())).thenReturn(user);
 
         mockMvc.perform(get("/user/2/loan/new"))
@@ -63,7 +62,6 @@ public class LoanControllerTest {
                 .andExpect(model().attributeExists("items"))
                 .andExpect(model().attributeExists("user"))
                 .andExpect(model().attributeExists("loan"));
-
     }
 
 

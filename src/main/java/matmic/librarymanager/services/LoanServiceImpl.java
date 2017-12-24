@@ -110,10 +110,15 @@ public class LoanServiceImpl implements LoanService{
         if(loanOptional.isPresent()){
             Loan toBeDeleted = loanOptional.get();
 
-            Item item = toBeDeleted.getItem();
+            User user = toBeDeleted.getUser();
+            user.getLoanLine().remove(toBeDeleted);
 
+            Item item = toBeDeleted.getItem();
             item.setLoan(null);
             item.setIsAvailable(Availability.AVAILABLE);
+
+            Employee employee = toBeDeleted.getEmployee();
+            employee.getLoansByEmployee().remove(toBeDeleted);
 
             loanRepository.delete(toBeDeleted);
 

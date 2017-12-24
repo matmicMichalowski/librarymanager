@@ -4,6 +4,9 @@ import matmic.librarymanager.command.EmployeeCommand;
 import matmic.librarymanager.converter.EmployeeCommandToEmployee;
 import matmic.librarymanager.converter.EmployeeToEmployeeCommand;
 import matmic.librarymanager.model.Employee;
+import matmic.librarymanager.model.Item;
+import matmic.librarymanager.model.Loan;
+import matmic.librarymanager.model.User;
 import matmic.librarymanager.model.rolemodel.EmployeeRole;
 import matmic.librarymanager.model.rolemodel.Role;
 import matmic.librarymanager.repositories.EmployeeRepository;
@@ -12,6 +15,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
@@ -49,6 +55,9 @@ public class EmployeeServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
+        Authentication auth = new UsernamePasswordAuthenticationToken("employee@mail.com", null);
+
+        SecurityContextHolder.getContext().setAuthentication(auth);
 
          service = new EmployeeServiceImpl(employeeRepository, roleRepository, bCryptPasswordEncoder,
                 employeeToEmployeeCommand, employeeCommandToEmployee);
@@ -135,7 +144,6 @@ public class EmployeeServiceImplTest {
         when(employeeRepository.save(any())).thenReturn(employee);
 
         Employee savedEmployee = service.saveEmployee(employee);
-
 
 
         assertEquals(false, savedEmployee.isActive());
@@ -236,10 +244,22 @@ public class EmployeeServiceImplTest {
     @Test
     public void deleteEmployee() throws Exception {
         Long toBeDeleted = 3L;
+        Employee employee = new Employee();
+        employee.setId(toBeDeleted);
+        Loan loan = new Loan(new User(), new Item(), employee);
+        Optional<Employee> optional = Optional.of(employee);
+        Employee admin = new Employee();
+
+        when(employeeRepository.findEmployeeById(anyLong())).thenReturn(optional);
+        when(employeeRepository.findByEmail(anyString())).thenReturn(admin);
+
 
         service.deleteEmployee(toBeDeleted);
 
+        assertEquals(admin.getLoansByEmployee().size(), 1);
         verify(employeeRepository, times(1)).deleteById(anyLong());
+        verify(employeeRepository, times(1)).findByEmail(anyString());
+        verify(employeeRepository, times(1)).findEmployeeById(anyLong());
     }
 
 }

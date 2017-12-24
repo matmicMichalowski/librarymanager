@@ -55,7 +55,6 @@ public class LoanController {
     }
 
 
-
     @GetMapping("/user/{userId}/loan/{loanId}/delete")
     public String deleteLoan(@PathVariable String loanId, @PathVariable String userId){
         loanService.deleteLoanById(Long.valueOf(loanId));
