@@ -1,7 +1,6 @@
 package matmic.librarymanager.controllers;
 
 
-import matmic.librarymanager.converter.EmployeeToEmployeeCommand;
 import matmic.librarymanager.model.Employee;
 import matmic.librarymanager.services.EmailService;
 import matmic.librarymanager.services.EmployeeServiceImpl;
@@ -24,14 +23,14 @@ public class LoginController {
     private final EmployeeServiceImpl employeeService;
     private final EmailService emailService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final EmployeeToEmployeeCommand employeeConverter;
 
 
-    public LoginController(EmployeeServiceImpl employeeService, EmailService emailService, BCryptPasswordEncoder bCryptPasswordEncoder, EmployeeToEmployeeCommand employeeConverter) {
+
+    public LoginController(EmployeeServiceImpl employeeService, EmailService emailService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.employeeService = employeeService;
         this.emailService = emailService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.employeeConverter = employeeConverter;
+
     }
 
 

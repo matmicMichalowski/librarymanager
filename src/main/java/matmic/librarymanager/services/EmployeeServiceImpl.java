@@ -112,8 +112,6 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
     }
 
 
-
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

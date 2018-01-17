@@ -1,6 +1,5 @@
 package matmic.librarymanager.controllers;
 
-import matmic.librarymanager.converter.EmployeeToEmployeeCommand;
 import matmic.librarymanager.model.Employee;
 import matmic.librarymanager.services.EmailService;
 import matmic.librarymanager.services.EmployeeServiceImpl;
@@ -39,8 +38,6 @@ public class LoginControllerTest {
     @Mock
     private EmailService emailService;
 
-    @Mock
-    private EmployeeToEmployeeCommand employeeConverter;
 
     @Mock
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -59,7 +56,7 @@ public class LoginControllerTest {
 
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        controller = new LoginController(employeeService, emailService, bCryptPasswordEncoder, employeeConverter);
+        controller = new LoginController(employeeService, emailService, bCryptPasswordEncoder);
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
