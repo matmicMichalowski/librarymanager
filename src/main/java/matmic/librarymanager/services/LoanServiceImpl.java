@@ -25,6 +25,7 @@ import java.util.Set;
 
 @Slf4j
 @Service
+@Transactional
 public class LoanServiceImpl implements LoanService{
 
     private final UserRepository userRepository;
@@ -78,7 +79,6 @@ public class LoanServiceImpl implements LoanService{
     }
 
     @Override
-    @Transactional
     public void updateLoansDeadline(){
         LocalDate actualDate = LocalDate.now();
 
@@ -95,6 +95,7 @@ public class LoanServiceImpl implements LoanService{
 
 
     @Override
+    @Transactional(readOnly = true)
     public Set<Loan> getLoans() {
         Set<Loan> loans = new HashSet<>();
 

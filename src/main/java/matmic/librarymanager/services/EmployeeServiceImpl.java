@@ -24,6 +24,7 @@ import java.util.*;
 
 
 @Service
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
 
     private final EmployeeRepository employeeRepository;
@@ -43,11 +44,13 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Employee findEmployeeByEmail(String email) {
         return employeeRepository.findByEmail(email);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public EmployeeCommand findEmployeeCommandById(Long id) {
         Optional<Employee> employeeOptional = employeeRepository.findById(id);
         EmployeeCommand command;
@@ -61,6 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Set<Employee> getEmployees(){
         Set<Employee> employees = new HashSet<>();
 
@@ -74,7 +78,6 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
     }
 
     @Override
-    @Transactional
     public Employee saveEmployee(Employee employee) {
         employee.setPassword(bCryptPasswordEncoder.encode(employee.getPassword()));
 
@@ -99,7 +102,6 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
     }
 
     @Override
-    @Transactional
     public Employee resetPassword(Employee employee){
         employeeRepository.save(employee);
 
@@ -107,6 +109,7 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Employee> findEmployeeByResetToken(String resetToken) {
         return employeeRepository.findByResetToken(resetToken);
     }
@@ -141,7 +144,6 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService{
 
 
     @Override
-    @Transactional
     public  void switchEmployeeStatus(Long id){
         Optional<Employee> employee = employeeRepository.findById(id);
         if (employee.isPresent()){

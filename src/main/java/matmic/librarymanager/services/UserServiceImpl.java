@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
+    @Transactional(readOnly = true)
     public User findUserByEmail(String email) {
         Optional<User> optional = userRepository.findUserByEmail(email);
         if (optional.isPresent()){
@@ -39,6 +41,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Set<User> getUsers() {
         Set<User> users = new HashSet<>();
 
@@ -47,6 +50,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User findById(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
 
@@ -58,17 +62,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean deleteById(Long id) {
-        User userToDelete = findUserById(id);
-        if(userToDelete.getLoanLine().size() > 0){
-            return false;
-        }
-        userRepository.deleteById(id);
-        return true;
-    }
-
-    @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public User findUserById(Long id) {
         Optional<User> userOptional = userRepository.findUserById(id);
 
@@ -80,18 +74,27 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public UserCommand findUserCommandById(Long id){
         return userToUserCommand.convert(findUserById(id));
     }
 
     @Override
-    @Transactional
     public UserCommand saveUser(UserCommand userToSave){
         User detachedUser = userCommandToUser.convert(userToSave);
 
         User savedUser = userRepository.save(detachedUser);
         return userToUserCommand.convert(savedUser);
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        User userToDelete = findUserById(id);
+        if(userToDelete.getLoanLine().size() > 0){
+            return false;
+        }
+        userRepository.deleteById(id);
+        return true;
     }
 
 }

@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Transactional
 public class ItemServiceImpl implements ItemService{
 
     private final ItemRepository itemRepository;
@@ -29,6 +30,7 @@ public class ItemServiceImpl implements ItemService{
 
 
     @Override
+    @Transactional(readOnly = true)
     public Item findItemById(Long id) {
         Optional<Item> itemToFind = itemRepository.findItemById(id);
         if(!itemToFind.isPresent()){
@@ -39,13 +41,12 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public ItemCommand findItemCommandById(Long id){
         return itemToItemCommand.convert(findItemById(id));
     }
 
     @Override
-    @Transactional
     public ItemCommand saveItem(ItemCommand itemToSave) {
         Item detachedItem = itemCommandToItem.convert(itemToSave);
 
@@ -55,6 +56,7 @@ public class ItemServiceImpl implements ItemService{
 
 
     @Override
+    @Transactional(readOnly = true)
     public Set<Item> getItems() {
         Set<Item> items = new HashSet<>();
         itemRepository.findAll().iterator().forEachRemaining(items::add);
@@ -63,6 +65,7 @@ public class ItemServiceImpl implements ItemService{
 
 
     @Override
+    @Transactional(readOnly = true)
     public Item findById(Long id) {
         Optional<Item> itemOptional = itemRepository.findById(id);
 
