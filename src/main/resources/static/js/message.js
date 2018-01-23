@@ -1,24 +1,6 @@
-//
-// $(".form-checkemail").submit(function(event){
-//
-//     var correctEmail = true;
-//
-//     $.ajax({
-//         url: "/reset-request",
-//         type: "POST",
-//         async: false,
-//         data: {id : $("#email").val()},
-//         correctEmail: function (error) {
-//             if (error){
-//                 $("#email-alert").show();
-//                 $("#email-error").html(error);
-//                 correctEmail = false;
-//             }
-//         }
-//     });
-//     return correctEmail;
-// });
-
+/**
+ * Check if server return error message, and add CSS class if error exist
+ */
 $(document).ready(function(){
     var text = $("#email-error").text();
 
@@ -27,6 +9,9 @@ $(document).ready(function(){
     }
 });
 
+/**
+ * Check if server return error message, and add CSS class if error exist
+ */
 $(document).ready(function(){
     var text = $("#password-error").text();
 
@@ -35,6 +20,9 @@ $(document).ready(function(){
     }
 });
 
+/**
+ * Show confirmation message on reset password request
+ */
 $(document).ready(function(){
     var text = $("#reset-confirm").text();
 
@@ -43,7 +31,9 @@ $(document).ready(function(){
     }
 });
 
-
+/**
+ * Show information when employee email is being changed
+ */
 $(document).ready(function(){
     $("#email-change").focus(function(){
             $("#update-mail-container").addClass('showInfoMsg');
@@ -53,6 +43,9 @@ $(document).ready(function(){
     });
 });
 
+/**
+ * Check if server return error message, and add CSS class if error exist
+ */
 $(document).ready(function(){
     var msg = $("#error-msg").text();
 

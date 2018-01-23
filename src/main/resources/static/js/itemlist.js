@@ -1,3 +1,6 @@
+/**
+ * Prepare DataTable for Item
+ */
 $(document).ready(function () {
     $('#main-items-list').DataTable({
         "columnDefs": [{
@@ -23,8 +26,9 @@ $(document).ready(function () {
 });
 
 
-
-
+/**
+ * Change button grouping in table after window resize event
+ */
 $(window).resize(function(){
 
     var windowWidth = $(window).width(),

@@ -1,3 +1,6 @@
+/**
+ * Create DataTable for Loan
+ */
 $(document).ready(function () {
     $('#user-newloan-table').DataTable({
         "columnDefs": [{
@@ -31,7 +34,9 @@ $(document).ready(function () {
 });
 
 
-
+/**
+ *
+ */
 $(document).ready(function(){
 
     var tableData = $("#user-newloan-table").DataTable();

@@ -1,5 +1,6 @@
-// Default table
-
+/**
+ * Default table
+ */
 $(document).ready(function () {
 
     $('#locked-action-col-table').DataTable({
@@ -12,6 +13,9 @@ $(document).ready(function () {
     });
 });
 
+/**
+ * Check if password and confirm password field value are equal
+ */
 $(function(){
     $('#submit-button').click(function () {
         var password = $('#password').val();
@@ -28,8 +32,10 @@ $(function(){
 
 
 
-//List buttons orientation, changing on window size
 
+/**
+ * Change button grouping in table after window resize event
+ */
 $(window).resize(function(){
 
     var windowWidth = $(window).width(),
@@ -45,8 +51,9 @@ $(window).resize(function(){
 });
 
 
-// Table with scrolling instead of paging
-
+/**
+ * Create DataTable with scrolling
+ */
 $(document).ready(function () {
     $('#user-loan-table').DataTable({
         "columnDefs": [{
