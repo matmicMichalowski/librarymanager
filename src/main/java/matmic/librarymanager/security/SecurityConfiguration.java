@@ -76,4 +76,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         driverManagerDataSource.setPassword("admin");
         return driverManagerDataSource;
     }
+
 }
