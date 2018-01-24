@@ -1,17 +1,6 @@
 # librarymanager
 Application to manage library main activities.
 
-## Technology stack:
-
-  * Java 8
-  * SpringBoot 2.0.0 M7
-  * JPA/Hibernate
-  * Maven 3.5
-  * Thymeleaf 3.0
-  * HTML5, CSS3
-  * JavaScript
-  * jQuery
-  * Mockito, JUnit
 
 ## How to run project:
 * Clone or download this repository 
@@ -20,11 +9,21 @@ Application to manage library main activities.
 * Once successfully built, you can run the application by one of these two methods:
 
 ```
-        java -jar target/librarymanager-1.0.jar
+        java -jar target/librarymanager-v1.jar
 or
         mvn librarymanager:run
 ```
 
+## MySQL
+
+Application is backed with MySQL. To setup databse for application make sure you have local MySQL server installed. 
+To initialize schema use prepared scripts from ```src/main/resources/templates/scritps``` :
+
+```
+      database-schema.sql
+and 
+      data.sql
+``` 
 
 ## About Application
 
@@ -35,13 +34,20 @@ and activate newly registered accounts.
 
 Here is some of what this project cover:
 
-* MVC and DTO patterns
-* Integration with **JPA/Hibernate**
+* MVC design pattern
 * CRUD operations
-* **Spring Security** integration
 * Data validation
-* Reset password via email
+* Registration and authentication
+* Reset user password via email
 * Use of Project **Lombok**
-* **Mockito and JUnit** tests
 
-## MySQL
+
+## Technology stack:
+  * ***Java 8, SpringBoot 2.0.0 M6***  
+  
+  * **persistence**: Spring Data JPA/Hibernate
+  * **persistence provider**: MySQL
+  * **security**: Spring Security
+  * **build**: Maven 3.5
+  * **frontend**: HTML5, CSS3, Thymeleaf 3.0, JavaScript, jQuery, Bootstrap
+  * **testing**: Mockito, JUnit
