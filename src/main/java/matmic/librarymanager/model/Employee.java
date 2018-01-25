@@ -24,7 +24,6 @@ public class Employee{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Email
     @NotEmpty
     private String email;

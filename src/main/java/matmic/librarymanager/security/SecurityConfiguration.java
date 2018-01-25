@@ -1,7 +1,6 @@
 package matmic.librarymanager.security;
 
 
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -13,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@Log4j2
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -66,15 +65,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
 
 
-
     @Autowired
     public DriverManagerDataSource dataSource(){
-        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/librarian");
-        driverManagerDataSource.setUsername("root");
-        driverManagerDataSource.setPassword("admin");
-        return driverManagerDataSource;
+        return new DriverManagerDataSource();
     }
 
 }

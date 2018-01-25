@@ -44,7 +44,6 @@ public class LoanCommandToLoanTest {
     private UserService userService;
 
 
-
     private LoanCommandToLoan converter;
 
     @Before

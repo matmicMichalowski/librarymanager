@@ -14,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.ui.Model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,8 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class LoginControllerTest {
 
-    @Mock
-    private Model model;
+
 
     @Mock
     private EmployeeServiceImpl employeeService;
