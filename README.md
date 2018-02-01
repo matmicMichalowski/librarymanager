@@ -1,4 +1,4 @@
-# librarymanager
+# libraryManager
 Spring project made to learn building web application.
 
 ## About Application
